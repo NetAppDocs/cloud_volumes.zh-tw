@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head class="at-element-marker">
+  <title>Cloud Volumes API</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Cloud Volumes API" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-tw/cloud_volumes/aws/reference_cloud_volume_apis.html" />
+	<meta property="og:description" content="透過Web UI提供的Cloud Volumes功能也可透過RESTful API取得。API可讓您建立及管理雲端磁碟區、並開發資源配置指令碼和工具。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-tw/cloud_volumes/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="透過Web UI提供的Cloud Volumes功能也可透過RESTful API取得。API可讓您建立及管理雲端磁碟區、並開發資源配置指令碼和工具。">
+  <meta name="keywords" content=" Cloud Volumes Service for AWS, APIs"><!-- Icons -->
+  <link rel="icon" href="/zh-tw/cloud_volumes/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/cloud_volumes/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/cloud_volumes/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/cloud_volumes/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-tw/cloud_volumes/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-tw/cloud_volumes/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-tw/cloud_volumes/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/cloud_volumes/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/cloud_volumes/css/custom-dropdown.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/cloud_volumes/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel='stylesheet' href='/zh-tw/cloud_volumes/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
+    if (document.location.hostname === "docs.netapp.com") {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = "72570c5c-fe30-465f-b0e0-b77f7fb4ae34";
+      head.appendChild(onetrustScript);
+    }
+
+    function OptanonWrapper() { }
+
+    if (document.location.hostname === "docs.netapp.com") {
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+      head.appendChild(adobe);
+
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id=UA-81697994-3";
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-81697994-3');
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-tw/cloud_volumes/js/na-search.js'></script><script src='/zh-tw/cloud_volumes/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-tw/cloud_volumes/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/cloud_volumes/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-tw/cloud_volumes/js/na-utility.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/clouddocs.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-tw/cloud_volumes/js/toc.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/zh-tw/cloud_volumes/js/custom-dropdown.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/FileSaver.min.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/jszip-utils.min.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/jszip.min.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/cloud_volumes/issues/new?body=Page%3A%20[Cloud Volumes API](https://docs.netapp.com/zh-tw/cloud_volumes/aws/reference_cloud_volume_apis.html)" class="page-nav-contribute-link" role="button"><img src="/zh-tw/cloud_volumes/images/discuss-sm.svg" class="github-icon" />要求變更文件</a><a target="_blank" href="https://github.com/NetAppDocs/cloud_volumes/blob/main/aws/reference_cloud_volume_apis.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-tw/cloud_volumes/images/edit-sm.svg" class="github-icon" />編輯此頁面</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-tw/cloud_volumes/images/article-sm.svg" class="github-icon" />瞭解如何作出貢獻</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此頁面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">產品與解決方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支援與訓練</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社群</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">部落格</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客戶成功案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-tw/cloud_volumes/search.html"
+          data-type="widget" 
+          data-placeholder="搜尋文件" 
+          data-no-results-found="找不到符合 {query} 的相關結果。" 
+          data-did-you-mean="搜尋 {suggestion}。" 
+          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？" 
+          data-results-found="找到 {hitCount} 筆結果"  
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">繁體中文</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/cloud_volumes/aws/reference_cloud_volume_apis.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/cloud_volumes/aws/reference_cloud_volume_apis.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ko-kr/cloud_volumes/aws/reference_cloud_volume_apis.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/cloud_volumes/aws/reference_cloud_volume_apis.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-tw/cloud_volumes/aws/reference_cloud_volume_apis.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>可用的 PDF<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        
+        
+        
+        <a target="_blank" href="/zh-tw/cloud_volumes/pdfs/fullsite-sidebar/適用於AWS文件Cloud_Volumes_Service.pdf" >
+          <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>此文件網站（PDF 格式）</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/版本資訊.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            版本資訊
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/快速入門.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            快速入門
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理雲端磁碟區.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            管理雲端磁碟區
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理雲端Volume快照.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            管理雲端Volume快照
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理匯出原則規則.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            管理匯出原則規則
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理Cloud_Sync_雲端磁碟區的功能.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            管理Cloud Sync 雲端磁碟區的功能
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/zh-tw/cloud_volumes/pdfs/pages/aws/reference_cloud_volume_apis.pdf" >
+    <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/參考資料.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            參考資料
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/zh-tw/cloud_volumes/images/pdf-zip.png" width="16" height="16"/>
+      <pre>個別 PDF 文件的集合<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/index.html">
+        適用於AWS文件Cloud Volumes Service
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 版本資訊</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_whats_new_cloud_volumes_aws.html">
+        新增功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_known_issues.html">
+        已知問題
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 快速入門</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/concept_overview.html">
+        先決條件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_quick_start.html">
+        快速入門指示
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_activating_support_entitlement.html">
+        啟動支援權利並存取支援
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_selecting_region.html">
+        選取區域
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 管理雲端磁碟區</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html">
+        建立雲端磁碟區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_mounting_cloud_volumes_for_aws.html">
+        掛載雲端磁碟區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_modifying_cloud_volumes_for_aws.html">
+        修改雲端磁碟區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_deleting_cloud_volumes_for_aws.html">
+        刪除雲端磁碟區
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 管理雲端Volume快照</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_on_demand_snapshots.html">
+        為雲端磁碟區建立隨需快照
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_modifying_snapshot_policies.html">
+        建立或修改快照原則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_disabling_snapshot_policy.html">
+        停用快照原則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_reverting_volume_to_snapshot.html">
+        從快照還原磁碟區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_deleting_snapshots.html">
+        刪除快照
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_restoring_snapshots_to_new_volumes.html">
+        將快照還原至新磁碟區
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 管理匯出原則規則</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_modifying_export_policy_rules.html">
+        修改匯出原則規則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_additional_export_policy_rules.html">
+        建立其他匯出原則規則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_deleting_export_policy_rules.html">
+        刪除匯出原則規則
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 管理Cloud Sync 雲端磁碟區的功能</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_cloud_sync_data_broker.html">
+        建立Cloud Sync 一個資料代理程式
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_cloud_sync_relationship.html">
+        建立Cloud Sync 彼此之間的不一樣關係
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_modifying_cloud_sync_schedule.html">
+        修改Cloud Sync 不一致的排程
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_deleting_cloud_sync_relationship.html">
+        刪除Cloud Sync 不合作關係
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_deleting_cloud_sync_data_broker.html">
+        刪除Cloud Sync 不經資料的代理程式
+      </a></li></ul></li><li class="  active "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_cloud_volume_apis.html">
+        Cloud Volumes API
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 參考資料</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_security_groups_windows_ad_servers.html">
+        適用於 Windows AD 伺服器的 AWS 安全性群組設定
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_selecting_service_level_and_quota.html">
+        選取適當的服務層級和已分配的容量
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_notices.html">
+        法律聲明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-tw/cloud_volumes/">Cloud&nbsp;Volumes&nbsp;Service</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 本繁體中文版使用機器翻譯，譯文僅供參考，若與英文版本牴觸，應以英文版本為準。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">Cloud Volumes API</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-05-03 06:04:32 +0000">05/03/2022</time>
+    
+  
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>透過Web UI提供的Cloud Volumes功能也可透過RESTful API取得。API可讓您建立及管理雲端磁碟區、並開發資源配置指令碼和工具。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="尋找api-urlapi金鑰和秘密金鑰">尋找API URL、API金鑰和秘密金鑰</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>您需要取得Cloud Volumes API URL、API金鑰和Secret金鑰、才能執行API呼叫。</p>
+</div>
+<div class="olist arabic">
+<div class="title">步驟</div>
+<ol class="arabic">
+<li>
+<p>在儲存頁面或使用者名稱下的下拉式功能表中、按一下「* API access*（* API存取*）」。</p>
+</li>
+<li>
+<p>記錄Cloud Volumes API URL、API金鑰和Secret金鑰。</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><a href="media/test.conf">"顯示帳戶API URL、API金鑰和秘密金鑰的範例檔案"</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="列出可用的api">列出可用的API</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>儲存頁面會顯示您可以使用的可用API。</p>
+</div>
+<div class="olist arabic">
+<div class="title">步驟</div>
+<ol class="arabic">
+<li>
+<p>按一下儲存頁面上的* API documentation *。</p>
+<div class="paragraph">
+<p>頁面會列出可用的API。</p>
+</div>
+</li>
+<li>
+<p>捲動頁面以查看可用的API。</p>
+<div class="paragraph">
+<p>API會依功能列出、例如：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>《Volume》（Volume）</p>
+</li>
+<li>
+<p>「我的最大目標」</p>
+</li>
+<li>
+<p>《太老了》</p>
+</li>
+<li>
+<p>"快照"</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>若要取得如何使用API呼叫的詳細資料和範例、請選取該功能、然後按一下下列其中一個動作：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>「Get」：讀取</p>
+</li>
+<li>
+<p>「POST」：建立</p>
+</li>
+<li>
+<p>「PUT」：更新或修改</p>
+</li>
+<li>
+<p>「刪除」：破壞</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="使用cloud-volumes-api">使用Cloud Volumes API</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>本節說明如何使用Cloud Volumes API。這些範例使用Linux Bash Shell的Curl。您需要將「&lt;API_URL&gt;'、「&lt;API_key&gt;'」和「&lt;secret _key&gt;'」取代為您從記錄的值 <a href="#finding_urL_key_secretKey">尋找API URL、API金鑰和秘密金鑰</a>。</p>
+</div>
+<div class="sect2">
+<h3 id="語法">語法</h3>
+<div class="paragraph">
+<p>'* curl -s -H Accept:application/json -H "Content-type: application/json"-H API-key:&lt;API_key&gt;-H secret key：&lt;secret _key&gt;-X [Get、POST、PUT、DELETE ]&lt;API_URL&gt;/v2/&lt;command&gt;*</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="範例">範例</h3>
+<div class="sect3">
+<h4 id="列出磁碟區">列出磁碟區</h4>
+<div class="paragraph">
+<p>下列範例顯示所有磁碟區的相關資訊：</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/cloud_volumes/images/note.svg" alt="附註">
+</td>
+<td class="content">
+透過「jq」傳送命令可改善「json」輸出的格式。您可能需要在系統上安裝「jq」。
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X GET &lt;api_url&gt;/v2/Volumes | jq</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/list-cv.py">"指令碼以列出帳戶中的雲端磁碟區"</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="列出特定volume的詳細資料">列出特定Volume的詳細資料</h4>
+<div class="paragraph">
+<p>每個Volume都有一個名為「volumeId」的ID、例如「07c9ab6c-b655-a9fe-f904-b9b97ef9baaa」。在API呼叫中包含ID、可提供特定Volume的詳細資料：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X GET &lt;api_url&gt;/v2/Volumes/&lt;volumeId&gt; | jq</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="建立volume">建立Volume</h4>
+<div class="paragraph">
+<p>以下範例使用「POST」呼叫、在「us-west-1」區域建立名為「Test」的Volume、其「分配容量」為100 GB、並使用「NFSv3」匯出：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X POST &lt;api_url&gt;/v2/Volumes -d '
+{
+	"name": "Test",
+	"creationToken": "grahams-test-volume3",
+	"region": "us-west-1",
+	"serviceLevel": "standard",
+	"quotaInBytes": 100000000000,
+	"exportPolicy": {"rules": [{"ruleIndex": 1,"allowedClients": "0.0.0.0/0","unixReadOnly": false,"unixReadWrite": true,"cifs": false,"nfsv3": true,"nfsv4": false}]},
+	"protocolTypes": ["NFSv3"],
+	"labels": ["test"]
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/create-cv.py">"建立雲端磁碟區的指令碼"</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="正在更新磁碟區">正在更新磁碟區</h4>
+<div class="paragraph">
+<p>以下範例使用「PUT」呼叫來更新名為「Test」的磁碟區、將服務層級變更為「Extreme」、並將分配的容量變更為600 GB：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X PUT &lt;api_url&gt;/v2/Volumes/&lt;volumeId&gt; -d '
+{
+	"serviceLevel": "extreme",
+	"quotaInBytes": 600000000000
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/update-cv.py">"指令碼來更新雲端Volume"</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="刪除volume">刪除Volume</h4>
+<div class="paragraph">
+<p>以下範例使用「刪除」呼叫來刪除由「volumeId」指定的Volume：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X DELETE &lt;api_url&gt;/v2/Volumes/&lt;volumeId&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/delete-cv.py">"指令碼、依掛載點刪除雲端磁碟區"</a></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/cloud_volumes/images/important.svg" alt="重要">
+</td>
+<td class="content">
+請謹慎使用。此API呼叫會刪除Volume及其所有資料。
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="建立快照">建立快照</h4>
+<div class="paragraph">
+<p>以下範例使用「POST」呼叫來建立特定Volume的快照、稱為「快照」：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X POST &lt;api_url&gt;/v2/Volumes/&lt;volumeId&gt;/Snapshots -d '
+{
+	"name": "&lt;snapshot-name&gt;"
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/snap-cv.py">"指令碼、可依掛載點建立雲端磁碟區的快照"</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="建立快照原則">建立快照原則</h4>
+<div class="paragraph">
+<p>以下範例使用「PUT（放置））呼叫來建立特定磁碟區的快照原則：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X PUT &lt;api_url&gt;/v2/Volumes/&lt;volumeId&gt; -d '
+{
+	"snapshotPolicy": {
+        "dailySchedule": {},
+        "enabled": true,
+        "hourlySchedule": {
+            "minute": 33,
+            "snapshotsToKeep": 24
+        },
+        "monthlySchedule": {},
+        "weeklySchedule": {}
+    }
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/snapshot-policy.py">"指令碼、以透過掛載點建立雲端磁碟區的快照原則"</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="列出特定磁碟區的快照">列出特定磁碟區的快照</h4>
+<div class="paragraph">
+<p>以下範例使用「Get」（取得）呼叫來列出特定Volume的快照：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X GET &lt;api_url&gt;/v2/Volumes/&lt;volumeId&gt;/Snapshots</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/get-snaps.py">"指令碼、依掛載點列出雲端磁碟區的快照"</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="還原快照">還原快照</h4>
+<div class="paragraph">
+<p>以下範例使用「POST」呼叫、從「Snapshot Id」和「volumeId」指定的快照中還原磁碟區：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X POST &lt;api_url&gt;/v2/Volumes/&lt;volumeId&gt;/Revert -d '
+{
+	"snapshotId": "&lt;snapshotId&gt;"
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/revert-snap.py">"指令碼、可依掛載點和snapshotId還原至雲端磁碟區的快照"</a></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/cloud_volumes/images/important.svg" alt="重要">
+</td>
+<td class="content">
+請謹慎使用。此API呼叫會導致在該快照日期之後寫入的任何資料遺失。
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="從快照建立新磁碟區">從快照建立新磁碟區</h4>
+<div class="paragraph">
+<p>以下範例使用「POST」呼叫、根據「Snapshot Id」指定的現有磁碟區快照來建立新的磁碟區：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X POST &lt;api_url&gt;/v2/Volumes -d '
+{
+	"snapshotId": "&lt;snapshotId&gt;",
+	"name": "Copy",
+	"creationToken": "perfectly-copied-volume",
+	"region": "us-west-1",
+	"serviceLevel": "extreme",
+	"protocolTypes": ["NFSv3"]
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/copy-cv.py">"複製雲端磁碟區的指令碼"</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="刪除快照">刪除快照</h4>
+<div class="paragraph">
+<p>以下範例使用「刪除」呼叫來刪除由「快照ID」指定的快照：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X DELETE &lt;api_url&gt;/v2/Volumes/&lt;volumeId&gt;/Snapshots/&lt;snapshotId&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/delete-snap.py">"指令碼、可依掛載點和snapshotId刪除雲端磁碟區的快照"</a></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/cloud_volumes/images/important.svg" alt="重要">
+</td>
+<td class="content">
+請謹慎使用。此API呼叫會刪除快照及其所有資料。
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="加入目錄服務">加入目錄服務</h4>
+<div class="paragraph">
+<p>下列範例使用「POST」通話來加入目錄服務、並提供DNS IP位址、網域、SMB伺服器的NetBios名稱、目錄服務管理員的使用者名稱和密碼、以及組織單位（選用、預設為CN=電腦）。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X POST &lt;api_url&gt;/v2/Storage/ActiveDirectory -d '
+{
+	"DNS": "&lt;ip-address&gt;",
+	"domain": "&lt;domain&gt;",
+	"netBIOS": "&lt;netbios-name&gt;",
+	"organizationalUnit": "OU=Cloud Servers,DC=nas-cloud,DC=local",
+	"password": "secret",
+	"region": "us-west-1",
+	"username": "Administrator"
+}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/join-ad.py">"用於加入目錄服務的指令碼"</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="檢視目錄服務整合">檢視目錄服務整合</h4>
+<div class="paragraph">
+<p>以下範例使用「Get」呼叫來顯示目錄服務整合的組態。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X GET &lt;api_url&gt;/v2/Storage/ActiveDirectory</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/get-ad.py">"用於檢視目錄服務整合的指令碼"</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="取消加入目錄服務">取消加入目錄服務</h4>
+<div class="paragraph">
+<p>以下範例使用「刪除」呼叫取消目錄服務整合。這需要目前加入的UUID、您可以使用上述的「Get」（取得）通話來找到。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/cloud_volumes/images/note.svg" alt="附註">
+</td>
+<td class="content">
+您無法取消加入使用中的目錄服務；狀態為「使用中」。
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X DELETE &lt;api_url&gt;/v2/Storage/ActiveDirectory/&lt;UUID&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/unjoin-ad.py">"取消加入目錄服務的指令碼"</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="取得效能統計資料">取得效能統計資料</h4>
+<div class="paragraph">
+<p>下列範例使用「Get」（取得）呼叫、針對「volumeId」指定的磁碟區、列出特定期間內的讀取和寫入IOPS、處理量及延遲統計資料。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:&lt;api_key&gt; -H secret-key:&lt;secret_key&gt; -X GET '&lt;api_url&gt;/v2/Volumes/&lt;volumeId&gt;/PerformanceMetrics?startDate=2021-02-05T09:00&amp;endDate=2021-02-05T09:05&amp;type=READ_IOPS,WRITE_IOPS,TOTAL_THROUGHPUT,AVERAGE_OTHER_LATENCY'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="media/get-perfstats.py">"指令碼、以透過掛載點取得雲端磁碟區的效能統計資料"</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">legal-terms</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">legal-privacy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">legal-cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">cookie-settings</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <span class="n-footer__fine-print">對我們的網站有任何意見或要求？</span>
+              <a target="_self" href="javascript:netapp_mailto()">請與我們聯絡</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://docs.netapp.com/zh-tw/announcements/">公告</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-tw/cloud_volumes/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-tw/cloud_volumes/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-tw/cloud_volumes/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-tw/cloud_volumes/js/www-ntap.js'></script>
+    <script src='/zh-tw/cloud_volumes/js/tabbed-blocks.js'></script>
+  </body></html>

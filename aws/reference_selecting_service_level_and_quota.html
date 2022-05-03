@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head class="at-element-marker">
+  <title>選取適當的服務層級和已分配的容量</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="選取適當的服務層級和已分配的容量" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-tw/cloud_volumes/aws/reference_selecting_service_level_and_quota.html" />
+	<meta property="og:description" content="AWS 的成本取決於服務層級和您選擇的已分配容量。 Cloud Volumes Service選擇適當的服務層級和容量、以最低成本滿足您的儲存需求。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-tw/cloud_volumes/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="AWS 的成本取決於服務層級和您選擇的已分配容量。 Cloud Volumes Service選擇適當的服務層級和容量、以最低成本滿足您的儲存需求。">
+  <meta name="keywords" content=" Cloud Volumes Service for AWS, security levels, bandwidth, capacity"><!-- Icons -->
+  <link rel="icon" href="/zh-tw/cloud_volumes/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/cloud_volumes/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/cloud_volumes/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/cloud_volumes/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-tw/cloud_volumes/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-tw/cloud_volumes/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-tw/cloud_volumes/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/cloud_volumes/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/cloud_volumes/css/custom-dropdown.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/cloud_volumes/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel='stylesheet' href='/zh-tw/cloud_volumes/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
+    if (document.location.hostname === "docs.netapp.com") {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = "72570c5c-fe30-465f-b0e0-b77f7fb4ae34";
+      head.appendChild(onetrustScript);
+    }
+
+    function OptanonWrapper() { }
+
+    if (document.location.hostname === "docs.netapp.com") {
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+      head.appendChild(adobe);
+
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id=UA-81697994-3";
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-81697994-3');
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-tw/cloud_volumes/js/na-search.js'></script><script src='/zh-tw/cloud_volumes/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-tw/cloud_volumes/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/cloud_volumes/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-tw/cloud_volumes/js/na-utility.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/clouddocs.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-tw/cloud_volumes/js/toc.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/zh-tw/cloud_volumes/js/custom-dropdown.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/FileSaver.min.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/jszip-utils.min.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/jszip.min.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/cloud_volumes/issues/new?body=Page%3A%20[選取適當的服務層級和已分配的容量](https://docs.netapp.com/zh-tw/cloud_volumes/aws/reference_selecting_service_level_and_quota.html)" class="page-nav-contribute-link" role="button"><img src="/zh-tw/cloud_volumes/images/discuss-sm.svg" class="github-icon" />要求變更文件</a><a target="_blank" href="https://github.com/NetAppDocs/cloud_volumes/blob/main/aws/reference_selecting_service_level_and_quota.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-tw/cloud_volumes/images/edit-sm.svg" class="github-icon" />編輯此頁面</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-tw/cloud_volumes/images/article-sm.svg" class="github-icon" />瞭解如何作出貢獻</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此頁面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">產品與解決方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支援與訓練</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社群</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">部落格</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客戶成功案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-tw/cloud_volumes/search.html"
+          data-type="widget" 
+          data-placeholder="搜尋文件" 
+          data-no-results-found="找不到符合 {query} 的相關結果。" 
+          data-did-you-mean="搜尋 {suggestion}。" 
+          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？" 
+          data-results-found="找到 {hitCount} 筆結果"  
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">繁體中文</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/cloud_volumes/aws/reference_selecting_service_level_and_quota.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/cloud_volumes/aws/reference_selecting_service_level_and_quota.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ko-kr/cloud_volumes/aws/reference_selecting_service_level_and_quota.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/cloud_volumes/aws/reference_selecting_service_level_and_quota.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-tw/cloud_volumes/aws/reference_selecting_service_level_and_quota.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>可用的 PDF<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        
+        
+        
+        <a target="_blank" href="/zh-tw/cloud_volumes/pdfs/fullsite-sidebar/適用於AWS文件Cloud_Volumes_Service.pdf" >
+          <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>此文件網站（PDF 格式）</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/版本資訊.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            版本資訊
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/快速入門.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            快速入門
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理雲端磁碟區.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            管理雲端磁碟區
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理雲端Volume快照.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            管理雲端Volume快照
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理匯出原則規則.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            管理匯出原則規則
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理Cloud_Sync_雲端磁碟區的功能.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            管理Cloud Sync 雲端磁碟區的功能
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/參考資料.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+            參考資料
+          </a>
+          
+
+
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/zh-tw/cloud_volumes/pdfs/pages/aws/reference_selecting_service_level_and_quota.pdf" >
+    <img src="/zh-tw/cloud_volumes/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/zh-tw/cloud_volumes/images/pdf-zip.png" width="16" height="16"/>
+      <pre>個別 PDF 文件的集合<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/index.html">
+        適用於AWS文件Cloud Volumes Service
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 版本資訊</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_whats_new_cloud_volumes_aws.html">
+        新增功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_known_issues.html">
+        已知問題
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 快速入門</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/concept_overview.html">
+        先決條件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_quick_start.html">
+        快速入門指示
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_activating_support_entitlement.html">
+        啟動支援權利並存取支援
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_selecting_region.html">
+        選取區域
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 管理雲端磁碟區</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html">
+        建立雲端磁碟區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_mounting_cloud_volumes_for_aws.html">
+        掛載雲端磁碟區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_modifying_cloud_volumes_for_aws.html">
+        修改雲端磁碟區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_deleting_cloud_volumes_for_aws.html">
+        刪除雲端磁碟區
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 管理雲端Volume快照</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_on_demand_snapshots.html">
+        為雲端磁碟區建立隨需快照
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_modifying_snapshot_policies.html">
+        建立或修改快照原則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_disabling_snapshot_policy.html">
+        停用快照原則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_reverting_volume_to_snapshot.html">
+        從快照還原磁碟區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_deleting_snapshots.html">
+        刪除快照
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_restoring_snapshots_to_new_volumes.html">
+        將快照還原至新磁碟區
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 管理匯出原則規則</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_modifying_export_policy_rules.html">
+        修改匯出原則規則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_additional_export_policy_rules.html">
+        建立其他匯出原則規則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_deleting_export_policy_rules.html">
+        刪除匯出原則規則
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 管理Cloud Sync 雲端磁碟區的功能</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_cloud_sync_data_broker.html">
+        建立Cloud Sync 一個資料代理程式
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_creating_cloud_sync_relationship.html">
+        建立Cloud Sync 彼此之間的不一樣關係
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_modifying_cloud_sync_schedule.html">
+        修改Cloud Sync 不一致的排程
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_deleting_cloud_sync_relationship.html">
+        刪除Cloud Sync 不合作關係
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/task_deleting_cloud_sync_data_broker.html">
+        刪除Cloud Sync 不經資料的代理程式
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_cloud_volume_apis.html">
+        Cloud Volumes API
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 參考資料</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_security_groups_windows_ad_servers.html">
+        適用於 Windows AD 伺服器的 AWS 安全性群組設定
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_selecting_service_level_and_quota.html">
+        選取適當的服務層級和已分配的容量
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/cloud_volumes/aws/reference_notices.html">
+        法律聲明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-tw/cloud_volumes/">Cloud&nbsp;Volumes&nbsp;Service</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 本繁體中文版使用機器翻譯，譯文僅供參考，若與英文版本牴觸，應以英文版本為準。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">選取適當的服務層級和已分配的容量</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-05-03 06:04:32 +0000">05/03/2022</time>
+    
+  
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>AWS 的成本取決於您選擇的 _ 服務層級 _ 和 _ 分配容量 _ 。 Cloud Volumes Service選擇適當的服務層級和容量、以最低成本滿足您的儲存需求。</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/cloud_volumes/images/important.svg" alt="重要">
+</td>
+<td class="content">
+<em>本文中的所有定價資訊均以2018年9月12日的標價為準。此資訊僅供參考、可能隨時變更。</em>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="考量">考量</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>儲存需求包括兩個基本層面：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>用於儲存資料的儲存容量 <em>capsity</em></p>
+</li>
+<li>
+<p>用於與資料互動的儲存頻寬 _</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>如果您使用的儲存空間比為磁碟區選取的容量多、請考量下列事項：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>您將依照服務層級所定義的價格、收取額外的儲存容量費用。</p>
+</li>
+<li>
+<p>磁碟區可用的儲存頻寬量不會增加、除非您增加已分配的容量大小或變更服務層級。</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="服務層級">服務層級</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AWS 支援三種服務層級。 Cloud Volumes Service您可以在建立或修改磁碟區時指定服務層級。</p>
+</div>
+<div class="paragraph">
+<p><a href="task_creating_cloud_volumes_for_aws.html">"建立雲端磁碟區"</a><br>
+<a href="task_modifying_cloud_volumes_for_aws.html">"修改雲端磁碟區"</a></p>
+</div>
+<div class="paragraph">
+<p>服務層級可因應不同的儲存容量和儲存頻寬需求：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>* 標準 * （容量）</p>
+<div class="paragraph">
+<p>如果您想以最低成本取得容量、而且頻寬需求有限、那麼標準服務層級可能最適合您。例如、使用 Volume 做為備份目標。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>標價：每月每GB 0.10美元（截至2018年9月12日）</p>
+</li>
+<li>
+<p>頻寬：每 GB 已配置容量 16 KB 頻寬</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>** 優質 * （容量與效能的平衡）</p>
+<div class="paragraph">
+<p>如果您的應用程式對儲存容量和頻寬的需求平衡、那麼 Premium 服務層級可能最適合您。此層級的每 MB/s 成本比標準服務層級低、而且每 GB 儲存容量的成本也比極致服務層級低。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>標價：每月每GB 0.20美元（截至2018年9月12日）</p>
+</li>
+<li>
+<p>頻寬：每 GB 已配置容量 64 KB 頻寬</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>* 極致版 * （效能）</p>
+<div class="paragraph">
+<p>在儲存頻寬方面、極致服務層級的成本最低。如果您的應用程式需要儲存頻寬、而不需要相關的大量儲存容量需求、那麼極致服務層級可能最適合您。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>標價：每月每GB 0.30美元（截至2018年9月12日）</p>
+</li>
+<li>
+<p>頻寬：每 GB 已配置容量 128 KB 頻寬</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="已分配容量">已分配容量</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>您可以在建立或修改磁碟區時、為該磁碟區指定已分配的容量。</p>
+</div>
+<div class="paragraph">
+<p><a href="task_creating_cloud_volumes_for_aws.html">"建立雲端磁碟區"</a><br>
+<a href="task_modifying_cloud_volumes_for_aws.html">"修改雲端磁碟區"</a></p>
+</div>
+<div class="paragraph">
+<p>雖然您可以根據一般的高階業務需求來選擇服務層級、但您應該根據應用程式的特定需求來選擇分配的容量大小、例如：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>應用程式需要多少儲存空間</p>
+</li>
+<li>
+<p>應用程式或使用者每秒需要多少儲存頻寬</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>分配的容量以 GB 為單位指定。磁碟區的已分配容量可設定在 100 GB 到 100 、 000 GB （相當於 100 TB ）的範圍內。</p>
+</div>
+<div class="sect2">
+<h3 id="inode-數">inode 數</h3>
+<div class="paragraph">
+<p>小於或等於 1 TB 的磁碟區最多可使用 2 、 000 萬個 inode 。您所分配的每個 TB 的 inode 數量增加 2000 萬、最多可達 1 億個 inode 。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>&lt;= 1TB = 2 、 000 萬個 inode</p>
+</li>
+<li>
+<p>&gt;1 TB 至 2 TB = 4 、 000 萬個 inode</p>
+</li>
+<li>
+<p>&gt;2 TB 至 3 TB = 6000 萬個 inode</p>
+</li>
+<li>
+<p>&gt;3 TB 至 4 TB = 8000 萬個 inode</p>
+</li>
+<li>
+<p>&gt;4 TB 至 100 TB = 1 億個 inode</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="頻寬">頻寬</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>服務層級與您選取的已分配容量的組合、決定了磁碟區的最大頻寬。</p>
+</div>
+<div class="paragraph">
+<p>如果您的應用程式或使用者需要比您選擇的頻寬更多的頻寬、您可以變更服務層級或增加分配的容量。這些變更不會中斷資料存取。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="選取服務層級和已分配的容量">選取服務層級和已分配的容量</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>若要根據您的需求選擇最適當的服務層級和分配容量、您必須知道尖峰或邊緣需要多少容量和頻寬。</p>
+</div>
+<div class="sect2">
+<h3 id="服務層級與已分配容量的成本比較">服務層級與已分配容量的成本比較</h3>
+<div class="paragraph">
+<p>下表比較不同服務層級和已分配容量大小的成本。在表格中、最左欄表示容量、其他欄則定義每個容量點的可用MB /秒及其成本。</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/cloud_volumes/images/important.svg" alt="重要">
+</td>
+<td class="content">
+<em>所有定價資訊均以2018年9月12日的標價為準。此資訊僅供參考、可能隨時變更。</em>
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 15%;">
+<col style="width: 15%;">
+<col style="width: 15%;">
+<col style="width: 15%;">
+<col style="width: 15%;">
+<col style="width: 15%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">容量</th>
+<th class="tableblock halign-left valign-top" colspan="2">標準</th>
+<th class="tableblock halign-left valign-top" colspan="2">優質</th>
+<th class="tableblock halign-left valign-top" colspan="2">極致</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">* TB *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>每秒</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">成本*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>每秒</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">成本*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>每秒</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">成本*</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.1 （ 100 GB ）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6.4.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12.8%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128/128</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">300美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128/128</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">256</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">600美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">48</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">300美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">384..</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">900美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">256</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">512</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、200美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">320</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、500美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">96</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">384..</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">768</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、800美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">112</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">700美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">448</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">896</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、100美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128/128</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">512</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 024</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、400美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">144.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">900美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">576</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,152</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、700美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">160</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 280</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、000美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">176</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、100美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">704</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 408</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、300美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">768</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 536</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、600美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">208/208</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、300美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">832</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 664</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3,900美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">224</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">896</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1792 年</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、200美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">240</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、500美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">960</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 920</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、500美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">256</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 024</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 048</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、800美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">272.72</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、700美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 088</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$3,400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 176</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、100美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">288</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,152</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 304.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5,400美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">304.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1、900美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,216</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 432</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、700美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">320</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 280</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2,560</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6、000美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">21</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">336.36</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、100美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1344</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2,688</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6300美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">352..</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 408</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 816</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">600美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">23</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">368.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、300美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 472</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4,600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 944</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6、900美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">384..</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 536</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 072</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7200美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、500美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 600</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、500美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">26</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">416</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 664</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 328</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、800美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">27</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">432</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、700美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1728 年</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5,400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 456</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8、100美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">28.28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">448</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1792 年</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 584</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$8400</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">29</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">464.64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2、900美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1856 年</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 712</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$8700</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">480</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 920</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 840</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、000美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">31</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">496</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、100美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,984.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3,968/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、300美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">512</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 048</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 096</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、600美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">33</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">528</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、300美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 112</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 224</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、900美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">34</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">544</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$3,400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 176</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 352..</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10、200美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">35</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">560</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、500美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 240</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 480</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10、500美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">36</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">576</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 304.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10、800美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">37</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">592.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$3,700</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2,368.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11、100美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">38</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">608-608</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 432</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$11400</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">39</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">624</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3,900美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 496</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11、700美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">40</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">640</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2,560</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12、000美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">41.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">656.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、100美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 624</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12、300美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">42.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">67</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2,688</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$8400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$12600</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">43.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">688</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、300美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 752</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$8,600</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12、900美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">44</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">704</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 816</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13、200美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">45</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">720</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、500美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2,880</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14、500美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">46</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">736</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4,600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 、 944</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13、800美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">47</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">752.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、700美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 008</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14、100美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">48</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">768</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 072</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14、400美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">49</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">784.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4、900美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 136.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14、700美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">50</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">800</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15、000美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">51.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">816</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、100美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 264</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$15300</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">52.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">832</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 328</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$15600</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">53.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">848</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、300美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 392</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$15900</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">54</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">864</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5,400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 456</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16、200美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">55</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">880</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、500美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 520</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16500美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">56</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">896</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 584</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16800美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">57</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">912</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、700美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 648</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$11400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17、100美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">58</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">928</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 712</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17、400美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">59</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">944</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5、900美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 776</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17700美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">60</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">960</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 840</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18、000美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">61.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">976.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6、100美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 、 904</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18、300美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">62.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">992</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3,968/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$12400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18、600美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">63.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 008</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6300美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 032</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$12600</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18、900美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 024</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 096</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$19200</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">65</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 040</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6、500美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 160</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$19500</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">66</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 056</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 224</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$19800</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">67</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1072</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$6,700</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 288</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20、100美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">68</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 088</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 352..</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20400美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">69</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,104.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6、900美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 416</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">13、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20700美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">70</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 120</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 480</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">21,000美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">71.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,136.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、100美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">21300美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">72.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,152</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">21600美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">73.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,168.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、300美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">21、900美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">74.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 184</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22、200美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">75</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、500美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22500美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">76.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,216</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22、800美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">77</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 232.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、700美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$15400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">23100美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">78</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 248-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$15600</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">23400美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">79</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 264</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7、900美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">23700美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 280</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24、000美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">81/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 296</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8、100美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24300美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">82.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,312.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$24600</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">83.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 328</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$8300</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$24900</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">84.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1344</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$8400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25200美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">85</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 360</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$8,500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25、500美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">86</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 376</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$8,600</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25800美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">87</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 392</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$8700</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">26100美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">88</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 408</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">26400美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">89</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 424</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8900美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">26700美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">90</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 440</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">27、000美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">91.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 456</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、100美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">27300美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">92.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 472</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、200美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">27600美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">93</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1,488</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、300美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">27900美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">94</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 504</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、400美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">28200美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">95</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 520</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、500美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">28500美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">96</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 536</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、600美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$19200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">28800美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">97</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 552</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、700美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$19400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">29100美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">98</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 568</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、800美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$19600</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">29400美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">99</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 584</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9、900美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$19800</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">29700美元</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 、 600</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20、000美元</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 、 500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30、000美元</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="範例-1">範例 1.</h3>
+<div class="paragraph">
+<p>例如、您的應用程式需要 25 TB 容量和 100 MB/s 頻寬。標準服務層級的容量為25 TB、可提供400 MB/s的頻寬、成本為2、500美元、使Standard成為本案例中最適合的服務層級。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/diagram_service_level_quota_example1.png" alt="服務層級與容量選擇、範例 1"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="範例-2">範例 2.</h3>
+<div class="paragraph">
+<p>例如、您的應用程式需要 12 TB 容量和 800 MB/s 尖峰頻寬。雖然極致服務層級可滿足應用程式12 TB的需求、但在優質服務層級選擇13 TB則更具成本效益。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/diagram_service_level_quota_example2.png" alt="服務層級與容量選擇、範例 2"></span></p>
+</div>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">legal-terms</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">legal-privacy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">legal-cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">cookie-settings</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <span class="n-footer__fine-print">對我們的網站有任何意見或要求？</span>
+              <a target="_self" href="javascript:netapp_mailto()">請與我們聯絡</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://docs.netapp.com/zh-tw/announcements/">公告</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/cloud_volumes/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-tw/cloud_volumes/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-tw/cloud_volumes/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-tw/cloud_volumes/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-tw/cloud_volumes/js/www-ntap.js'></script>
+    <script src='/zh-tw/cloud_volumes/js/tabbed-blocks.js'></script>
+  </body></html>
