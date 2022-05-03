@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: aws/task_deleting_snapshots.html 
+keywords: Cloud Volumes Service for AWS, snapshots 
+summary: 您可以從「Volumes or Snapshots」（磁碟區或快照）頁面刪除快照。 
+---
+= 刪除快照
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以從「Volumes or Snapshots」（磁碟區或快照）頁面刪除快照。
+
+
+
+== 從「Volumes（磁碟區）」頁面刪除快照
+
+.步驟
+. 按一下磁碟區名稱、然後選取* Snapshots*以查看磁碟區的快照清單。
+. 選取對應的核取方塊、按一下*「Actions」（動作）*、然後從下拉式清單中選取*「Delete snapshot/s*」、以指定您要刪除的快照。
++
+或者、您也可以按一下「動作」下的「*可用*」、然後從下拉式清單中選取「*刪除snapshot *」。
+
+. 在確認對話方塊中、輸入「刪除」進行確認、然後按一下「*刪除*」。
+
+
+
+
+== 從「Snapshot（快照）」頁面刪除快照
+
+.步驟
+. （選用）使用搜尋方塊來篩選列出的快照。
+. 選取對應的核取方塊、按一下*「Actions」（動作）*、然後從下拉式清單中選取*「Delete snapshot/s*」、以指定您要刪除的快照。
+. 在確認對話方塊中、輸入「刪除」進行確認、然後按一下「*刪除*」。
+

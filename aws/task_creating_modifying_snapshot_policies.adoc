@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: aws/task_creating_modifying_snapshot_policies.html 
+keywords: Cloud Volumes Service for AWS, snapshot policies 
+summary: 您可以視需要為雲端磁碟區建立或修改快照原則。 
+---
+= 建立或修改快照原則
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+您可以視需要為雲端磁碟區建立或修改快照原則。
+
+.步驟
+. 在「Volumes（磁碟區）」頁面中、按一下磁碟區名稱、然後選取* Snapshot polici*。
+. 選取*每小時*、*每日*、*每週*或*每月*、以指定建立快照的頻率。
++
+已設定的原則會以綠色點標示。未定義的原則會以紅點標示。
+
+. 選取您要保留的快照數目。
+. 選取應拍攝快照的日期、小時和分鐘。
+. 如果您想要建立不同頻率的其他快照、例如每月和每日快照、請重複步驟2到4。
++
+image:diagram_snapshot_policy_modify.png["Snapshot原則"]
+
+. 如果*已啟用*按鈕尚未設定為*開啟*、請按一下按鈕以啟用或重新啟用原則。
+. 按一下*儲存變更*。
+

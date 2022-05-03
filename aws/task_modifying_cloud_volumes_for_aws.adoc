@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: aws/task_modifying_cloud_volumes_for_aws.html 
+keywords: Cloud Volumes Service for AWS, volume names, allocated capacity, service levels. 
+summary: 您可以修改現有的磁碟區、包括變更磁碟區名稱、已分配的容量或服務層級。 
+---
+= 修改雲端磁碟區
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+您可以修改現有的磁碟區、包括變更磁碟區名稱、已分配的容量或服務層級。
+
+.步驟
+. 登入 https://cds-aws-bundles.netapp.com/storage/volumes["NetApp Cloud Orchestrator"^]。
+. 按一下您要管理的磁碟區名稱。
+. 視情況修改下列Volume欄位：
++
+** 名稱
+** 標記
+** 已分配容量
+** 服務層級
++
+變更服務層級不會造成中斷、也不會影響用戶端資料存取。
+
+
+
+
+
+請注意、可用的inode數量取決於分配的容量。
+
+請參閱 link:reference_selecting_service_level_and_quota.html["選取適當的服務層級和已分配的容量"] 以取得詳細資料。

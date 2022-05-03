@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: aws/task_mounting_cloud_volumes_for_aws.html 
+keywords: Cloud Volumes Service for AWS, mount targets, Elastic Compute Cloud, EC2, NFSv3, NFSv4.1, Linux, UNIX, SMB, Windows 
+summary: 您可以將雲端磁碟區掛載至 AWS 執行個體。雲端磁碟區目前支援適用於Linux和UNIX用戶端的NFSv3和NFSv4.1、以及適用於Windows用戶端的SMB 2.1、3.0和3.1.1。 
+---
+= 掛載雲端磁碟區
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+您可以將雲端磁碟區掛載至 AWS 執行個體。雲端磁碟區目前支援適用於Linux和UNIX用戶端的NFSv3和NFSv4.1、以及適用於Windows用戶端的SMB 2.1、3.0和3.1.1。
+
+* 附註： * 請使用您用戶端所支援的反白傳輸協定 / 方言。
+
+.步驟
+. 按一下藍色問號（？）、取得您所建立磁碟區的掛載指示。 在Volume名稱旁的Export Paths（匯出路徑）欄位結尾。
++
+當您將游標暫留在問號上時、會顯示*顯示掛載指示*。
+
++
+image:diagram_mount_1.png["顯示掛載指示"]
+
+. 按一下問號以顯示掛載指示。
++
+* NFS 範例： *
+
++
+image:diagram_mount_instructions_nfs.png["NFS的掛載指示"]
+
++
+「 rsize 」和「 wsize 」選項所定義的最大 I/O 大小為 1048576 、不過對於大多數使用案例、建議使用 65536 。
+
++
+請注意、除非指定版本、否則Linux用戶端預設為NFSv4.1。
+
++
+* 中小企業範例： *
+
++
+image:diagram_mount_instructions_smb.png["SMB的掛載指示"]
+
+. 使用 SSH 或 RDP 用戶端連線至 Amazon Elastic Compute Cloud （ EC2 ）執行個體、然後依照執行個體的掛載指示進行。
++
+完成掛載指示中的步驟之後、您已成功將雲端磁碟區掛載至 AWS 執行個體。
+
+

@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: aws/task_deleting_export_policy_rules.html 
+keywords: Cloud Volumes Service for AWS, export policy rules 
+summary: 您可以刪除不再需要的匯出原則規則。 
+---
+= 刪除匯出原則規則
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+您可以刪除不再需要的匯出原則規則。
+
+.步驟
+. 按一下磁碟區名稱、然後選取*匯出原則*。
+. 單擊* X*以查看要刪除的策略規則。
++
+image:diagram_export_policy_delete.png["刪除匯出原則"]
+
+. 按一下*儲存變更*。
+

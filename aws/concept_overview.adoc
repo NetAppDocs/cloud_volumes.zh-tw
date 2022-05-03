@@ -1,0 +1,24 @@
+---
+sidebar: sidebar 
+permalink: aws/concept_overview.html 
+keywords: Cloud Volumes Service for AWS, overview, concepts, features, use cases, prerequisites, workflow 
+summary: 雲端磁碟區簡單易用、部署快速。部分先決條件適用於使用Cloud Volumes Service 適用於AWS的功能。 
+---
+= AWS先決條件適用的部分Cloud Volumes Service
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+雲端磁碟區簡單易用、部署快速。部分先決條件適用於使用Cloud Volumes Service 適用於AWS的功能。
+
+您必須先訂閱Cloud Volumes Service 適用於AWS的功能、才能執行本文件所述的Cloud Volumes工作。訂購程序包括使用服務所需的初始設定與組態。
+
+請參閱 https://www.netapp.com/us/forms/campaign/register-for-netapp-cloud-volumes-for-aws.aspx?hsCtaTracking=4f67614a-8c97-4c15-bd01-afa38bd31696%7C5e536b53-9371-4ce1-8e38-efda436e592e["搶先瞭解Cloud Volumes Service 全新的NetApp for AWS"^] 頁面以取得更多資訊。

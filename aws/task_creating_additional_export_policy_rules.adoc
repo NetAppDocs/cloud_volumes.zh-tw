@@ -1,0 +1,32 @@
+---
+sidebar: sidebar 
+permalink: aws/task_creating_additional_export_policy_rules.html 
+keywords: Cloud Volumes Service for AWS, export policy rules, clients, IP range, access 
+summary: 您可以建立其他匯出原則規則、以啟用靈活的用戶端存取。例如、您可以指定給定的IP範圍應該只擁有磁碟區的唯讀存取權。 
+---
+= 建立其他匯出原則規則
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+您可以建立其他匯出原則規則、以啟用靈活的用戶端存取。例如、您可以指定給定的IP範圍應該只擁有磁碟區的唯讀存取權。
+
+.步驟
+. 按一下磁碟區名稱、然後選取*匯出原則*。
+. 按一下「*+新增匯出原則規則*」。
+. 設定下列欄位的值：
++
+** *允許的用戶端*
+** *存取類型*
+
+
+. 按一下*儲存變更*。
+

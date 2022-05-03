@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: aws/task_modifying_cloud_sync_schedule.html 
+keywords: Cloud Volumes Service for AWS, Cloud Sync schedule, auto sync 
+summary: 最初建立的是「支援區」關係時Cloud Sync 、預設會啟用自動同步功能、並排定每天執行一次。您可以Cloud Sync 視需要修改「不實時程」。 
+---
+= 修改Cloud Sync 不一致的排程
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+最初建立的是「支援區」關係時Cloud Sync 、預設會啟用自動同步功能、並排定每天執行一次。您可以Cloud Sync 視需要修改「不實時程」。
+
+.步驟
+. 前往「Volume」（Volume）頁面上的「Sync」（同步）頁面或「Sync」（同步）索引標籤、查看Cloud Sync 相關的資訊。
++
+image::diagram_modifying_cloud_sync_schedule_sync_relationship.png[同步關係]
+
+. 若要關閉Cloud Sync 「自動同步」以建立關聯、請按一下「藍色*開啟*」滑桿以取得關聯。
++
+image::diagram_modifying_cloud_sync_schedule_auto_sync.png[自動同步滑桿]
+
+. 若要變更同步排程、請按一下「*排程*」下的下拉式清單、選取「*天/秒*」或「*小時/秒*」、選取一個時間間隔編號、然後按一下核取標記。
++
+image::diagram_modifying_cloud_sync_schedule.png[修改Cloud Sync 不一致的排程]
+
+. 若要Cloud Sync 立即啟動功能、請按一下「Action（動作）」下的「* Done（完成）」、選取「* Sync Now*（立即同步*）」、然後再按一下「* Sync Now*（立即同步*）」以確認。
+

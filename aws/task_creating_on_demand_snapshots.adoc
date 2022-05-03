@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: aws/task_creating_on_demand_snapshots.html 
+keywords: Cloud Volumes Service for AWS, snapshots, on-demand 
+summary: 您可以從「Volumes（磁碟區）」或「Snapshots（快照）」頁面建立雲端磁碟區的隨需快照。 
+---
+= 為雲端磁碟區建立隨需快照
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以從「Volumes（磁碟區）」或「Snapshots（快照）」頁面建立雲端磁碟區的隨需快照。
+
+
+
+== 從「Volumes（磁碟區）」頁面建立快照
+
+.步驟
+. 按一下磁碟區名稱、選取* Snapshots*、然後按一下*+ Create new snapshot*。
+. 輸入快照的名稱、或使用自動產生的名稱。
+. 選取磁碟區名稱、然後從下拉式清單中選取您要建立快照的磁碟區。
+. 按一下「*建立SnapShot *」。
+
+
+此時會出現建立的快照。
+
+
+
+== 從「Snapshot（快照）」頁面建立快照
+
+.步驟
+. 按一下「*+建立新快照*」。
+. 輸入快照的名稱、或使用自動產生的名稱。
+. 從下拉式清單中、選取您要建立快照的磁碟區。
+. 按一下「*建立SnapShot *」。
+
+
+現在已列出建立的快照。

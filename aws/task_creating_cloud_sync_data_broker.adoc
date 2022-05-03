@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: aws/task_creating_cloud_sync_data_broker.html 
+keywords: Cloud Volumes Service for AWS, Cloud Sync, data brokers, sync relationships 
+summary: NetApp Cloud Sync 支援與NetApp Cloud Volumes Service 的AWS支援功能整合、可在雲端磁碟區之間或從雲端磁碟區快速同步資料。利用這個功能、您可以建立一個可同步資料的不一樣關係。Cloud Sync Cloud Sync 
+---
+= 建立Cloud Sync 一個資料代理程式
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+NetApp Cloud Sync 功能與NetApp Cloud Volumes Service 的AWS支援功能整合、可透過NFS快速同步資料至雲端磁碟區或從雲端磁碟區同步資料。利用這個功能、您可以建立一個可同步資料的不一樣關係。Cloud Sync Cloud Sync
+
+如果Cloud Sync 您的Cloud Volumes帳戶所使用的AWS Virtual Private Cloud（VPC）中已經有一個資料代理程式、您可以跳過這項工作。
+
+https://docs.netapp.com/us-en/cloudsync/["NetApp Cloud Sync 產品文件"^]
+
+.步驟
+. 前往「Volume」（磁碟區）頁面上的「Sync」（同步）頁面或「Sync」（同步）索引標籤。
+. 按一下*建立資料代理*來建立資料代理程式。
+. 提供下列欄位的資訊：
++
+** *名稱*
++
+提供資料代理程式的名稱。
+
+** *類型*
++
+選取AWS。
+
+** *地區*
++
+選取可用的區域。
+
+** * API金鑰*
++
+提供AWS帳戶的存取金鑰。
+
+** *機密金鑰*
++
+提供AWS帳戶的秘密金鑰。
+
+** *基普里*
++
+選取可用的金鑰組。
+
++
+輸入有效金鑰後、金鑰組將會更新。
+
+** * VPC*
++
+選取連線至Cloud Volumes帳戶的VPC。
+
+** *子網路*
++
+選取要用於資料代理程式的可用子網路。
+
++
+image::diagram_creating_cloud_sync_data_broker.png[建立Cloud Sync 一個資料代理程式]
+
+
+
+. 按一下*建立資料代理*以開始建立資料代理程式。
++
+建立資料代理程式需要幾分鐘的時間。建立資料代理程式之後、會以綠色點標示、表示該代理程式已就緒。
+
+
+
+繼續 link:task_creating_cloud_sync_relationship.html["建立Cloud Sync 不一樣的關係"]。

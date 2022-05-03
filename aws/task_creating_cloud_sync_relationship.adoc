@@ -1,0 +1,60 @@
+---
+sidebar: sidebar 
+permalink: aws/task_creating_cloud_sync_relationship.html 
+keywords: Cloud Volumes Service for AWS, Cloud Sync relationships, target, source 
+summary: 利用此關聯、您可以將資料同步至雲端磁碟區或從雲端磁碟區同步。Cloud Sync 
+---
+= 建立Cloud Sync 彼此之間的不一樣關係
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+利用此關聯、您可以將資料同步至雲端磁碟區或從雲端磁碟區同步。Cloud Sync
+
+.開始之前
+* 您必須已經擁有Cloud Sync 一個不必要的資料代理程式。
++
+link:task_creating_cloud_sync_data_broker.html["建立Cloud Sync 一個資料代理程式"]
+
+* 資料代理IP位址必須同時新增至來源和目標磁碟區的匯出原則。
++
+目標磁碟區上的匯出原則必須允許資料代理程式的寫入存取權。
+
++
+link:task_creating_additional_export_policy_rules.html["建立其他匯出原則規則"]
+
+
+
+整合到支援不支援的支援功能目前僅支援NFSv3。Cloud Sync Cloud Volumes Service如果您想要在SMB磁碟區之間同步、請使用 https://cloudsync.netapp.com["支援服務Cloud Sync"^] 直接（cloudsync.netapp.com）。
+
+.步驟
+. 前往「Volume」（磁碟區）頁面上的「Sync」（同步）頁面或「Sync」（同步）索引標籤。
+. 按一下*「建立新關係」*、建立Cloud Sync 一個「不相關」關係。
+. 請採取下列其中一項行動：
++
+** 若要將資料同步至磁碟區、請選取*使用Volume做為目標*。
+** 若要從Volume同步資料、請選取*使用Volume做為來源*。
++
+image::diagram_creating_cloud_sync_relationship.png[建立Cloud Sync 彼此之間的不一樣關係]
+
+
+
+. 在*主機*欄位（未填入）中、輸入您要同步或同步的NFS伺服器IP位址。
++
+幾分鐘後、系統會自動探索可用匯出的清單。
+
+. 在*匯出*欄位中、選取其中一個可用匯出。
+. （選用）如果您想要在從來源刪除檔案時刪除目標檔案、請勾選*從來源刪除檔案時刪除目標檔案*方塊。
+. 按一下「*建立關係*」。
++
+隨即顯示關係狀態、檔案進度欄位會顯示複製的檔案數量。
+
+

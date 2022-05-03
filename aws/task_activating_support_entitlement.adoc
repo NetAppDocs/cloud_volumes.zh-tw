@@ -1,0 +1,133 @@
+---
+sidebar: sidebar 
+permalink: aws/task_activating_support_entitlement.html 
+keywords: Cloud Volumes Service for AWS, support entitlement, NetApp serial number, ticketing 
+summary: 一旦您在AWS市場訂閱之後很快就能存取Cloud Volumes Service 完這個功能、強烈建議您啟動支援服務權利。啟用支援權利可讓您透過線上聊天室、網路票證系統和電話存取技術支援。 
+---
+= 啟動支援權利並存取支援
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+一旦您在AWS市場訂閱之後很快就能存取Cloud Volumes Service 完這個功能、強烈建議您啟動支援服務權利。啟用支援權利可讓您透過線上聊天室、網路票證系統和電話存取技術支援。
+
+在完成序號啟動與登錄之前、預設的支援層級為自助服務。
+
+
+
+== 正在啟動支援權利
+
+在AWS初始訂購程序期間Cloud Volumes Service 、您的雲端磁碟區執行個體會產生20位數的NetApp序號、開頭為「930」。NetApp序號代表Cloud Volumes Service 您AWS帳戶的相關資訊訂閱。您必須註冊NetApp序號、才能啟動支援權益。我們提供2種支援登錄選項：
+
+. 目前擁有現有NetApp支援網站（NSS）SSO帳戶的NetApp客戶
+. 沒有現有NetApp支援網站（NSS）SSO帳戶的新NetApp客戶
+
+
+
+
+=== 選項1：目前擁有現有NetApp支援網站（NSS）SSO帳戶的NetApp客戶
+
+.步驟
+. 瀏覽Cloud Volumes Service 至URL、或透過存取此服務 https://cds-aws-bundles.netapp.com/storage/volumes["NetApp Cloud Central入口網站"^]。然後使用您的NetApp Cloud Central認證登入。
+. 在Cloud Volumes Service 支援使用者介面（UI）中選取「*支援*」、即可顯示您的NetApp序號。
++
+image::diagram_support_page.png[顯示支援頁面]
+
+. 在「*支援*」頁面中、確認您的「支援」狀態顯示為「未註冊」。
++
+image::diagram_support_status_not_registered.png[支援狀態未登錄]
+
++
+如果您看不到支援狀態和NetApp序號、請重新整理瀏覽器頁面。
+
+. 按一下「*啟動支援*」以註冊您的NetApp序號：
++
+** 如果您有一個NSS帳戶、請在「**啟動支援*」頁面中輸入您的NSS認證（使用者名稱和密碼）、然後按一下「**啟動*」以啟動您NetApp序號的支援授權。
++
+image::diagram_support_activate.png[啟動支援]
+
+** 如果您是現有的NetApp客戶、但您沒有任何NSSSSO認證、請前往 http://now.netapp.com/newuser/["NetApp支援註冊網站"] 以先建立您的帳戶。然後返回此處以註冊您的NSS認證。
+** 如果您是NetApp的新客戶、請參閱下方選項2的指示。
+
+
+
+
+啟動NetApp序號之後、「**支援*」頁面會顯示「已登錄」狀態、表示您已啟動支援服務權利。
+
+image::diagram_support_status_registered.png[已登錄支援狀態]
+
+這是適用Cloud Volumes Service 的不二序號的一次性支援登錄。任何新Cloud Volumes Service 的版本不支援訂閱及後續的新序號也需要啟用支援。如果您對支援註冊有任何問題、請聯絡我們：cvs-support@netapp.com。
+
+
+
+=== 選項2：沒有現有NetApp支援網站（NSS）SSO帳戶的新NetApp客戶
+
+.步驟
+. 瀏覽至 https://register.netapp.com["雲端資料服務支援註冊"^] 頁面以建立一個新的nss.
+. 選擇「我不是NetApp註冊客戶」*、隨即顯示「新客戶註冊」表單。
++
+image::diagram_support_new_customer_reg.png[新客戶註冊表]
+
+. 填寫表單上的必要資訊：
++
+.. 輸入您的姓名和公司資訊。
+.. 選擇「* Cloud Volumes Service 產品線」*「*」*「*」*「*」*「*」*「*」*「*」*「*」*「*」「*」
+.. 請在Cloud Volumes Service 接下來的兩個欄位中輸入您的「* NetApp序號*」和「* AWS客戶ID *」。
+.. 按一下「提交註冊」。
+
+
+. 您將收到您提交的註冊確認電子郵件。如果沒有錯誤發生、您將被重新導向至「註冊已成功提交」頁面。您也會在一小時內收到一封電子郵件、指出「您的產品現在已符合支援資格」。
+. 身為NetApp的新客戶、您也需要建立NetApp支援網站（NSS）使用者帳戶、以便日後啟用支援服務、以及存取技術支援聊天室和網路票證的支援入口網站。前往 http://now.netapp.com/newuser/["NetApp支援註冊網站"] 以執行此工作。您可以提供新登錄Cloud Volumes Service 的不合格產品編號、以加速程序。
+
+
+這是適用Cloud Volumes Service 的不二序號的一次性支援登錄。任何新Cloud Volumes Service 的版本不支援訂閱及後續的新序號也需要啟用支援。如果您對支援註冊有任何問題、請聯絡我們：cvs-support@netapp.com。
+
+
+
+== 取得支援資訊
+
+NetApp以Cloud Volumes Service 多種方式提供對功能的支援。我們全年無休提供豐富的免費自助支援選項、例如知識庫（KB）文章或NetApp社群。從AWS SaaS市場購買的此類訂閱包括透過聊天室、電子郵件、網路票證或電話提供遠端技術支援。Cloud Volumes Service您必須先啟用每個NetApp序號的支援、才能使用這些非自助服務支援選項。需要NetApp支援網站（NSS）SSO帳戶才能進行聊天和網路票證、以及案例管理。
+
+從Cloud Volumes Service 主功能表中選取「** Support」（*支援）索引標籤、即可從SUI存取支援選項。您可用的支援選項取決於您是處於試用模式或訂閱模式。
+
+image::diagram_support_obtain.png[取得支援資訊]
+
+
+
+=== 自我支援
+
+這些選項以試用模式提供、全年無休免費提供：
+
+* https://kb.netapp.com/["知識庫"]選取本節中的連結、即可前往NetApp知識庫、您可在此搜尋Cloud Volumes Service 與更新相關的文章、操作方法、常見問題集或中斷修復資訊。
+* https://docs.netapp.com/us-en/cloud_volumes/aws/["使用手冊"]選擇「*按一下此處*」連結、即可前往Cloud Volumes Service 適用於AWS文件中心的功能。
+* http://community.netapp.com/t5/Cloud-Volumes/bd-p/CloudVolumes["社群"]選擇「*按一下此處*」連結、即可前往Cloud Volumes Service 「不一樣」社群、與同儕和專家交流互動。
+* 電子郵件：選取「意見反應」區段中的「請按一下此處」連結、即可透過cvs-support@netapp.com寄送電子郵件給支援人員。這是提出服務一般問題、提供意見回饋和建議、或尋求協助解決與就職相關的問題的好地方。
+
+
+
+
+=== 訂購支援
+
+除了上述的自助支援選項之外、如果Cloud Volumes Service 您有付費訂閱、也可以與NetApp支援工程師合作解決任何問題。
+
+一旦啟用您的支援序號、您就可以透過下列任一方法存取NetApp技術支援資源。Cloud Volumes Service您必須訂閱有效的Cloud Volumes才能使用這些支援選項。
+
+* https://mysupport.netapp.com/gchat/cloudvolume["聊天室"]這也會開啟支援服務單。
+* https://mysupport.netapp.com/portal?_nfpb=true&_st=initialPage=true&_pageLabel=submitcase["支援服務單"]選擇Cloud Data Services > Cloud Volumes Service 《AWS資料服務
+* https://www.netapp.com/us/contact-us/support.aspx["電話"]報告新問題或致電詢問現有問題單。此方法最適合P1或立即協助。
+
+
+您也可以按一下以申請銷售支援 https://www.netapp.com/us/forms/sales-contact.aspx["聯絡銷售人員"] 連結：
+
+您的支援序號可在服務中從「Support（支援）」功能表選項看到。Cloud Volumes Service如果您在存取服務時遇到問題、且先前已向NetApp註冊序號、請聯絡cvs-support@netapp.com尋求協助。您也Cloud Volumes Service 可以從NetApp支援網站檢視您的支援產品系列編號清單、如下所示：
+
+. 登入 https://mysupport.netapp.com/["mysupport.netapp.com"]。
+. 從「產品」>「我的產品」功能表索引標籤中、選取「產品系列」*「SaaS Cloud Volume」*以找出您所有註冊的序號：
+
+
+image::diagram_support_list_registered_systems.png[檢視安裝的系統]

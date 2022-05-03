@@ -1,0 +1,38 @@
+---
+sidebar: sidebar 
+permalink: aws/reference_known_issues.html 
+keywords: Cloud Volumes Service for AWS limitations and known issues 
+summary: 以下是Cloud Volumes Service AWS的下列已知問題和限制。 
+---
+= 已知問題與限制
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+以下是Cloud Volumes Service AWS的下列已知問題和限制。
+
+* *問題*：如果現有磁碟區僅支援NFSv3、且已使用NFSv4.1或NFSv3和NFSv4.1支援建立或轉換磁碟區、則在未指定NFS版本（ves=3）的情況下、現有磁碟區可能無法掛載。
++
+*因應措施*：將指定NFS版本的選項新增至mount命令、例如「mount -o ves=3...」、或是確保所有磁碟區都已轉換為支援NFSv4.1。請注意、除非指定版本、否則Linux用戶端預設為NFSv4.1。
+
+* *問題*：從快照建立新磁碟區可能會失敗、並顯示「無法為Volume __設定Volume屬性「檔案」訊息...原因：新的計數必須大於目前分配的數量__。
++
+*因應措施*：此問題發生於嘗試從快照建立磁碟區、快照目前已分配的檔案數量比指派給新磁碟區的已分配容量多。您必須增加新磁碟區的分配容量、才能指派足夠的檔案（inode）。請參閱 link:reference_selecting_service_level_and_quota.html#allocated-capacity["選取已分配的容量"] 以取得詳細資料。
+
+* *問題*：網路虛擬介面將在72小時後沒有磁碟區的CVS區域中自動刪除。建立新磁碟區時、您需要重新提供AWS帳戶號碼和CIDR。
++
+*因應措施*：為了避免在閒置期間刪除網路虛擬介面、請保留至少一個磁碟區、並降低配置與服務層級、以將成本降至最低。
+
+* *問題*：訂閱過期的使用者無法登入Cloud Volumes Service 到這個使用者介面、或是無法與API互動。
++
+*因應措施*：請前往AWS Marketplace頁面、以取得Cloud Volumes Service 有關更新訂閱內容的資訊。
+
+

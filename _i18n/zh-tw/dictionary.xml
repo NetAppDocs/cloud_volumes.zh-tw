@@ -1,0 +1,1078 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blocks>
+  <block id="d87b0f737e871fea336b4f2500359709" category="summary">您可以從NetApp Cloud Orchestrator網站建立雲端磁碟區。</block>
+  <block id="da246f4d785119f04f4bc71d836d4110" category="doc">建立雲端磁碟區</block>
+  <block id="ee68e5b99222bbc29a480fcb0d1d6ee2" category="section-title">先決條件</block>
+  <block id="35698d6cc9c191fe3da0a24b66d03f60" category="paragraph">您的AWS環境必須符合特定需求、才能建立第一個雲端磁碟區。對於您計畫部署雲端磁碟區的每個AWS區域、您必須擁有：</block>
+  <block id="c6edceb8cebc49ebbb0854a6151e1d7b" category="list-text">虛擬私有雲（VPC）</block>
+  <block id="e474331e2d11b5bc1ebf067c037ab7a7" category="list-text">連線至VPC的虛擬私人閘道（VGW）</block>
+  <block id="5d39b619ff3d0875befbbc7efebb8a54" category="list-text">VPC的子網路</block>
+  <block id="881647a98def56e8a5d8660f5ac12913" category="list-text">定義的路由包括將在其中執行雲端磁碟區的網路</block>
+  <block id="d98eef44de75c77af79a864fd321bfe2" category="list-text">（可選）Direct Connect閘道</block>
+  <block id="1c62c36d04886b80fc78af5af9a14175" category="paragraph">在某個區域建立第一個雲端磁碟區時、您必須提供下列資訊：</block>
+  <block id="c7a4d5f41a6628927a5f3dc8cbe3f85b" category="list-text">* AWS帳戶ID*：12位數的Amazon帳戶識別碼、不含破折號。</block>
+  <block id="740d5be035e948e76cf57673adb2d55e" category="list-text">*無類別網域間路由（CIDR）區塊*：未使用的IPV4 CIDR區塊。網路前置碼必須介於 /16 和 /28 之間、而且必須位於專為私有網路保留的範圍內（ RFC 1918 ）。請勿選擇與 VPC CIDR 配置重疊的網路。</block>
+  <block id="8bc6a1267631e7efc719b0823643828f" category="inline-link-macro">選取區域</block>
+  <block id="1a2ef8048b932ecee79408bc7aac0ba2" category="list-text">您必須選擇要使用服務的正確地區。請參閱 <block ref="fed7554061f6235eb9cbb1cf6a1fe7f7" category="inline-link-macro-rx"></block>。</block>
+  <block id="75b39ab3345678229acb6ac8a0e5a6e2" category="inline-link-macro">適用於Cloud Volumes Service AWS帳戶設定的NetApp解決方案</block>
+  <block id="bec4ee2a329a5dc066718aaf59fd1e52" category="paragraph">如果您尚未設定所需的AWS網路元件、請參閱 <block ref="bacf78eb53f951a3286830620d5565e5" category="inline-link-macro-rx"></block> 詳細資訊請參閱指南。</block>
+  <block id="19837c9b7feb512deb30e6cfc7b8ff62" category="paragraph">*附註：*當規劃建立SMB Volume時、您必須擁有可連線的Windows Active Directory伺服器。建立磁碟區時、您將輸入此資訊。此外、請確定管理使用者能夠在指定的組織單位（ OU ）路徑中建立機器帳戶。</block>
+  <block id="1246c64cc4c28e7414bd7caf48cd35f6" category="section-title">輸入Volume詳細資料</block>
+  <block id="33b69ef20ded987ec62c187903d78a5a" category="paragraph">填寫「建立Volume」頁面頂端的欄位、以定義磁碟區名稱、大小、服務層級等。</block>
+  <block id="66e17e4749c9270c48bbba9234423875" category="inline-link-macro">已選取區域</block>
+  <block id="940753e5b9fc6075a74b1db65010cdc4" category="inline-link">NetApp Cloud Orchestrator</block>
+  <block id="7e49dd067eb6131e86fd8e564c7935d2" category="list-text">登入之後<block ref="e1ae8f67f4b7e40d13b946f09e02a05e" category="inline-link-rx"></block> 網站上提供您在訂閱期間所提供的電子郵件地址、而且您已經擁有 <block ref="b4f2d1e0d581193822b668c0f317a916" category="inline-link-macro-rx"></block>，單擊* Create new volume*（創建新卷*）按鈕。</block>
+  <block id="38ecca3144a6a5ae246de29d61853d9c" category="image-alt">「建立Volume」頁面</block>
+  <block id="d1a6d1aae33e39997d32fdfc8b293aa9" category="list-text">在「Create Volume」（建立磁碟區）頁面中、選取* NFS*、* SMB*或*雙通訊協定*作為您要建立之磁碟區的傳輸協定。</block>
+  <block id="6b23fea904896e3c4fd2b4391705dc9f" category="list-text">在*名稱*欄位中、指定您要用於磁碟區的名稱。</block>
+  <block id="18182ea2bf5f4443d9e50b6ca7f0a2e8" category="list-text">在*區域*欄位中、選取您要建立磁碟區的AWS區域。此區域必須符合您在AWS上設定的區域。</block>
+  <block id="f27700904a62ff6e06a00916cbde9c03" category="list-text">在*時區*欄位中、選取您的時區。</block>
+  <block id="4d5b8e63717f480726b57183490981f3" category="list-text">在「* Volume path*」（* Volume路徑*）欄位中、指定您要使用或接受自動產生路徑的路徑。</block>
+  <block id="e2797e0311fa11abdc459f7d2e7f7b49" category="list-text">在*服務層級*欄位中、選取磁碟區的效能等級：*標準*、*優質*或*極致*。</block>
+  <block id="43a4addf37bd09753818a033e001e520" category="inline-link-macro">選取服務層級</block>
+  <block id="2498bb2d1d4740c0e55e4a81ffc24bbf" category="paragraph">請參閱 <block ref="159a13c1fbb204344232901db2b637f6" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
+  <block id="f0e510d4fd8ecf737f0fdff2df938ce0" category="list-text">在*已分配容量*欄位中、選取所需的容量。請注意、可用的inode數量取決於分配的容量。</block>
+  <block id="ccddeb0f19b9ffec3baad89f47d3580b" category="inline-link-macro">選取已分配的容量</block>
+  <block id="a62e4605cbe98b23969f5f8a84635981" category="paragraph">請參閱 <block ref="03d96eecc7bfdfcecd22d71657187c7a" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
+  <block id="efa3c5ad14771c22eb93e9bfad991a01" category="list-text">在* NFS版本*欄位中、視您的需求選擇* NFSv3*、* NFSv4.1*或*兩者*。</block>
+  <block id="1a88e36f404f2f38a659ce269445f7af" category="list-text">如果您選取雙通訊協定、可以從下拉式功能表中選取* NTFS *或* UNIX *、在*安全樣式*欄位中選取安全樣式。</block>
+  <block id="e0e8f77700c5127f0d69a2bd10fe6c24" category="paragraph">安全性樣式會影響所使用的檔案權限類型、以及如何修改權限。</block>
+  <block id="35c7690cdd2979341dcfe1409203a6f8" category="list-text">UNIX 使用 NFSv3 模式位元、只有 NFS 用戶端可以修改權限。</block>
+  <block id="74851bf5ac7ba83cb1934d5c1c768a00" category="list-text">NTFS 使用 NTFS ACL 、只有 SMB 用戶端可以修改權限。</block>
+  <block id="c6958989235975768fe5da1f8430e5f8" category="list-text">在* Show snapshot directory*（顯示快照目錄*）字段中，保留可以查看此卷的Snapshot目錄的缺省位置，或取消選中此框以隱藏Snapshot複本列表。</block>
+  <block id="55fed733b1494d1522d0225e7ed268e2" category="section-title">輸入網路詳細資料（每個AWS區域一次設定）</block>
+  <block id="7cb9e7757aeaff71b7ca9d32ba6cafad" category="paragraph">如果這是您第一次在此AWS區域建立雲端磁碟區、則會顯示「*網路*」區段、以便您將Cloud Volumes帳戶連線至AWS帳戶：</block>
+  <block id="f947fba32a64a0a12760e6915387a497" category="list-text">在「* CIDR（IPV4）*」欄位中、輸入所需的區域IPV4範圍。網路首碼的範圍必須介於/16和/28之間。網路也必須屬於專為私有網路保留的範圍（RFC 1918）。請勿選擇與 VPC CIDR 配置重疊的網路。</block>
+  <block id="aa5ea6a107004b364c40ea3cfd629967" category="list-text">在* AWS帳戶ID*欄位中、輸入您的12位數Amazon帳戶識別碼、且不含破折號。</block>
+  <block id="e2a7e1b0e5f6f59b627d2fc40fab294f" category="image-alt">設定網路設定</block>
+  <block id="4854eb549e6538878c4819844120cb0f" category="section-title">輸入匯出原則規則（選用）</block>
+  <block id="bb6e52fff0551a8fa2a4ad22d834e7fc" category="paragraph">如果您選取NFS或雙通訊協定、可以在「*匯出原則*」區段中建立匯出原則、以識別可存取磁碟區的用戶端：</block>
+  <block id="d026032e7430667238eae46d5670f6b8" category="list-text">在*允許的用戶端*欄位中、使用IP位址或無類別網域間路由（CIDR）來指定允許的用戶端。</block>
+  <block id="04f7102bca3b180f0691b811a5991e57" category="list-text">在*存取*欄位中、選取*讀取與寫入*或*唯讀*。</block>
+  <block id="2073725bf2530a7eb9ef004a9f18f081" category="list-text">在*傳輸協定*欄位中、選取使用者存取所用的傳輸協定（或傳輸協定、如果該磁碟區同時允許NFSv3和NFSv4.1存取）。</block>
+  <block id="dec4cc6b03e5860377f58b9b4a6077f0" category="image-alt">新增匯出原則規則</block>
+  <block id="8c957b9a3ed692a6d3fd994376a226f3" category="paragraph">若要定義其他匯出原則規則、請按一下「*+新增匯出原則規則*」。</block>
+  <block id="c387e8b87d015be7778dec231f27c787" category="section-title">啟用資料加密（選用）</block>
+  <block id="a2f1d334c8b990b999f5182df7b34bc3" category="list-text">如果您選取SMB或雙傳輸協定、可以勾選「*啟用SMB3傳輸協定加密*」欄位的方塊來啟用SMB工作階段加密。</block>
+  <block id="7c19445fe7d72699dd4ef814528b3ca3" category="paragraph">*注意：*如果SMB 2.1用戶端需要掛載磁碟區、請勿啟用加密。</block>
+  <block id="7f7c8da7e5bf421630735f6be8de21b1" category="section-title">將磁碟區與Active Directory伺服器（SMB與雙通訊協定）整合</block>
+  <block id="4f9ba56a645e255791c13d95a227e7e5" category="paragraph">如果您選取SMB或雙傳輸協定、您可以選擇將磁碟區與Windows Active Directory伺服器整合、或在* Active Directory *區段中整合AWS託管Microsoft AD。</block>
+  <block id="8675b3d88ef474e29922d386aee74d51" category="paragraph">在*可用設定*欄位中、選取現有的Active Directory伺服器或新增AD伺服器。</block>
+  <block id="7d6e3c06d00b2efd16349d559530fdba" category="paragraph">若要設定新AD伺服器的連線：</block>
+  <block id="a710ecfc0bb3536d8f9da8f5e317d469" category="list-text">在* DNS server*（DNS伺服器*）欄位中、輸入DNS伺服器的IP位址。當參考多個伺服器時、請使用逗號分隔 IP 位址、例如 172.31.25.223 、 172.31.2.74 。</block>
+  <block id="6a4b2fa2aa4ac00bb34a400f24a51ecb" category="list-text">在*網域*欄位中、輸入SMB共用的網域。</block>
+  <block id="b4d9711d0b118127e897c1e0c952b681" category="paragraph">使用 AWS 託管 Microsoft AD 時、請使用「目錄 DNS 名稱」欄位中的值。</block>
+  <block id="144df9198adc8e74333aaa04fda0628d" category="list-text">在「* SMB伺服器NetBios *」欄位中、輸入要建立之SMB伺服器的NetBios名稱。</block>
+  <block id="74383c87802b0b42b2e7fc667c975dcc" category="list-text">在*組織單位*欄位中、輸入「CN=電腦」以連線至您自己的Windows Active Directory伺服器。</block>
+  <block id="32cd7b9f964b4e14757281b9c0e95cce" category="paragraph">使用AWS託管Microsoft AD時、組織單位必須以「OU=&lt;netbios_name&gt;」格式輸入。例如、* OID=AWSmanagedAD*。</block>
+  <block id="075fbcc9db41433bce63ddcdac9310a1" category="paragraph">若要使用巢狀OU、您必須先呼叫最低層級的OU、直到最高層級的OU。例如：* OU = TIRDLEVEL、OU = SECONDLEVEL、OU = FIRSTLEVEL *。</block>
+  <block id="3fb110a46c12c87871188806e72c0b3f" category="list-text">在*使用者名稱*欄位中、輸入Active Directory伺服器的使用者名稱。</block>
+  <block id="9c6fed6c5d85f24a9021628c55dbb81f" category="paragraph">您可以使用任何授權在您要加入SMB伺服器的Active Directory網域中建立機器帳戶的使用者名稱。</block>
+  <block id="29000350d0565c230bbe33ef28ca7186" category="list-text">在*密碼*欄位中、輸入您所指定AD使用者名稱的密碼。</block>
+  <block id="4fbbbcdfcdfad5270a20167c67509f0b" category="image-alt">Active Directory</block>
+  <block id="c95576166e4663a31b82fa1099617567" category="inline-link">設計Active Directory網域服務的站台拓撲</block>
+  <block id="7fd00e2c6b7fddc169d77473e9f42559" category="paragraph">請參閱<block ref="abb2be0c994e7cb7ee24dbd2d510a3e8" category="inline-link-rx"></block> 以取得有關設計最佳Microsoft AD實作的指導方針。</block>
+  <block id="7022d8421ebd7fca86a1202b2053e180" category="inline-link-macro">AWS目錄服務設定、搭配適用於Cloud Volumes Service AWS的NetApp功能</block>
+  <block id="3c189ab8b9737d3e08ce7b9d166a4043" category="paragraph">請參閱 <block ref="eebcb52612726313dceeb3c98c94c66d" category="inline-link-macro-rx"></block> 使用AWS託管Microsoft AD的詳細說明指南。</block>
+  <block id="b79db32b660a9bbc01887de0acbc4f26" category="inline-link-macro">適用於 Windows AD 伺服器的 AWS 安全性群組設定</block>
+  <block id="5258e68685a763ee454fc7ad84a26e3b" category="admonition">您應該遵循 AWS 安全群組設定的指引、讓雲端磁碟區能夠正確地與 Windows Active Directory 伺服器整合。請參閱 <block ref="44a3cafff3b6eb48f1fa4125688b0162" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="c81ef832003f35deb65a481a567fa75d" category="paragraph">*附註：*使用NFS裝載磁碟區的UNIX使用者、將會驗證為Windows使用者「root」（UNIX root）和「pcuser」（所有其他使用者）。使用NFS時、請先確認這些使用者帳戶存在於Active Directory中、然後再掛載雙傳輸協定磁碟區。</block>
+  <block id="e089ec303e9a9e203ceb3e3e14cfc1c2" category="section-title">建立Snapshot原則（選用）</block>
+  <block id="dbe7189fc6872034be4cb75cdc8b109a" category="paragraph">如果您要為此磁碟區建立快照原則、請在「*快照原則*」區段中輸入詳細資料：</block>
+  <block id="3615a0ea112ddfe977410afb3de068b3" category="list-text">選擇快照頻率：*每小時*、*每日*、*每週*或*每月*。</block>
+  <block id="07dcb2348fe0a32858e67b73c2adf96d" category="list-text">選取要保留的快照數量。</block>
+  <block id="c46bd7895819e339ff03355120cc294b" category="list-text">選取快照的拍攝時間。</block>
+  <block id="4c0abf2d4c54820b8d33061abaf30759" category="image-alt">Snapshot原則</block>
+  <block id="37bb666fbc242e5502ded21283fb12ac" category="paragraph">您可以重複上述步驟、或從左側導覽區選取「Snapshot（快照）」索引標籤、以建立其他快照原則。</block>
+  <block id="d86273d53aebfe922c4a88a7ca881f0b" category="section-title">建立Volume</block>
+  <block id="4c5f1fefbbbe2297b8261296cac921f2" category="list-text">向下捲動至頁面底部、然後按一下*「Create Volume」（建立磁碟區）*。</block>
+  <block id="db2a2b62b79d1cc692490f5ea00e796e" category="paragraph">如果您先前已在此區域建立雲端磁碟區、新的磁碟區會出現在「Volumes（磁碟區）」頁面中。</block>
+  <block id="51b47300dc2f110a300287e8331eb86e" category="paragraph">如果這是您在此AWS區域建立的第一個雲端磁碟區、而且您已在本頁的「網路」區段中輸入網路資訊、則會顯示進度對話方塊、指出您必須遵循的後續步驟、才能將磁碟區與AWS介面連線。</block>
+  <block id="18994c3aec9d3d9d5d7e8daee82c2573" category="inline-image-macro">接受虛擬介面對話方塊</block>
+  <block id="4d1f206cf88ee45bbcba5454577ebb86" category="paragraph"><block ref="4d1f206cf88ee45bbcba5454577ebb86" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="01ce52770c1296671a8937195ecdbbb0" category="list-text">接受第6.4節所述的虛擬介面 <block ref="5de60f3d06acf315859719dc096dad3a" category="inline-link-macro-rx"></block> 指南。您必須在10分鐘內執行此工作、否則系統可能會逾時。</block>
+  <block id="3d7b51a881694d85de2da12eb4619cde" category="paragraph">如果介面未在10分鐘內出現、則可能是組態問題、此時您應該聯絡支援部門。</block>
+  <block id="bbc84ab4db08d3d44fa09d8fe19b02c4" category="inline-image-macro">即會建立Volume</block>
+  <block id="f3d8a56fbe7513d4b6b517a8fc8cd238" category="paragraph">在建立介面和其他網路元件之後、您建立的磁碟區會顯示在「Volumes」（磁碟區）頁面中、「Actions」（動作）欄位會列為「Available」（可用）。<block ref="8cbf8912fb3b2f99322df366c8acaa2b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f216fc5e384284eaa455a2e659e036ea" category="inline-link-macro">掛載雲端磁碟區</block>
+  <block id="aaf4892f631f96038e72a27c95cd4a65" category="paragraph">繼續 <block ref="3a29a578a1c336cebd60475bac919dfb" category="inline-link-macro-rx"></block>。</block>
+  <block id="e9c44bbfd795a5d63d74c6a77afee70d" category="summary">法律聲明提供版權聲明、商標、專利等存取權限。</block>
+  <block id="30d965eef5ba25c6b9998ae38270b43e" category="doc">法律聲明</block>
+  <block id="6016a2b341113bf496b719905398ecd2" category="section-title">版權</block>
+  <block id="d41d8cd98f00b204e9800998ecf8427e" category="inline-link"></block>
+  <block id="09e95b77ffe81fe465a83ba99efad5c8" category="paragraph"><block ref="09e95b77ffe81fe465a83ba99efad5c8" category="inline-link-rx"></block></block>
+  <block id="126a02652da6de02962cf1b654fd6376" category="section-title">商標</block>
+  <block id="c4ce4761e466527d26b3e3d5ed1006fd" category="paragraph">NetApp 、 NetApp 標誌及 NetApp 商標頁面上列出的標章均為 NetApp 、 Inc. 的商標。其他公司與產品名稱可能為其各自所有者的商標。</block>
+  <block id="7aa531e9acfe2b98e34d2c92fe9846ff" category="paragraph"><block ref="7aa531e9acfe2b98e34d2c92fe9846ff" category="inline-link-rx"></block></block>
+  <block id="be89498d2f8a22ce47c02ba9795fe2af" category="section-title">專利</block>
+  <block id="d0b19d36be2c5f16e9aef46c8a452d3d" category="paragraph">如需最新的 NetApp 擁有專利清單、請參閱：</block>
+  <block id="d7f1fbcf9ce4e42f705add574d262b2c" category="paragraph"><block ref="d7f1fbcf9ce4e42f705add574d262b2c" category="inline-link-rx"></block></block>
+  <block id="56c34c6410dd45c5cec44149ad0ce037" category="section-title">隱私權政策</block>
+  <block id="fc248f74f5e36542f7f5627b8610e9a3" category="paragraph"><block ref="fc248f74f5e36542f7f5627b8610e9a3" category="inline-link-rx"></block></block>
+  <block id="c0227cef6f07a8cd2ac72f2945b031aa" category="section-title">開放原始碼</block>
+  <block id="9b73989307c1975dfa4d5e1581e4afe8" category="paragraph">通知檔案提供有關 NetApp 軟體所使用之協力廠商版權與授權的資訊。</block>
+  <block id="fdd6f311911c5ac6b3d7fa483c4361a4" category="inline-link-macro">NetApp Cloud Volumes Service 產品注意事項</block>
+  <block id="2eddbc97a9bb8863399f4edfdcd0d4c7" category="list-text"><block ref="2eddbc97a9bb8863399f4edfdcd0d4c7" category="inline-link-macro-rx"></block></block>
+  <block id="8a11b7df22322ab2814174e7745c863f" category="inline-link-macro">關於本產品的注意事項ONTAP</block>
+  <block id="0df28895f8b16f3a9b7b4a540bc2f0ae" category="list-text"><block ref="0df28895f8b16f3a9b7b4a540bc2f0ae" category="inline-link-macro-rx"></block></block>
+  <block id="db14c162453073ef938af228cf5fbafb" category="summary">歡迎使用適用於Cloud Volumes Service AWS的NetApp解決方案文件入口網站。</block>
+  <block id="a56dd8ec8161b0604a81c32a36cb8a74" category="doc">NetApp Cloud Volumes Service for AWS 文件</block>
+  <block id="cffa933a10458e8374fbef2e21507c9d" category="paragraph">NetApp Cloud Volumes Service for AWS 是雲端原生檔案服務、可透過 NFS 和 SMB 提供 NAS 磁碟區的 All Flash 效能。此服務可讓任何工作負載（包括舊版應用程式）在 AWS 雲端上執行。</block>
+  <block id="2756711ac396119b969ba6b553ad278e" category="section-title">使用適用於 AWS 的 Cloud Volumes Service 效益</block>
+  <block id="55208bdbb7b4fa51eb7ae63a26d71791" category="paragraph">AWS 的支援提供下列優點： Cloud Volumes Service</block>
+  <block id="3c853c4f551f244cc50b205d0109390d" category="list-text">一致的高效能</block>
+  <block id="41ef7ad0f46081cf00f281841023188c" category="list-text">不影響效能的資料保護</block>
+  <block id="aa22ee2f190c11df7537e86bb610faba" category="list-text">即時複製以支援作業、開發及測試工作流程</block>
+  <block id="a28b8cc0668ed4d431f1863c997f5b75" category="list-text">支援NFSv3和NFSv4.1、SMB 2.1、3.0和3.1.1 NAS傳輸協定</block>
+  <block id="cdcd5a58d731470edacf43406346e5d2" category="list-text">安全存取 Linux 和 Windows Elastic Container Service （ ECS ）執行個體、並支援下列項目：</block>
+  <block id="2d284a6be9a90f9d7d98ef4f9543b6b1" category="list-text">Amazon Linux 2 、 Red Hat Enterprise Linux 7.5 、 SLES 12 SP3 及 Ubuntu 16.04 LTS</block>
+  <block id="b5ef382c617bf480eb64c50a38e3cbfa" category="list-text">Windows Server 2008 R2 、 Windows Server 2012 R2 和 Windows Server 2016</block>
+  <block id="ece95ef94c2dfbf3d6cac29bd306038d" category="list-text">完全託管的服務、因此不需要設定或管理儲存設備</block>
+  <block id="17dfcb3ae68171678fbe713c5cfb13eb" category="list-text">可選擇搭售和隨用隨付定價</block>
+  <block id="3cf6c89cfed847168ff080c9d334a94b" category="section-title">執行熱門工作</block>
+  <block id="fed7554061f6235eb9cbb1cf6a1fe7f7" category="list-text"><block ref="fed7554061f6235eb9cbb1cf6a1fe7f7" category="inline-link-macro-rx"></block></block>
+  <block id="520f043b5bdac5e7f9049b1a384638af" category="list-text"><block ref="520f043b5bdac5e7f9049b1a384638af" category="inline-link-macro-rx"></block></block>
+  <block id="3a29a578a1c336cebd60475bac919dfb" category="list-text"><block ref="3a29a578a1c336cebd60475bac919dfb" category="inline-link-macro-rx"></block></block>
+  <block id="5eadbf3a82cbca9c34336a6621ddc4c0" category="inline-link-macro">為雲端磁碟區建立隨需快照</block>
+  <block id="1dfd5fcf7214f027cdc25e3fd14d3d6e" category="list-text"><block ref="1dfd5fcf7214f027cdc25e3fd14d3d6e" category="inline-link-macro-rx"></block></block>
+  <block id="6681a3ff8cf8540f05355c680f9f8fd5" category="section-title">深入瞭 Cloud Volumes Service 解適用於 AWS 的功能</block>
+  <block id="9c83e144e5481ac6766f4055e566594d" category="section-title">如需詳細資訊、請參閱</block>
+  <block id="49fc376ed35249f3841846ede4dab884" category="inline-link">NetApp Cloud Central</block>
+  <block id="24d234fce5b4e0608a37069ac65a0027" category="list-text"><block ref="24d234fce5b4e0608a37069ac65a0027" category="inline-link-rx"></block></block>
+  <block id="d54cd37c0797b45abe231544dc9fc6f6" category="inline-link">搶先瞭解Cloud Volumes Service 全新的NetApp for AWS</block>
+  <block id="379fc28f0bbce493c5460a2ec6ea1c8c" category="list-text"><block ref="379fc28f0bbce493c5460a2ec6ea1c8c" category="inline-link-rx"></block></block>
+  <block id="f44080b03577203d6c764d413f5ed1ea" category="summary">您可以刪除Cloud Sync 不再需要的不再需要的關聯。</block>
+  <block id="83b9a291807c68f75e73e458476c8ab3" category="doc">刪除Cloud Sync 不合作關係</block>
+  <block id="f3a29486bed19a90f2da6d007818b427" category="list-title">步驟</block>
+  <block id="5fe795faf539f79e16bea4cf2a17ca87" category="list-text">前往「Volume」（磁碟區）頁面上的「Sync」（同步）頁面或「Sync」（同步）索引標籤。</block>
+  <block id="78868aa9d3e48d0f5ae3596c531f2e0a" category="list-text">按一下您要刪除之關聯的方塊、按一下「*動作*」、然後選取「*刪除關聯/秒*」。</block>
+  <block id="6fe968fbed96f25c1102441d2d1e7341" category="list-text">在確認對話方塊中、輸入「刪除」進行確認、然後按一下「*刪除*」。</block>
+  <block id="440c69ab0022ce5c91acb45580969321" category="summary">您可以刪除不再需要的雲端磁碟區。</block>
+  <block id="bc5244252503ef8a3671a88565a540c9" category="doc">刪除雲端磁碟區</block>
+  <block id="e7d176ac7539a52a08943f65ecc19e32" category="list-text">從所有用戶端卸載 Volume ：</block>
+  <block id="23394565644d9607267c2577190c4654" category="list-text">在 Linux 用戶端上、請使用「 umount 」命令。</block>
+  <block id="b70c71384dfeac0e536c343872f2fb55" category="list-text">在 Windows 用戶端上、按一下 * 中斷網路磁碟機 * 。</block>
+  <block id="e53edf03ed15597dedd48cee102d7a10" category="list-text">從「Volumes（磁碟區）」頁面中、選取對應的核取方塊、按一下「* Actions（*動作）」*、然後從下拉式清單中選取「* Delete Volume/S*（*刪除磁碟區/秒*）」、以指定要刪除的磁碟區</block>
+  <block id="5371fba68a83007644927951787e6122" category="list-text">在確認對話方塊中、輸入「刪除」以確認您要刪除磁碟區、然後按一下「*刪除*」。</block>
+  <block id="85d8107d25877ec192d67090bebbb48e" category="summary">您可以完成幾個快速步驟、開始使用Cloud Volumes Service 適用於AWS的功能。</block>
+  <block id="ded5309ebea6d4cf5ed055e7034efeb8" category="doc">快速入門指示</block>
+  <block id="98cd9fd436f3f06a4f633a68293ace22" category="inline-link-macro">[ zh</block>
+  <block id="c4e8dfa1afd29fe4a9774a9a68d87b5f" category="inline-link-macro">[j</block>
+  <block id="5ac3e76d06eb5d3e2a8eb1e2a93d6020" category="paragraph">*附註：*您必須先設定所需的AWS網路元件、才能建立雲端磁碟區。請參閱_NetApp Cloud Volumes Service 《AWS帳戶設定指南》_ <block ref="ea1749da35be089b2ed08e644f3246da" category="inline-link-macro-rx"></block>]|<block ref="4b61c911928703a63f9e7f084d89a163" category="inline-link-macro-rx"></block>]如果您尚未完成這些步驟。</block>
+  <block id="e07d1c8552b02a9af8096c445a1f98f0" category="floating-title">span class="image"&gt;&lt;img./media/number1.pnpn" alt="the number1"&gt;&lt;/span&gt;&lt;a href="task_Selecting_region.html"&gt;選擇區域</block>
+  <block id="348eb763eb8d49a86500b8ed6b6f30cb" category="paragraph">指定您計畫建立雲端磁碟區的AWS區域。</block>
+  <block id="89eb2085607ad7d0a08819a56cfd9b5c" category="floating-title">span class="image"&gt;&lt;img src="/media/number2.pnpn" alt="the Number 2"&gt;&lt;/span&gt;&lt;a href="task_creating _c雲端 磁碟區_for_AWs.html"&gt;建立雲端磁碟區&lt;/a&gt;</block>
+  <block id="c159d360fd7e6de751d0c82932215e11" category="paragraph">在AWS雲端中建立雲端磁碟區、方法是指定大小和服務層級、然後定義其他選項。</block>
+  <block id="9052c494a743afff74600701fd6f6b27" category="floating-title">span class="image"&gt;&lt;img src="/media/number3.png" alt="the Number 3"&gt;&lt;/span&gt;&lt;a href="task_jeting_Cloud磁碟區_for_AWs.html"&gt;掛載雲端磁碟區&lt;/a&gt;</block>
+  <block id="5374594906015b13962ce3076af203a6" category="paragraph">使用適用於Linux和UNIX用戶端的NFS、或適用於Windows用戶端的SMB、將雲端磁碟區掛載到AWS執行個體。</block>
+  <block id="86065a7c5be198b0b451c329712a6e5e" category="summary">您可以視需要為雲端磁碟區建立或修改快照原則。</block>
+  <block id="c1a54c459a2c68ef7bce2776b02dda72" category="doc">建立或修改快照原則</block>
+  <block id="5aca16be49856649ef6f361c031985cf" category="list-text">在「Volumes（磁碟區）」頁面中、按一下磁碟區名稱、然後選取* Snapshot polici*。</block>
+  <block id="4c2120dd76d528a83820084c1413b9d8" category="list-text">選取*每小時*、*每日*、*每週*或*每月*、以指定建立快照的頻率。</block>
+  <block id="0dea4e4a8d31f5f42a6d768847468712" category="paragraph">已設定的原則會以綠色點標示。未定義的原則會以紅點標示。</block>
+  <block id="95f0f96e7a13d18ec4b4cc683cac354a" category="list-text">選取您要保留的快照數目。</block>
+  <block id="d83574476baea70ecfe273fcb08a92b1" category="list-text">選取應拍攝快照的日期、小時和分鐘。</block>
+  <block id="fea98e2809d15fb87a8bbea9800bd2be" category="list-text">如果您想要建立不同頻率的其他快照、例如每月和每日快照、請重複步驟2到4。</block>
+  <block id="7568b0b850141bed61ca92cb7e6bc5f8" category="paragraph"><block ref="7568b0b850141bed61ca92cb7e6bc5f8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7d9525412e509e5ed89e6eb646ce23d3" category="list-text">如果*已啟用*按鈕尚未設定為*開啟*、請按一下按鈕以啟用或重新啟用原則。</block>
+  <block id="3dca1b912e3d43e2a746fbcde32a6018" category="list-text">按一下*儲存變更*。</block>
+  <block id="75e22bc0bd8a367d4636c51b9755302f" category="summary">您可以刪除不再需要的匯出原則規則。</block>
+  <block id="f2ad816f97d17f57e40c015ccbc369d6" category="doc">刪除匯出原則規則</block>
+  <block id="a463e3464532c364ba51bf909b2d7c83" category="list-text">按一下磁碟區名稱、然後選取*匯出原則*。</block>
+  <block id="4679a1d210be95f431d4a0bb6d746a75" category="list-text">單擊* X*以查看要刪除的策略規則。</block>
+  <block id="17f8876fa5de4bb64c2d9e7c042e2497" category="inline-image-macro">刪除匯出原則</block>
+  <block id="556c65707182e8e81aca5636c0cc0e13" category="paragraph"><block ref="556c65707182e8e81aca5636c0cc0e13" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2ca6d31f8d60669a0f87dad46b3f3150" category="summary">雲端磁碟區簡單易用、部署快速。部分先決條件適用於使用Cloud Volumes Service 適用於AWS的功能。</block>
+  <block id="32ac6e1aa2f558fdf3c0cfa9da90aaf9" category="doc">AWS先決條件適用的部分Cloud Volumes Service</block>
+  <block id="4fe27e17b02228491de0c851dbac97d3" category="paragraph">雲端磁碟區簡單易用、部署快速。部分先決條件適用於使用Cloud Volumes Service 適用於AWS的功能。</block>
+  <block id="94a6dfdf4a3ed548fefdb4adca150f05" category="paragraph">您必須先訂閱Cloud Volumes Service 適用於AWS的功能、才能執行本文件所述的Cloud Volumes工作。訂購程序包括使用服務所需的初始設定與組態。</block>
+  <block id="924988a65a07792cd431caa7102e4b91" category="paragraph">請參閱<block ref="b4ffe6fc9debe4aaf5715606bd5ac041" category="inline-link-rx"></block> 頁面以取得更多資訊。</block>
+  <block id="08d3f7987f9191254ac2a098580ceca6" category="summary">您可以從「Volumes（磁碟區）」或「Snapshots（快照）」頁面建立雲端磁碟區的隨需快照。</block>
+  <block id="0b24d7ddffbb29497b17927a7d594dc4" category="section-title">從「Volumes（磁碟區）」頁面建立快照</block>
+  <block id="f164a8e831a3a815b4407d42da65ff1c" category="list-text">按一下磁碟區名稱、選取* Snapshots*、然後按一下*+ Create new snapshot*。</block>
+  <block id="97f92a716f462fcd2526684bae637352" category="list-text">輸入快照的名稱、或使用自動產生的名稱。</block>
+  <block id="c5bf430593e42ecdfdafbb40e81e38eb" category="list-text">選取磁碟區名稱、然後從下拉式清單中選取您要建立快照的磁碟區。</block>
+  <block id="98f824fcf352eba6d33065f2f741a1ef" category="list-text">按一下「*建立SnapShot *」。</block>
+  <block id="274058659e495fd9c42f5042b420f59f" category="paragraph">此時會出現建立的快照。</block>
+  <block id="f58ecdfd2fc8906a44c80f16e04d0174" category="section-title">從「Snapshot（快照）」頁面建立快照</block>
+  <block id="35d8e3c0405b8aa0b608015318c7bd97" category="list-text">按一下「*+建立新快照*」。</block>
+  <block id="c16419e6ff4ca77861aa35637895dcd7" category="list-text">從下拉式清單中、選取您要建立快照的磁碟區。</block>
+  <block id="9297331ca7cbadab93fdcead25710142" category="paragraph">現在已列出建立的快照。</block>
+  <block id="3d1f395f071b82aa2483997ed6a950f4" category="summary">您可以視需要將快照還原至新磁碟區。</block>
+  <block id="67738a79260ff9449a61ca45df2ab602" category="doc">將快照還原至新磁碟區</block>
+  <block id="8daaa955f0d018ade75a4c07aa92b4f8" category="list-text">在「Snapshot（快照）」頁面或「Volume details（磁碟區詳細資料）」的「Snapshots（快照）」區段中、選取要還原的快照、按一下「* Available（可用）」*、然後選取「* Restore to Volume"（</block>
+  <block id="a45ac00db210e447bf3e0306a3317848" category="list-text">在Create Volume（建立Volume）對話方塊中、輸入新Volume的名稱、並視需要編輯其他設定。</block>
+  <block id="34ee9e64e22b96fe684dd2268d670864" category="list-text">檢閱設定、然後按一下「*建立磁碟區*」以完成將快照還原至新磁碟區的作業。</block>
+  <block id="8200b1de489c95095faff60ea363d1bc" category="summary">如果您想要在短時間內停止建立快照、同時保留快照原則設定、可以停用快照原則。</block>
+  <block id="4a61d7d79701fa8cda34100236b743ac" category="doc">停用快照原則</block>
+  <block id="f2dd955514c60fad76437ba0f7550a7f" category="paragraph">您可以停用快照原則、在短時間內停止建立快照、同時保留您的快照原則設定。</block>
+  <block id="5c2a7b98dbf4984dc5a8077cc2209264" category="list-text">按一下「*已啟用*」按鈕*「關閉*」、即可停用快照的建立。</block>
+  <block id="1d4ea42cd22f735c69c50ec8e0d347c9" category="inline-image-macro">「啟用快照原則」按鈕</block>
+  <block id="56f2499084530f15e1dd7e25fd69cb80" category="paragraph"><block ref="56f2499084530f15e1dd7e25fd69cb80" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1286c3c4202e7e744c12c6a5a9d6eae5" category="paragraph">當您想要重新啟用快照原則時、請按一下「*已啟用*」按鈕以「*開啟*」、然後按一下「*儲存變更*」。</block>
+  <block id="a30ef1dc943afe195679c63f621c5de1" category="summary">利用此關聯、您可以將資料同步至雲端磁碟區或從雲端磁碟區同步。Cloud Sync</block>
+  <block id="9584de5f451ba290f9ee51d34ea31394" category="doc">建立Cloud Sync 彼此之間的不一樣關係</block>
+  <block id="135b308ed83c53f1516b7c754566d1c4" category="list-title">開始之前</block>
+  <block id="5edd2ba906ba52517ebdb24395edfad6" category="list-text">您必須已經擁有Cloud Sync 一個不必要的資料代理程式。</block>
+  <block id="0b9d898ef08ae0a527e709926f601b27" category="inline-link-macro">建立Cloud Sync 一個資料代理程式</block>
+  <block id="50d707f58d3099957988dcbedf22f399" category="paragraph"><block ref="50d707f58d3099957988dcbedf22f399" category="inline-link-macro-rx"></block></block>
+  <block id="29baeaf751978df46659760a343a669c" category="list-text">資料代理IP位址必須同時新增至來源和目標磁碟區的匯出原則。</block>
+  <block id="b21eaf7e4619c762b7bf17348f2fe553" category="paragraph">目標磁碟區上的匯出原則必須允許資料代理程式的寫入存取權。</block>
+  <block id="badd31e1f4f5929ae6e6051c43acc459" category="inline-link-macro">建立其他匯出原則規則</block>
+  <block id="92ac5b93eac333d6ed9e0e69d3115aaa" category="paragraph"><block ref="92ac5b93eac333d6ed9e0e69d3115aaa" category="inline-link-macro-rx"></block></block>
+  <block id="ac44e5ceba504ad4024e6f887af9dcaa" category="inline-link">支援服務Cloud Sync</block>
+  <block id="262372b527aa43f160ed4faa45b11757" category="paragraph">整合到支援不支援的支援功能目前僅支援NFSv3。Cloud Sync Cloud Volumes Service如果您想要在SMB磁碟區之間同步、請使用<block ref="7b16cbffe4f261ace2aa399d57889e44" category="inline-link-rx"></block> 直接（cloudsync.netapp.com）。</block>
+  <block id="713102bd718701d81f12310137c726a0" category="list-text">按一下*「建立新關係」*、建立Cloud Sync 一個「不相關」關係。</block>
+  <block id="4d65ef8cf84d37cbb99560183afc8431" category="list-text">請採取下列其中一項行動：</block>
+  <block id="6c40fca4086e30fd4007f910e8b9d463" category="list-text">若要將資料同步至磁碟區、請選取*使用Volume做為目標*。</block>
+  <block id="a8d48feeab61a71b2a50cf8f11966101" category="list-text">若要從Volume同步資料、請選取*使用Volume做為來源*。</block>
+  <block id="fd06bef5818ad51a79a072161931b895" category="list-text">在*主機*欄位（未填入）中、輸入您要同步或同步的NFS伺服器IP位址。</block>
+  <block id="e79d38c4a43db031ff494ac78b2c5cd4" category="paragraph">幾分鐘後、系統會自動探索可用匯出的清單。</block>
+  <block id="f2036709ae7c5bb1355d71da1454dac2" category="list-text">在*匯出*欄位中、選取其中一個可用匯出。</block>
+  <block id="61015974bec548b3b5586484eb7413f7" category="list-text">（選用）如果您想要在從來源刪除檔案時刪除目標檔案、請勾選*從來源刪除檔案時刪除目標檔案*方塊。</block>
+  <block id="92f136eec1b6f3fa355ff970d44a903c" category="list-text">按一下「*建立關係*」。</block>
+  <block id="ba6f9b0fb69eab0140a64107003c7b49" category="paragraph">隨即顯示關係狀態、檔案進度欄位會顯示複製的檔案數量。</block>
+  <block id="6394dfb6ad4f4dfc002a350b4e0d335d" category="summary">您可以從「Volumes or Snapshots」（磁碟區或快照）頁面刪除快照。</block>
+  <block id="2f904ee6008397e7f99e9f0555d41276" category="doc">刪除快照</block>
+  <block id="c50bbf87cb333b45731afcd2dc9cf17a" category="section-title">從「Volumes（磁碟區）」頁面刪除快照</block>
+  <block id="7a9237e616becd923c2ebbba4563c273" category="list-text">按一下磁碟區名稱、然後選取* Snapshots*以查看磁碟區的快照清單。</block>
+  <block id="9a9cf07ba560da56fc2e7b7bea23f524" category="list-text">選取對應的核取方塊、按一下*「Actions」（動作）*、然後從下拉式清單中選取*「Delete snapshot/s*」、以指定您要刪除的快照。</block>
+  <block id="bf967386910f61504fb53108a0298d19" category="paragraph">或者、您也可以按一下「動作」下的「*可用*」、然後從下拉式清單中選取「*刪除snapshot *」。</block>
+  <block id="09f8028ca28cba34eaf92d19e5970bd0" category="section-title">從「Snapshot（快照）」頁面刪除快照</block>
+  <block id="27cb14677321b6ef499cc15bcf125416" category="list-text">（選用）使用搜尋方塊來篩選列出的快照。</block>
+  <block id="77231c870dc9aeccee4a56fd6274db6d" category="summary">以下是Cloud Volumes Service AWS的下列已知問題和限制。</block>
+  <block id="fd1a06373f49d3ccd9bc28e476270b72" category="doc">已知問題與限制</block>
+  <block id="e65d325097e18ab96473896f6252e103" category="list-text">*問題*：如果現有磁碟區僅支援NFSv3、且已使用NFSv4.1或NFSv3和NFSv4.1支援建立或轉換磁碟區、則在未指定NFS版本（ves=3）的情況下、現有磁碟區可能無法掛載。</block>
+  <block id="6b582d170adeff7858e636d8688553af" category="paragraph">*因應措施*：將指定NFS版本的選項新增至mount命令、例如「mount -o ves=3...」、或是確保所有磁碟區都已轉換為支援NFSv4.1。請注意、除非指定版本、否則Linux用戶端預設為NFSv4.1。</block>
+  <block id="ea065621eb7a1c456ed58ba0e8947bc7" category="list-text">*問題*：從快照建立新磁碟區可能會失敗、並顯示「無法為Volume __設定Volume屬性「檔案」訊息...原因：新的計數必須大於目前分配的數量__。</block>
+  <block id="b29eee0342f918569b8ea64c909e70a6" category="paragraph">*因應措施*：此問題發生於嘗試從快照建立磁碟區、快照目前已分配的檔案數量比指派給新磁碟區的已分配容量多。您必須增加新磁碟區的分配容量、才能指派足夠的檔案（inode）。請參閱 <block ref="03d96eecc7bfdfcecd22d71657187c7a" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
+  <block id="28b3a9ecb69f8af46affe94c1ca3c15e" category="list-text">*問題*：網路虛擬介面將在72小時後沒有磁碟區的CVS區域中自動刪除。建立新磁碟區時、您需要重新提供AWS帳戶號碼和CIDR。</block>
+  <block id="fd99bc77eb960aa7e29912794c166c21" category="paragraph">*因應措施*：為了避免在閒置期間刪除網路虛擬介面、請保留至少一個磁碟區、並降低配置與服務層級、以將成本降至最低。</block>
+  <block id="684efdafc2aa207cfcf90a145bc1f138" category="list-text">*問題*：訂閱過期的使用者無法登入Cloud Volumes Service 到這個使用者介面、或是無法與API互動。</block>
+  <block id="4a997170782a4cc2ec95f310f150d558" category="paragraph">*因應措施*：請前往AWS Marketplace頁面、以取得Cloud Volumes Service 有關更新訂閱內容的資訊。</block>
+  <block id="c8183a8f29be06a75306004e7b83b8e1" category="summary">您可以建立其他匯出原則規則、以啟用靈活的用戶端存取。例如、您可以指定給定的IP範圍應該只擁有磁碟區的唯讀存取權。</block>
+  <block id="fb38b28c54a9e3b34dea9ed233f56a6b" category="list-text">按一下「*+新增匯出原則規則*」。</block>
+  <block id="dbf4e34206a31801abd0cfefa4e6ad20" category="list-text">設定下列欄位的值：</block>
+  <block id="c84536fb3c475f36dd94316a1e964b23" category="list-text">*允許的用戶端*</block>
+  <block id="5c4fb2e80c745961db1f1b122d90daa6" category="list-text">*存取類型*</block>
+  <block id="9bb041017bc5d336c6f552e8516c6e2f" category="summary">您可以修改現有的磁碟區、包括變更磁碟區名稱、已分配的容量或服務層級。</block>
+  <block id="08c5f538951ec3e1d10fb5c572936f1e" category="doc">修改雲端磁碟區</block>
+  <block id="70d3d298cacf009b7e7bfcd2a08433e6" category="list-text">登入<block ref="e1ae8f67f4b7e40d13b946f09e02a05e" category="inline-link-rx"></block>。</block>
+  <block id="231df94443f6cd64d5d2c4270ce00ff3" category="list-text">按一下您要管理的磁碟區名稱。</block>
+  <block id="92ade2558ccf062326e216774461e2bc" category="list-text">視情況修改下列Volume欄位：</block>
+  <block id="49ee3087348e8d44e1feda1917443987" category="list-text">名稱</block>
+  <block id="189f63f277cd73395561651753563065" category="list-text">標記</block>
+  <block id="fba79ccafdb2717d0f2107ecca0bab16" category="list-text">已分配容量</block>
+  <block id="6d59be48f566a73e053e12167b279be5" category="list-text">服務層級</block>
+  <block id="fa3a2b48f3b3b3b5ea1ca735ca1dbb2a" category="paragraph">變更服務層級不會造成中斷、也不會影響用戶端資料存取。</block>
+  <block id="a316230541ad1a9b54deaff69c0c527d" category="paragraph">請注意、可用的inode數量取決於分配的容量。</block>
+  <block id="be23d9937449997aeea8905aa6d4bfc9" category="inline-link-macro">選取適當的服務層級和已分配的容量</block>
+  <block id="feea0043a4123253fb2a5bb1e3f2c629" category="paragraph">請參閱 <block ref="1df882ef3fd92ff8f9d6b863dc00aa54" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
+  <block id="62a8d0c8fcff03f0622fc6cbd111dbec" category="summary">您可以視需要修改磁碟區的匯出原則規則。</block>
+  <block id="bd6a37a7558217618594fbda64bc80bc" category="doc">修改匯出原則規則</block>
+  <block id="3c4facb5eb90728a1c0a6e5d4157dd59" category="list-text">若要變更現有的匯出原則規則、請視需要修改下列欄位：</block>
+  <block id="b033db96cf2833d3637e7b2b2a7dc879" category="summary">您可以將雲端磁碟區掛載至 AWS 執行個體。雲端磁碟區目前支援適用於Linux和UNIX用戶端的NFSv3和NFSv4.1、以及適用於Windows用戶端的SMB 2.1、3.0和3.1.1。</block>
+  <block id="9ffb10eae8fc633ca6f16dadaba49b52" category="paragraph">您可以將雲端磁碟區掛載至 AWS 執行個體。雲端磁碟區目前支援適用於Linux和UNIX用戶端的NFSv3和NFSv4.1、以及適用於Windows用戶端的SMB 2.1、3.0和3.1.1。</block>
+  <block id="7d3e2b7307444071e2aff9ce902f88d2" category="paragraph">* 附註： * 請使用您用戶端所支援的反白傳輸協定 / 方言。</block>
+  <block id="edf98d71e9ead5b679c1110ac3ecf1b6" category="list-text">按一下藍色問號（？）、取得您所建立磁碟區的掛載指示。 在Volume名稱旁的Export Paths（匯出路徑）欄位結尾。</block>
+  <block id="b707ea881a434e6f1311733c415823f9" category="paragraph">當您將游標暫留在問號上時、會顯示*顯示掛載指示*。</block>
+  <block id="d50e8af1a37f2f146c82bbd2994263e9" category="inline-image-macro">顯示掛載指示</block>
+  <block id="ee33b97ca9b14ea34add893e795143a3" category="paragraph"><block ref="ee33b97ca9b14ea34add893e795143a3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="50c44b570d181bb18058f8b2c446ff85" category="list-text">按一下問號以顯示掛載指示。</block>
+  <block id="f8b7bb7f28d1f1a0e9534f8d8582d615" category="paragraph">* NFS 範例： *</block>
+  <block id="4817b93a9db766f5959990256de64ac8" category="inline-image-macro">NFS的掛載指示</block>
+  <block id="0bf04c2d2bf11553852f68735d4b7a17" category="paragraph"><block ref="0bf04c2d2bf11553852f68735d4b7a17" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cb3bef40f931522adf1b31bfb5ba4e1b" category="paragraph">「 rsize 」和「 wsize 」選項所定義的最大 I/O 大小為 1048576 、不過對於大多數使用案例、建議使用 65536 。</block>
+  <block id="db5d4fc10778d421fd3beb8b0e92b854" category="paragraph">請注意、除非指定版本、否則Linux用戶端預設為NFSv4.1。</block>
+  <block id="c33a261ec68784a847d41ccecc103bc1" category="paragraph">* 中小企業範例： *</block>
+  <block id="b51b4019a8ec4841677f28fc041aa3f2" category="inline-image-macro">SMB的掛載指示</block>
+  <block id="4a2cc8ebc3353a6428da6806b7d93166" category="paragraph"><block ref="4a2cc8ebc3353a6428da6806b7d93166" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="551922b0bc90cc1e1c104a41677df6f3" category="list-text">使用 SSH 或 RDP 用戶端連線至 Amazon Elastic Compute Cloud （ EC2 ）執行個體、然後依照執行個體的掛載指示進行。</block>
+  <block id="48bdce5c154a8b0847bc13ad135c652b" category="paragraph">完成掛載指示中的步驟之後、您已成功將雲端磁碟區掛載至 AWS 執行個體。</block>
+  <block id="5a4ffc2a48fff0d5a02140c3350feb15" category="summary">AWS 的成本取決於服務層級和您選擇的已分配容量。 Cloud Volumes Service選擇適當的服務層級和容量、以最低成本滿足您的儲存需求。</block>
+  <block id="f54527d3facbaa2f576181ccd64f2a6b" category="paragraph">AWS 的成本取決於您選擇的 _ 服務層級 _ 和 _ 分配容量 _ 。 Cloud Volumes Service選擇適當的服務層級和容量、以最低成本滿足您的儲存需求。</block>
+  <block id="7fc630f0203a2975f2645b17b5f1f777" category="admonition">_本文中的所有定價資訊均以2018年9月12日的標價為準。此資訊僅供參考、可能隨時變更。_</block>
+  <block id="ea61e2c2ff507048203824add1eb7c21" category="section-title">考量</block>
+  <block id="e9e60dd401a5b937180118755b2c516f" category="paragraph">儲存需求包括兩個基本層面：</block>
+  <block id="fec28a2ae3528c66f53ebe76c854e92f" category="list-text">用於儲存資料的儲存容量 _capsity_</block>
+  <block id="9d7a4264a0f7f44695b988f88cdbf00d" category="list-text">用於與資料互動的儲存頻寬 _</block>
+  <block id="38d12ff54e360686263308a96fd9217c" category="paragraph">如果您使用的儲存空間比為磁碟區選取的容量多、請考量下列事項：</block>
+  <block id="9b177f3b5012cc7a7fdc682fc2988847" category="list-text">您將依照服務層級所定義的價格、收取額外的儲存容量費用。</block>
+  <block id="a24fb87327e01f9d972fcc8f148a8006" category="list-text">磁碟區可用的儲存頻寬量不會增加、除非您增加已分配的容量大小或變更服務層級。</block>
+  <block id="c6f45ce2284ef7f44c38a58ebbd013e0" category="section-title">服務層級</block>
+  <block id="421405600dbac51a8d526a6ba0b154c6" category="paragraph">AWS 支援三種服務層級。 Cloud Volumes Service您可以在建立或修改磁碟區時指定服務層級。</block>
+  <block id="3243d5989806ef5df5d5d629a6f6c7a7" category="inline-link-macro">建立雲端磁碟區</block>
+  <block id="1829b4e7aed90332ecd6c2073e1c3876" category="inline-link-macro">修改雲端磁碟區</block>
+  <block id="a807f4d8cac4e736cd520b7038cd420f" category="paragraph"><block ref="1d07822b08600a72487112c7f7e5fd7c" category="inline-link-macro-rx"></block>
+<block ref="6b3190b7ad0ab49d1e6d97b9bc4c71c0" category="inline-link-macro-rx"></block></block>
+  <block id="60bc680f6244fa7d54528486e2d2b04d" category="paragraph">服務層級可因應不同的儲存容量和儲存頻寬需求：</block>
+  <block id="92a6e56b5e5d5f811a086aaa714742b2" category="list-text">* 標準 * （容量）</block>
+  <block id="8da6204306af19ccd70ab85e1c1f1029" category="paragraph">如果您想以最低成本取得容量、而且頻寬需求有限、那麼標準服務層級可能最適合您。例如、使用 Volume 做為備份目標。</block>
+  <block id="3c8acce87eebd8be15cf2b20b0858a7d" category="list-text">標價：每月每GB 0.10美元（截至2018年9月12日）</block>
+  <block id="3ac69ccfc6792ec21bd8ffab1dfb98c8" category="list-text">頻寬：每 GB 已配置容量 16 KB 頻寬</block>
+  <block id="be3cebf083f37aeffebd57d996548f8e" category="list-text">** 優質 * （容量與效能的平衡）</block>
+  <block id="55b8415db4209b79aecffe10679fc602" category="paragraph">如果您的應用程式對儲存容量和頻寬的需求平衡、那麼 Premium 服務層級可能最適合您。此層級的每 MB/s 成本比標準服務層級低、而且每 GB 儲存容量的成本也比極致服務層級低。</block>
+  <block id="f2f3eb5c345861cab3a7ec66ad9db4e0" category="list-text">標價：每月每GB 0.20美元（截至2018年9月12日）</block>
+  <block id="ba7e1ee82476be180981f31a6c955bb5" category="list-text">頻寬：每 GB 已配置容量 64 KB 頻寬</block>
+  <block id="ce14cf4662be2609e919850db18c8bc1" category="list-text">* 極致版 * （效能）</block>
+  <block id="5aec843c7eadedb02c34978da08e431a" category="paragraph">在儲存頻寬方面、極致服務層級的成本最低。如果您的應用程式需要儲存頻寬、而不需要相關的大量儲存容量需求、那麼極致服務層級可能最適合您。</block>
+  <block id="2c6a43d572e99c76b7bc56222543243f" category="list-text">標價：每月每GB 0.30美元（截至2018年9月12日）</block>
+  <block id="69af2908469ea6cc3270e8598edb606c" category="list-text">頻寬：每 GB 已配置容量 128 KB 頻寬</block>
+  <block id="8be570b19c302676d406e242a338cc98" category="paragraph">您可以在建立或修改磁碟區時、為該磁碟區指定已分配的容量。</block>
+  <block id="6e7b7bcdf649d898ca61befdc7ebe633" category="paragraph">雖然您可以根據一般的高階業務需求來選擇服務層級、但您應該根據應用程式的特定需求來選擇分配的容量大小、例如：</block>
+  <block id="7a514d592ea09e8cf39304fb5fd687ff" category="list-text">應用程式需要多少儲存空間</block>
+  <block id="78c779a14fb92b89e0ba07d2d0a58e51" category="list-text">應用程式或使用者每秒需要多少儲存頻寬</block>
+  <block id="168810665e2ff23a35f7868f1cd8d31c" category="paragraph">分配的容量以 GB 為單位指定。磁碟區的已分配容量可設定在 100 GB 到 100 、 000 GB （相當於 100 TB ）的範圍內。</block>
+  <block id="6f979818230d4e05c5e0e6a622be92fd" category="section-title">inode 數</block>
+  <block id="4befc62c5b2a3509b19a274cdb519659" category="paragraph">小於或等於 1 TB 的磁碟區最多可使用 2 、 000 萬個 inode 。您所分配的每個 TB 的 inode 數量增加 2000 萬、最多可達 1 億個 inode 。</block>
+  <block id="b5ad4a53f7910efad5e0b32480ac4644" category="list-text">\&lt;= 1TB = 2 、 000 萬個 inode</block>
+  <block id="9048dd5aaea9ea899eb5d3c504a388e4" category="list-text">&gt;1 TB 至 2 TB = 4 、 000 萬個 inode</block>
+  <block id="84e9ea4a8cb6dda1638be3c1085d4794" category="list-text">&gt;2 TB 至 3 TB = 6000 萬個 inode</block>
+  <block id="fad0f1d113e957c55c7adaf192b41c90" category="list-text">&gt;3 TB 至 4 TB = 8000 萬個 inode</block>
+  <block id="968c9954af08101b6859a753070b5cfd" category="list-text">&gt;4 TB 至 100 TB = 1 億個 inode</block>
+  <block id="7d724e4bd163fe8323200b15500517f9" category="section-title">頻寬</block>
+  <block id="7c710de840d663ce1b41ce18323e24d4" category="paragraph">服務層級與您選取的已分配容量的組合、決定了磁碟區的最大頻寬。</block>
+  <block id="b6b860ad9bd23cc49cf7d156afff6df4" category="paragraph">如果您的應用程式或使用者需要比您選擇的頻寬更多的頻寬、您可以變更服務層級或增加分配的容量。這些變更不會中斷資料存取。</block>
+  <block id="d166390b76a18ea782161fb36dba3f2b" category="section-title">選取服務層級和已分配的容量</block>
+  <block id="e175cfd89a253264b4cf1a5738f8c75f" category="paragraph">若要根據您的需求選擇最適當的服務層級和分配容量、您必須知道尖峰或邊緣需要多少容量和頻寬。</block>
+  <block id="537c3aaba2230386e08f53eadf5a6769" category="section-title">服務層級與已分配容量的成本比較</block>
+  <block id="fe90609cec4caaf8cb5bf3d197c6473e" category="paragraph">下表比較不同服務層級和已分配容量大小的成本。在表格中、最左欄表示容量、其他欄則定義每個容量點的可用MB /秒及其成本。</block>
+  <block id="dd68926c0207f5bf0deff6339a03335a" category="admonition">_所有定價資訊均以2018年9月12日的標價為準。此資訊僅供參考、可能隨時變更。_</block>
+  <block id="3b8f7696879f77dfc8c74aa8df8db24b" category="cell">容量</block>
+  <block id="eb6d8ae6f20283755b339c0dc273988b" category="cell">標準</block>
+  <block id="8d5e7e72f12067991186cdf3cb7d5d9d" category="cell">優質</block>
+  <block id="ba1f6c59525d71aee4c027798d2470fd" category="cell">極致</block>
+  <block id="b3614c2c56659e3d47a607083815532d" category="cell">* TB *</block>
+  <block id="660261132e690aa83925decdd50a27da" category="cell">*每秒*</block>
+  <block id="a198c147e163dc9adee4a0c7201cc1c5" category="cell">成本*</block>
+  <block id="d30afcce0a79de2f0b4b40521ccf9d80" category="cell">0.1 （ 100 GB ）</block>
+  <block id="4341447b6ad78bf4d7eb59ebb5a53d63" category="cell">1.6</block>
+  <block id="52604aaf9d0fec52d4ffb195924623d8" category="cell">10美元</block>
+  <block id="ded681fc154529ebbc7562fb0c73ba47" category="cell">6.4.</block>
+  <block id="3c6713ed0b513644dc1f892bf008d1f4" category="cell">20美元</block>
+  <block id="e76af95319f03251bdf6c3771f39afbe" category="cell">12.8%</block>
+  <block id="b8e03d4998077cd92ddb0e4252a09764" category="cell">30美元</block>
+  <block id="c4ca4238a0b923820dcc509a6f75849b" category="cell">1.</block>
+  <block id="c74d97b01eae257e44aa9d5bade97baf" category="cell">16</block>
+  <block id="530029252abcbda4a2a2069036ccc7fc" category="cell">100美元</block>
+  <block id="ea5d2f1c4608232e07d3aa3d998e5135" category="cell">64</block>
+  <block id="baaa3cde5d56dc506ddb0fae184a5238" category="cell">200美元</block>
+  <block id="76dc611d6ebaafc66cc0879c71b5db5c" category="cell">128/128</block>
+  <block id="c600da429be893170d47a0e7fc8f39f9" category="cell">300美元</block>
+  <block id="c81e728d9d4c2f636f067f89cc14862c" category="cell">2.</block>
+  <block id="6364d3f0f495b6ab9dcf8d3b5c6e0b01" category="cell">32</block>
+  <block id="513845366c2bc8fe8669fbab5231a805" category="cell">400美元</block>
+  <block id="f718499c1c8cef6730f9fd03c8125cab" category="cell">256</block>
+  <block id="488b78b337f4ec1e2d6e5afb536a96a5" category="cell">600美元</block>
+  <block id="eccbc87e4b5ce2fe28308fd9f2a7baf3" category="cell">3.</block>
+  <block id="642e92efb79421734881b53e1e1b18b6" category="cell">48</block>
+  <block id="58a2fc6ed39fd083f55d4182bf88826d" category="cell">192.</block>
+  <block id="0584ce565c824b7b7f50282d9a19945b" category="cell">384..</block>
+  <block id="58d1927824d8b164739bdeca5c6a1562" category="cell">900美元</block>
+  <block id="a87ff679a2f3e71d9181a67b7542122c" category="cell">4.</block>
+  <block id="9ffc82e6d39b418623fea8fb846c6d0c" category="cell">800美元</block>
+  <block id="10a7cdd970fe135cf4f7bb55c0e3b59f" category="cell">512</block>
+  <block id="04d008b1065ba083df383d847bac4e74" category="cell">1、200美元</block>
+  <block id="e4da3b7fbbce2345d7772b0674a318d5" category="cell">5.</block>
+  <block id="f033ab37c30201f73f142449d037028d" category="cell">80</block>
+  <block id="239e87316e51a3050c7d7a108d1f961a" category="cell">500美元</block>
+  <block id="320722549d1751cf3f247855f937b982" category="cell">320</block>
+  <block id="c3f36e316dffa1394151fc7c56fff158" category="cell">1、000美元</block>
+  <block id="4ffce04d92a4d6cb21c1494cdfcd6dc1" category="cell">640</block>
+  <block id="d5b7284b7282bbf4c243332ee423c542" category="cell">1、500美元</block>
+  <block id="1679091c5a880faf6fb5e6087eb1b2dc" category="cell">6.</block>
+  <block id="26657d5ff9020d2abefe558796b99584" category="cell">96</block>
+  <block id="3a835d3215755c435ef4fe9965a3f2a0" category="cell">768</block>
+  <block id="90eedf2e9773844ea8b5c0dbd9460bee" category="cell">1、800美元</block>
+  <block id="8f14e45fceea167a5a36dedd4bea2543" category="cell">7.</block>
+  <block id="7f6ffaa6bb0b408017b62254211691b5" category="cell">112</block>
+  <block id="6f8c5eacd7432bebab7b4ab57eda8c54" category="cell">700美元</block>
+  <block id="9b70e8fe62e40c570a322f1b0b659098" category="cell">448</block>
+  <block id="16531c4017c7a4e55fa6aeb8c8a8798f" category="cell">1、400美元</block>
+  <block id="061412e4a03c02f9902576ec55ebbe77" category="cell">896</block>
+  <block id="58076f0f8afec2271177c0accc61f91e" category="cell">2、100美元</block>
+  <block id="c9f0f895fb98ab9159f51fd0297e236d" category="cell">8.</block>
+  <block id="4ca3395cfd4f7d44b5af8685883706e9" category="cell">1、600美元</block>
+  <block id="a980f22074119d4103953f70f2fd69ce" category="cell">1 、 024</block>
+  <block id="b5a94aad3bc3e86d65024bb527c76f1c" category="cell">2、400美元</block>
+  <block id="45c48cce2e2d7fbdea1afc51c7c6ad26" category="cell">9.</block>
+  <block id="0a09c8844ba8f0936c20bd791130d6b6" category="cell">144.</block>
+  <block id="a7aeed74714116f3b292a982238f83d2" category="cell">576</block>
+  <block id="a2ec7ea68d10c1832eb7bc24417b4c73" category="cell">1,152</block>
+  <block id="8abca8484c3e011aa8b4077f2ccc7a9b" category="cell">2、700美元</block>
+  <block id="d3d9446802a44259755d38e6d163e820" category="cell">10.</block>
+  <block id="b73ce398c39f506af761d2277d853a92" category="cell">160</block>
+  <block id="dd5f865c529f13e5a9983f8d2fbbb198" category="cell">2、000美元</block>
+  <block id="d074a76497ac7c9cf90be2933f171e07" category="cell">1 、 280</block>
+  <block id="a51ea84c6fa22dfbe17ff5f2155dd877" category="cell">3、000美元</block>
+  <block id="6512bd43d9caa6e02c990b0a82652dca" category="cell">11.</block>
+  <block id="38af86134b65d0f10fe33d30dd76442e" category="cell">176</block>
+  <block id="fbd9e527c3da7273291f6ea83c5d9b8b" category="cell">1、100美元</block>
+  <block id="f64eac11f2cd8f0efa196f8ad173178e" category="cell">704</block>
+  <block id="d01e032a2c4c9b852bace0a612321185" category="cell">2、200美元</block>
+  <block id="b5433fb6d3b738bfc5bf19637b8c12a0" category="cell">1 、 408</block>
+  <block id="4e8e331483d1bdc7fe70b31d2cbeaf48" category="cell">3、300美元</block>
+  <block id="c20ad4d76fe97759aa27a0c99bff6710" category="cell">12.</block>
+  <block id="d969ae360b7ff6fa704401ecb7d4424d" category="cell">1 、 536</block>
+  <block id="731fee82a88c3e7a360533d7e74e97ba" category="cell">3、600美元</block>
+  <block id="c51ce410c124a10e0db5e4b97fc2af39" category="cell">13.</block>
+  <block id="091d584fced301b442654dd8c23b3fc9" category="cell">208/208</block>
+  <block id="7aa6fc8a1e75fd01c5a24c09a42edd04" category="cell">1、300美元</block>
+  <block id="7250eb93b3c18cc9daa29cf58af7a004" category="cell">832</block>
+  <block id="e67205092ab29ee5e5235fbbb6a54bd7" category="cell">2、600美元</block>
+  <block id="ca17fb4ccf34589606ea20f51fb67572" category="cell">1 、 664</block>
+  <block id="7d22f5bfe358a1b8a9e54241d4932c27" category="cell">3,900美元</block>
+  <block id="aab3238922bcc25a6f606eb525ffdc56" category="cell">14</block>
+  <block id="13fe9d84310e77f13a6d184dbf1232f3" category="cell">224</block>
+  <block id="a92f6b233128aacc3d83ab56adc4c55e" category="cell">2、800美元</block>
+  <block id="51f8a71bd595aee58a4d31fcc5b7251e" category="cell">1792 年</block>
+  <block id="90c23d245c8ff44281e8bb2c4e876803" category="cell">4、200美元</block>
+  <block id="9bf31c7ff062936a96d3c8bd1f8f2ff3" category="cell">15</block>
+  <block id="335f5352088d7d9bf74191e006d8e24c" category="cell">240</block>
+  <block id="437d7d1d97917cd627a34a6a0fb41136" category="cell">960</block>
+  <block id="c9ce3b8b108f8145e2fc3eb7064c3516" category="cell">1 、 920</block>
+  <block id="131cac8402e1322ba1f7a6d24115eb89" category="cell">4、500美元</block>
+  <block id="72e3d4d8bafc26f47a36d6be204bb764" category="cell">3、200美元</block>
+  <block id="4546199e2bcb9ae49a13edef9675fd03" category="cell">2 、 048</block>
+  <block id="df8df1500baf2bb457828f4a26ec0e04" category="cell">4、800美元</block>
+  <block id="70efdf2ec9b086079795c442636b55fb" category="cell">17</block>
+  <block id="7a614fd06c325499f1680b9896beedeb" category="cell">272.72</block>
+  <block id="4e962fb8f92d11f704d85ff5ef11c6a6" category="cell">1、700美元</block>
+  <block id="857a14696a060a6cd2faa38c7b476305" category="cell">1 、 088</block>
+  <block id="78119155254de2cda0428fbf1b127cab" category="cell">$3,400</block>
+  <block id="408fef2b76c44f4ca6fb5c74b192b429" category="cell">2 、 176</block>
+  <block id="1bb70ddfe350a9d08f6c5133eaa7dc1a" category="cell">5、100美元</block>
+  <block id="6f4922f45568161a8cdf4ad2299f6d23" category="cell">18</block>
+  <block id="48aedb8880cab8c45637abc7493ecddd" category="cell">288</block>
+  <block id="1ced3beb6929d932c52fd501ac7ef9c2" category="cell">2 、 304.</block>
+  <block id="fb04e6f8c3cef4d74949a50aa0d40877" category="cell">5,400美元</block>
+  <block id="1f0e3dad99908345f7439f8ffabdffc4" category="cell">19</block>
+  <block id="37bc2f75bf1bcfe8450a1a41c200364c" category="cell">304.</block>
+  <block id="aef9a149034f443e5a9c311e1068db54" category="cell">1、900美元</block>
+  <block id="32ad3356163eab16620a49733767a241" category="cell">1,216</block>
+  <block id="e86a577306a732bf9adcf21f8398475e" category="cell">3800美元</block>
+  <block id="85862250c8d12522fa16feede37b89ae" category="cell">2 、 432</block>
+  <block id="ad276936a09383f04a535de2511c6526" category="cell">5、700美元</block>
+  <block id="98f13708210194c475687be6106a3b84" category="cell">20</block>
+  <block id="4b325c2a5e831ae52cfc17736eda18b0" category="cell">4、000美元</block>
+  <block id="2372fbbe5b31f0a06ff46aae4e94d156" category="cell">2,560</block>
+  <block id="3204a3cb09a2f0a39c540811a454bf4f" category="cell">6、000美元</block>
+  <block id="3c59dc048e8850243be8079a5c74d079" category="cell">21</block>
+  <block id="6855456e2fe46a9d49d3d3af4f57443d" category="cell">336.36</block>
+  <block id="bfacb0cda62d58861198f46c8f59999d" category="cell">1344</block>
+  <block id="e586434102dc24b1e7c7dd19995d8ba2" category="cell">2,688</block>
+  <block id="5d467019d642d292d699d7b078d97163" category="cell">6300美元</block>
+  <block id="b6d767d2f8ed5d21a44b0e5886680cb9" category="cell">22</block>
+  <block id="371bce7dc83817b7893bcdeed13799b5" category="cell">352..</block>
+  <block id="8122d32637f1bedba9bf826e12280f37" category="cell">4、400美元</block>
+  <block id="5d172485a2518083f572ac0c7b774a8d" category="cell">2 、 816</block>
+  <block id="013351dbd6b661d97bf5b01de1e8ac7d" category="cell">600美元</block>
+  <block id="37693cfc748049e45d87b8c7d8b9aacd" category="cell">23</block>
+  <block id="cf004fdc76fa1a4f25f62e0eb5261ca3" category="cell">368.</block>
+  <block id="1ea294a9c8e20ff5440d7bdd61c1e601" category="cell">2、300美元</block>
+  <block id="3299f7267db8fe9f13dc0b68a8ebcc66" category="cell">1 、 472</block>
+  <block id="b2fd76e6a0476713762d5dfd9eedcd6d" category="cell">4,600美元</block>
+  <block id="2e7b19fc245c368ab19620107880cd28" category="cell">2 、 944</block>
+  <block id="29fdc73e0c803d1c8548314f05f7cd7e" category="cell">6、900美元</block>
+  <block id="1ff1de774005f8da13f42943881c655f" category="cell">24</block>
+  <block id="6b4f9c381e764df5528ccd7edfbfbc0e" category="cell">3 、 072</block>
+  <block id="251a16748cd5f7164f98963c0bc0bef3" category="cell">7200美元</block>
+  <block id="8e296a067a37563370ded05f5a3bf3ec" category="cell">25</block>
+  <block id="18d8042386b79e2c279fd162df0205c8" category="cell">400</block>
+  <block id="e594f42bb1d723403592962f91fb5c36" category="cell">2、500美元</block>
+  <block id="9f62f1974f653574a79b51175c6f815a" category="cell">1 、 600</block>
+  <block id="e778bd3756acf55c287fb6038c545a97" category="cell">5、000美元</block>
+  <block id="9b27a8f7b7b1e02d20f94ccd0f705c81" category="cell">3 、 200</block>
+  <block id="37649c400583224095345eb32fc43932" category="cell">7、500美元</block>
+  <block id="4e732ced3463d06de0ca9a15b6153677" category="cell">26</block>
+  <block id="8fe0093bb30d6f8c31474bd0764e6ac0" category="cell">416</block>
+  <block id="84c7ba0412ca0099c6fc791f4a856dd1" category="cell">5、200美元</block>
+  <block id="03798723555b0ede4dde0e36f0728fcd" category="cell">3 、 328</block>
+  <block id="ce935acb223bad2bae98e78bbbacec16" category="cell">7、800美元</block>
+  <block id="02e74f10e0327ad868d138f2b4fdd6f0" category="cell">27</block>
+  <block id="248e844336797ec98478f85e7626de4a" category="cell">432</block>
+  <block id="438af5a7df39d4656ece3cd1c1499b0f" category="cell">1728 年</block>
+  <block id="6f5b269f08bebe3bf5aa67d20c8a1982" category="cell">3 、 456</block>
+  <block id="8f4d4d9c054aaf124ce684120e9efbc2" category="cell">8、100美元</block>
+  <block id="33e75ff09dd601bbe69f351039152189" category="cell">28.28</block>
+  <block id="e49668c2daaf972b88f69d19a052c270" category="cell">5600美元</block>
+  <block id="9a003cffecc0e8671073944fd9257b22" category="cell">3 、 584</block>
+  <block id="565c7a7609eaf7ee6d37b0417289c36c" category="cell">$8400</block>
+  <block id="6ea9ab1baa0efb9e19094440c317e21b" category="cell">29</block>
+  <block id="f1b6f2857fb6d44dd73c7041e0aa0f19" category="cell">464.64</block>
+  <block id="cd04fb5963b4e83fbb81ed1a6b0bfba7" category="cell">2、900美元</block>
+  <block id="c2a2f0121b38748f2ea78a331b2bb22c" category="cell">1856 年</block>
+  <block id="e55385c6bf0a7a802fdfd45292907f3a" category="cell">5、800美元</block>
+  <block id="cfd5cf9297bab50b5bad09036e9e0dc3" category="cell">3 、 712</block>
+  <block id="2b18d12c6feaffe1e8b7a58e092fabad" category="cell">$8700</block>
+  <block id="34173cb38f07f89ddbebc2ac9128303f" category="cell">30</block>
+  <block id="6ea2ef7311b482724a9b7b0bc0dd85c6" category="cell">480</block>
+  <block id="eebe33fdc6823a44adbcad8ecf8b68c1" category="cell">3 、 840</block>
+  <block id="e6016e80598ff3a4a8f96027dab08c6d" category="cell">9、000美元</block>
+  <block id="c16a5320fa475530d9583c34fd356ef5" category="cell">31</block>
+  <block id="b534ba68236ba543ae44b22bd110a1d6" category="cell">496</block>
+  <block id="0bf9537dad08165082e26fd1d7e4cfd1" category="cell">3、100美元</block>
+  <block id="ae3945f38f605859bc5371bf14b18ac9" category="cell">1,984.</block>
+  <block id="59d9b8876c484f3aceb084d299cd52d3" category="cell">6200美元</block>
+  <block id="1f0c0806adc2bddfe63d7d7379aea76d" category="cell">3,968/</block>
+  <block id="dfd386b9ffc64163117054f184cc3030" category="cell">9、300美元</block>
+  <block id="e5f2adedbf969b8fc310133aeabaceb4" category="cell">6、400美元</block>
+  <block id="c9ca1ec49e8aac1615059e421cbb4793" category="cell">4 、 096</block>
+  <block id="4bdeed5f8844bfc5baf215ba45faef7f" category="cell">9、600美元</block>
+  <block id="182be0c5cdcd5072bb1864cdee4d3d6e" category="cell">33</block>
+  <block id="f4be00279ee2e0a53eafdaa94a151e2c" category="cell">528</block>
+  <block id="4eabed92a3b9b17a9e978ae065374304" category="cell">2 、 112</block>
+  <block id="0f6e26643fab7063e44bbb4a11e2340e" category="cell">4 、 224</block>
+  <block id="5d7b3a041bbb60cbf9fc1d1596e2a027" category="cell">9、900美元</block>
+  <block id="e369853df766fa44e1ed0ff613f563bd" category="cell">34</block>
+  <block id="97e8527feaf77a97fc38f34216141515" category="cell">544</block>
+  <block id="8fe5ba40228a8192fdf48c86904af1b8" category="cell">6、800美元</block>
+  <block id="e2cdf56d6e1982c6471048ba70156221" category="cell">4 、 352..</block>
+  <block id="4de1359946a99628590912a38a0d4c7c" category="cell">10、200美元</block>
+  <block id="1c383cd30b7c298ab50293adfecb7b18" category="cell">35</block>
+  <block id="a9a6653e48976138166de32772b1bf40" category="cell">560</block>
+  <block id="6d21386e1bb02fbbf085a177e125e773" category="cell">3、500美元</block>
+  <block id="be186c804064fc0b6325f6b5f3bd64ab" category="cell">2 、 240</block>
+  <block id="adc126ae7ddf288326fab8cbd99fa62d" category="cell">7、000美元</block>
+  <block id="876272968baa90d7368e3b1a6672dbcf" category="cell">4 、 480</block>
+  <block id="72e7691c8a1f1e09ae9367e55ccc1f1f" category="cell">10、500美元</block>
+  <block id="19ca14e7ea6328a42e0eb13d585e4c22" category="cell">36</block>
+  <block id="c7a406813eceb19ae792b1eb5cb3c9f2" category="cell">4 、 500</block>
+  <block id="ca5a7ac3e35af00d313bb71ba0b2d9e8" category="cell">10、800美元</block>
+  <block id="a5bfc9e07964f8dddeb95fc584cd965d" category="cell">37</block>
+  <block id="dbe272bab69f8e13f14b405e038deb64" category="cell">592.</block>
+  <block id="b5956fae6f24e2f6bc64f43b385daf30" category="cell">$3,700</block>
+  <block id="95f3d05f7452cc80901a5c4e9350d15c" category="cell">2,368.</block>
+  <block id="c9b9a3daa6e47f7c26aeea4e0e636e5e" category="cell">7、400美元</block>
+  <block id="6a49552c8a8c24728b651f8695279593" category="cell">11、100美元</block>
+  <block id="a5771bce93e200c36f7cd9dfd0e5deaa" category="cell">38</block>
+  <block id="996a7fa078cc36c46d02f9af3bef918b" category="cell">608-608</block>
+  <block id="b23e38b0d9bcc8f55f0853b4b1b18684" category="cell">7、600美元</block>
+  <block id="df4174b4c2a5eb91c588955535672f01" category="cell">$11400</block>
+  <block id="d67d8ab4f4c10bf22aa353e27879133c" category="cell">39</block>
+  <block id="48ab2f9b45957ab574cf005eb8a76760" category="cell">624</block>
+  <block id="a49d5fec73f3733f1991638259163bb4" category="cell">2 、 496</block>
+  <block id="654a7501882051eacb3b443411155c1e" category="cell">11、700美元</block>
+  <block id="d645920e395fedad7bbbed0eca3fe2e0" category="cell">40</block>
+  <block id="d5e50c1e2ffd9ab603a7e6e1789595e3" category="cell">8、000美元</block>
+  <block id="2d30bccb3b569ab57bf3a1f218fcde5c" category="cell">12、000美元</block>
+  <block id="3416a75f4cea9109507cacd8e2f2aefc" category="cell">41.</block>
+  <block id="26408ffa703a72e8ac0117e74ad46f33" category="cell">656.</block>
+  <block id="3848f43e1be9ffbb47ae79df35c8eab9" category="cell">4、100美元</block>
+  <block id="748ec101eac6bc8826c843ea0e3e8e30" category="cell">2 、 624</block>
+  <block id="d78e423452b86fa01741b9e5437f8d8d" category="cell">8、200美元</block>
+  <block id="3a3090a0bbd3e45f29ff429376cbd741" category="cell">12、300美元</block>
+  <block id="a1d0c6e83f027327d8461063f4ac58a6" category="cell">42.</block>
+  <block id="2dea61eed4bceec564a00115c4d21334" category="cell">67</block>
+  <block id="9b9932065443dfb3e5d881ab33051c49" category="cell">$12600</block>
+  <block id="17e62166fc8586dfa4d1bc0e1742c08b" category="cell">43.</block>
+  <block id="f79921bbae40a577928b76d2fc3edc2a" category="cell">688</block>
+  <block id="3ada608df0e514f6202a207d39b63d77" category="cell">4、300美元</block>
+  <block id="fa064943223d179f779ba445cdcbe40b" category="cell">2 、 752</block>
+  <block id="13c7d2dbc70eb8a88d7c343ff6591302" category="cell">$8,600</block>
+  <block id="a4b3b81841606ef7665fe042b59f08de" category="cell">12、900美元</block>
+  <block id="f7177163c833dff4b38fc8d2872f1ec6" category="cell">44</block>
+  <block id="2b354be3b9b055cb3663037db7988289" category="cell">8、800美元</block>
+  <block id="091c6b36f47424a63295fb1f871e6fb4" category="cell">13、200美元</block>
+  <block id="6c8349cc7260ae62e3b1396831a8398f" category="cell">45</block>
+  <block id="5f2c22cb4a5380af7ca75622a6426917" category="cell">720</block>
+  <block id="8dbe5468ca4a7bd73018d84ae2927c88" category="cell">2,880</block>
+  <block id="bec5050b7d6b3fef4299de990bfdb6d4" category="cell">14、500美元</block>
+  <block id="d9d4f495e875a2e075a1a4a6e1b9770f" category="cell">46</block>
+  <block id="6bc24fc1ab650b25b4114e93a98f1eba" category="cell">736</block>
+  <block id="bb2d0e6c31e3f8930ba4ac4d2dcb39fa" category="cell">9、200美元</block>
+  <block id="7d735f09851c166de295f02c80f694a5" category="cell">13、800美元</block>
+  <block id="67c6a1e7ce56d3d6fa748ab6d9af3fd7" category="cell">47</block>
+  <block id="a1d33d0dfec820b41b54430b50e96b5c" category="cell">752.</block>
+  <block id="7f938a656490e565973f589e0ad9c79c" category="cell">4、700美元</block>
+  <block id="d1b624f9e54d26f767a5c6b47d9b8bd1" category="cell">3 、 008</block>
+  <block id="9b3547dd6befbafead9eef053329195f" category="cell">9、400美元</block>
+  <block id="efbfa51cb7ea403dbd0cb090f5ef6421" category="cell">14、100美元</block>
+  <block id="35a55f758dc87785cdad44e7d028d62d" category="cell">14、400美元</block>
+  <block id="f457c545a9ded88f18ecee47145a72c0" category="cell">49</block>
+  <block id="fc8001f834f6a5f0561080d134d53d29" category="cell">784.</block>
+  <block id="7219000e527da329d1419f40967b329f" category="cell">4、900美元</block>
+  <block id="206dd327ff78959436387abeb90993b4" category="cell">3 、 136.</block>
+  <block id="85652fe823e592a519f3be2b17441c92" category="cell">9、800美元</block>
+  <block id="9556c99ed90a7a9986200bd257b7b303" category="cell">14、700美元</block>
+  <block id="c0c7c76d30bd3dcaefc96f40275bdc0a" category="cell">50</block>
+  <block id="7a53928fa4dd31e82c6ef826f341daec" category="cell">800</block>
+  <block id="3fa4be9dddcae8581430eb80b7e1014d" category="cell">10、000美元</block>
+  <block id="f12f4e77772e71d833f0df7c8e47b463" category="cell">15、000美元</block>
+  <block id="2838023a778dfaecdc212708f721b788" category="cell">51.</block>
+  <block id="43fa7f58b7eac7ac872209342e62e8f1" category="cell">816</block>
+  <block id="6b3910c5f8852c3c30def4f020546d57" category="cell">3 、 264</block>
+  <block id="5caaa4efcbec1a31216f0d5d201de19a" category="cell">$15300</block>
+  <block id="9a1158154dfa42caddbd0694a4e9bdc8" category="cell">52.</block>
+  <block id="01e6c8b55f7b29017bd838ebd8a6e5d7" category="cell">10、400美元</block>
+  <block id="cfbf84a220c4b80caed526e474c7bef5" category="cell">$15600</block>
+  <block id="d82c8d1619ad8176d665453cfb2e55f0" category="cell">53.</block>
+  <block id="362e80d4df43b03ae6d3f8540cd63626" category="cell">848</block>
+  <block id="d4613a01da59234c2eb29812a688f971" category="cell">5、300美元</block>
+  <block id="46a5c57c26aa123579e97dcaadbc7c18" category="cell">3 、 392</block>
+  <block id="4d6368ef01d3a65cc4ff2792f673427e" category="cell">10、600美元</block>
+  <block id="7b65883e68cdbf716a2a99abd72fe353" category="cell">$15900</block>
+  <block id="a684eceee76fc522773286a895bc8436" category="cell">54</block>
+  <block id="1fc214004c9481e4c8073e85323bfd4b" category="cell">864</block>
+  <block id="d93f22ce1eea345e6d1ae7ee5e38aa0c" category="cell">16、200美元</block>
+  <block id="b53b3a3d6ab90ce0268229151c9bde11" category="cell">55</block>
+  <block id="1f50893f80d6830d62765ffad7721742" category="cell">880</block>
+  <block id="7b5ac0f0ee6f0a20bea3503fbc79b62d" category="cell">5、500美元</block>
+  <block id="7a4a23bb30197f2a80c076cb01b2fa05" category="cell">3 、 520</block>
+  <block id="0f03ccf36687da3a04aa7d2376d0bd40" category="cell">11、000美元</block>
+  <block id="d2cbc36d77b8ed8ab20be83ac4009a30" category="cell">16500美元</block>
+  <block id="9f61408e3afb633e50cdf1b20de6f466" category="cell">56</block>
+  <block id="ca4a271264b6a391e6a77947b90165c6" category="cell">11、200美元</block>
+  <block id="81f59e4743da2b2f6fc1a5b00ed5e291" category="cell">16800美元</block>
+  <block id="72b32a1f754ba1c09b3695e0cb6cde7f" category="cell">57</block>
+  <block id="2a9d121cd9c3a1832bb6d2cc6bd7a8a7" category="cell">912</block>
+  <block id="1cd253a16c59c151a850058a2fb45048" category="cell">3 、 648</block>
+  <block id="18f623b9983aad051e0fa443bb9361fc" category="cell">17、100美元</block>
+  <block id="66f041e16a60928b05a7e228a89c3799" category="cell">58</block>
+  <block id="d045c59a90d7587d8d671b5f5aec4e7c" category="cell">928</block>
+  <block id="41ba18773a1a545cd44ec05301c9838d" category="cell">11、600美元</block>
+  <block id="e6555d37ea882bc8f0032158dbe66b81" category="cell">17、400美元</block>
+  <block id="093f65e080a295f8076b1c5722a46aa2" category="cell">59</block>
+  <block id="64223ccf70bbb65a3a4aceac37e21016" category="cell">944</block>
+  <block id="5906a22ae431da5929bdb24be904e7a8" category="cell">5、900美元</block>
+  <block id="085de5f9b74520ffc33f61eee5ceccb5" category="cell">3 、 776</block>
+  <block id="0e1e97680994d02103792fa079fcd663" category="cell">11、800美元</block>
+  <block id="654e6e68acba5b4f100a40bc1a4edbf5" category="cell">17700美元</block>
+  <block id="072b030ba126b2f4b2374f342be9ed44" category="cell">60</block>
+  <block id="a907a756488216298ebeb2f427b8c324" category="cell">18、000美元</block>
+  <block id="7f39f8317fbdb1988ef4c628eba02591" category="cell">61.</block>
+  <block id="9c01802ddb981e6bcfbec0f0516b8e35" category="cell">976.</block>
+  <block id="9f95aa2cc8bc74c296a755254729c7cb" category="cell">6、100美元</block>
+  <block id="3940498a028fde51f06fa4cde9e50415" category="cell">3 、 904</block>
+  <block id="47328efac62e65af13d5853291b1c5af" category="cell">12、200美元</block>
+  <block id="690a8d7249fb47bb61f7542008a0aa74" category="cell">18、300美元</block>
+  <block id="44f683a84163b3523afe57c2e008bc8c" category="cell">62.</block>
+  <block id="860320be12a1c050cd7731794e231bd3" category="cell">992</block>
+  <block id="e50d4b1c60a6063e27c6e107814e6f5a" category="cell">$12400</block>
+  <block id="1c0ff5ae07926d93672fc383cf4b7517" category="cell">18、600美元</block>
+  <block id="03afdbd66e7929b125f8597834fa83a4" category="cell">63.</block>
+  <block id="a05e4b899cf743ddd918378a76eac8e9" category="cell">1 、 008</block>
+  <block id="9e4b5af50e6a366d8d86df8387c3a565" category="cell">4 、 032</block>
+  <block id="c0a7db06712964d92225a9493f1aa2f4" category="cell">18、900美元</block>
+  <block id="9e7dfca780ce12456d60f5967e4c6f5e" category="cell">12、800美元</block>
+  <block id="c674b4e8eaa2319b49a14239e59678c8" category="cell">$19200</block>
+  <block id="fc490ca45c00b1249bbe3554a4fdf6fb" category="cell">65</block>
+  <block id="509ac89bed3b5145496da59f08c40d6d" category="cell">1 、 040</block>
+  <block id="7470fddb1eec7ea6c8b866f7c86f6b94" category="cell">6、500美元</block>
+  <block id="cd3ed66a43a07436c3ad4004455146fa" category="cell">4 、 160</block>
+  <block id="130ddec80306247361991575dc54f235" category="cell">13、000美元</block>
+  <block id="483b05fdf5b51ebf61d0f00039fd21c9" category="cell">$19500</block>
+  <block id="3295c76acbf4caaed33c36b1b5fc2cb1" category="cell">66</block>
+  <block id="025feabccb15b838c0aa44d506a0c9d6" category="cell">1 、 056</block>
+  <block id="6c907d501226b8ae0f6a89be5e134267" category="cell">$19800</block>
+  <block id="735b90b4568125ed6c3f678819b6e058" category="cell">67</block>
+  <block id="f41e86d0228dc7e98791219608c15e1a" category="cell">1072</block>
+  <block id="36ddf29adf847f6492cc6b78644d55fd" category="cell">$6,700</block>
+  <block id="e12dc67763b9a83e57fbdefec9c34fbe" category="cell">4 、 288</block>
+  <block id="4752b4eceedf35daeacf3a588e7c9530" category="cell">13、400美元</block>
+  <block id="630a7c94cadff82ae90c7ec169a6c2d8" category="cell">20、100美元</block>
+  <block id="a3f390d88e4c41f2747bfa2f1b5f87db" category="cell">68</block>
+  <block id="a05329065ad9bea5098cc114211852c0" category="cell">13、600美元</block>
+  <block id="387c35b7162eaa5720df611880dafdba" category="cell">20400美元</block>
+  <block id="14bfa6bb14875e45bba028a21ed38046" category="cell">69</block>
+  <block id="2edf192feb13fed040b98437b7c33fe4" category="cell">1,104.</block>
+  <block id="f68705e07feef5698cad56559f238036" category="cell">4 、 416</block>
+  <block id="57f9a81bf2ece3d9cd3101c795affcf7" category="cell">20700美元</block>
+  <block id="7cbbc409ec990f19c78c75bd1e06f215" category="cell">70</block>
+  <block id="5048b05ed2c0a5c28962ee489c5735ba" category="cell">1 、 120</block>
+  <block id="37601027479becc24be379085129d442" category="cell">14、000美元</block>
+  <block id="25e87f705d45e54cccc0f16e22e95d7c" category="cell">21,000美元</block>
+  <block id="e2c420d928d4bf8ce0ff2ec19b371514" category="cell">71.</block>
+  <block id="2bdfdb04330a310f641722ad9b91da04" category="cell">1,136.</block>
+  <block id="ec4d7d0a8492c4b146bbcd39004c2634" category="cell">7、100美元</block>
+  <block id="1a2fefd3972cdd547629f25b540b7d56" category="cell">14、200美元</block>
+  <block id="971dab3eb34331312d4d6898cba22e56" category="cell">21300美元</block>
+  <block id="32bb90e8976aab5298d5da10fe66f21d" category="cell">72.</block>
+  <block id="58af640723e9db81e0fb9fe11ab841bb" category="cell">21600美元</block>
+  <block id="d2ddea18f00665ce8623e36bd4e3c7c5" category="cell">73.</block>
+  <block id="69a206ef4a9fe2be7093b3a6a9860cc7" category="cell">1,168.</block>
+  <block id="3472923ec847bbaef0c5ebe5d53d9d98" category="cell">7、300美元</block>
+  <block id="d47cdb515732d60256efb11905773712" category="cell">14、600美元</block>
+  <block id="e33ff6485c31db30d8a11e523e8c0e3f" category="cell">21、900美元</block>
+  <block id="ad61ab143223efbc24c7d2583be69251" category="cell">74.</block>
+  <block id="0d5f5715f3dd10192b0cf94a13a19a4b" category="cell">1 、 184</block>
+  <block id="b992e179e4809576be7c941112efb1a1" category="cell">14、800美元</block>
+  <block id="4b9bcfe253c167d262e84a44dffddddb" category="cell">22、200美元</block>
+  <block id="d09bf41544a3365a46c9077ebb5e35c3" category="cell">75</block>
+  <block id="bc82c542d7228d85b06c977c78cb3f48" category="cell">1 、 200</block>
+  <block id="e208a97c22a55317443fc8da90e526a1" category="cell">22500美元</block>
+  <block id="fbd7939d674997cdb4692d34de8633c4" category="cell">76.</block>
+  <block id="dcc98ad6ccdba8687e4ea3892d86c9b7" category="cell">15、200美元</block>
+  <block id="0d551e80c290fcfe70ac2105da7f5196" category="cell">22、800美元</block>
+  <block id="28dd2c7955ce926456240b2ff0100bde" category="cell">77</block>
+  <block id="b53361efb8d974b1650dacdf8cfb7ea1" category="cell">1 、 232.</block>
+  <block id="7eaa9934dad62607498842ce0d462908" category="cell">7、700美元</block>
+  <block id="517929b412ee8d889fd7c46455ee1cbd" category="cell">$15400</block>
+  <block id="0c3802bc1898fdc414daacb561279095" category="cell">23100美元</block>
+  <block id="35f4a8d465e6e1edc05f3d8ab658c551" category="cell">78</block>
+  <block id="f9259e8f14e952df0f8855dbf5281085" category="cell">1 、 248-</block>
+  <block id="60740ba4f71b0a8e734ac66d4b71a42c" category="cell">23400美元</block>
+  <block id="d1fe173d08e959397adf34b1d77e88d7" category="cell">79</block>
+  <block id="68c5694ab439f927c54dd6e31d93556b" category="cell">1 、 264</block>
+  <block id="d4af1026eedce56ae4ab1f5b0b63f94f" category="cell">7、900美元</block>
+  <block id="bd2f160217544665703cd9f0c1fac8c9" category="cell">15、800美元</block>
+  <block id="b2dfd57ef1fba0ab8793b2e8b397defe" category="cell">23700美元</block>
+  <block id="2b9b6d952c18741e7930c90904151945" category="cell">16、000美元</block>
+  <block id="59631e0d402977db2ec7e97e79123f52" category="cell">24、000美元</block>
+  <block id="43ec517d68b6edd3015b3edc9a11367b" category="cell">81/</block>
+  <block id="7d42f60239bc3d3efa15de0f608f56e1" category="cell">1 、 296</block>
+  <block id="1759d72cc5fed4d7dd47fb204c6a5562" category="cell">24300美元</block>
+  <block id="9778d5d219c5080b9a6a17bef029331c" category="cell">82.</block>
+  <block id="eba2f9ba8a8dad26362a4a3fe2eb174f" category="cell">1,312.</block>
+  <block id="176f35c090b3ecc4c47402e67a2eab2c" category="cell">16400美元</block>
+  <block id="551ad677ee67785ca555bce4f7262b98" category="cell">$24600</block>
+  <block id="fe9fc289c3ff0af142b6d3bead98a923" category="cell">83.</block>
+  <block id="ff0b19b22f8d89f3584367a37d312d87" category="cell">1 、 328</block>
+  <block id="8f2936475c24926642478c115cb95d99" category="cell">$8300</block>
+  <block id="07200ba3ce9b797c17a7bd82cd44b443" category="cell">16600美元</block>
+  <block id="49aa65813949280223e06da0a90ad2ca" category="cell">$24900</block>
+  <block id="68d30a9594728bc39aa24be94b319d21" category="cell">84.</block>
+  <block id="c4b2abc9439e7893d70df7a883ee71d3" category="cell">25200美元</block>
+  <block id="3ef815416f775098fe977004015c6193" category="cell">85</block>
+  <block id="9348df72c44b30c92f21c45bf60c134a" category="cell">1 、 360</block>
+  <block id="e5e0b764cc972c86af0bc536f2f6f518" category="cell">$8,500</block>
+  <block id="4e3fbe6ec562fb549f0c1e4dd788e6ea" category="cell">17、000美元</block>
+  <block id="260c2853bac64cc0879727fc88fc1bfb" category="cell">25、500美元</block>
+  <block id="93db85ed909c13838ff95ccfa94cebd9" category="cell">86</block>
+  <block id="9174cb2ab6b0e84a25d9860c030731c8" category="cell">1 、 376</block>
+  <block id="54ed65e9c68a1e371a94600c1161da3b" category="cell">17、200美元</block>
+  <block id="03a41cf81cdbfd67afe73447bd8cf8d9" category="cell">25800美元</block>
+  <block id="c7e1249ffc03eb9ded908c236bd1996d" category="cell">87</block>
+  <block id="77d42bfaff62ddcf6cc3aae13aa0cc6e" category="cell">1 、 392</block>
+  <block id="22931987f181e7c7e478bb1b4d3ab6b0" category="cell">26100美元</block>
+  <block id="2a38a4a9316c49e5a833517c45d31070" category="cell">88</block>
+  <block id="216dd68f037ead6b06e3f1334436254f" category="cell">17、600美元</block>
+  <block id="c7ee6aeb0c8a2fc24823bc029f731e3c" category="cell">26400美元</block>
+  <block id="7647966b7343c29048673252e490f736" category="cell">89</block>
+  <block id="27014f48b87d72edd8a665f08e889d5f" category="cell">1 、 424</block>
+  <block id="6adbaede8a77d2dd8472b8a1671a68bf" category="cell">8900美元</block>
+  <block id="ad841a9de2f22fac924ea70490931327" category="cell">17、800美元</block>
+  <block id="eed50b503a043bae654317e299adea74" category="cell">26700美元</block>
+  <block id="8613985ec49eb8f757ae6439e879bb2a" category="cell">90</block>
+  <block id="5533cffca7ce34e5c108e9bf7f72fbb0" category="cell">1 、 440</block>
+  <block id="b5e593368546548b6e19d3c88b3c9a48" category="cell">27、000美元</block>
+  <block id="54229abfcfa5649e7003b83dd4755294" category="cell">91.</block>
+  <block id="4a978f81d22037721b213fb8408f6472" category="cell">1 、 456</block>
+  <block id="696f31fe5d5b67f8c1656f5ad97c9d8e" category="cell">9、100美元</block>
+  <block id="8aecfd8a0e6038beae50f32d729b2d67" category="cell">18、200美元</block>
+  <block id="83a45784b96d3e899ccafa0a6edb6178" category="cell">27300美元</block>
+  <block id="92cc227532d17e56e07902b254dfad10" category="cell">92.</block>
+  <block id="3e4202ad177148ca487d14aca955f6ab" category="cell">18、400美元</block>
+  <block id="e066e6e41e3620cf86db6f6c6a3595ef" category="cell">27600美元</block>
+  <block id="98dce83da57b0395e163467c9dae521b" category="cell">93</block>
+  <block id="b83f104e5c1f891a958af843fec85b56" category="cell">1,488</block>
+  <block id="f16a2aaa5604b12c45e63134561b56bd" category="cell">27900美元</block>
+  <block id="f4b9ec30ad9f68f89b29639786cb62ef" category="cell">94</block>
+  <block id="197037d3aa278839fd3e8ba3e6ff29fb" category="cell">1 、 504</block>
+  <block id="7317b65c113de6ee7299bcf4aba8dab8" category="cell">18、800美元</block>
+  <block id="f7c85032be17cdfdf4e39cd911d7887b" category="cell">28200美元</block>
+  <block id="812b4ba287f5ee0bc9d43bbf5bbe87fb" category="cell">95</block>
+  <block id="e5a0bd6a23e4860bd04bbc6da5a2a010" category="cell">1 、 520</block>
+  <block id="ee19b1f8c608c45d846ab325eabd8977" category="cell">9、500美元</block>
+  <block id="d4fd4f9d12fea8a171a989a8cf2e3da6" category="cell">19、000美元</block>
+  <block id="1fbe75f9586ae852377219c6b70bc6d8" category="cell">28500美元</block>
+  <block id="780e5c6c46c21fb785caf7ca90440652" category="cell">28800美元</block>
+  <block id="e2ef524fbf3d9fe611d5a8e90fefdc9c" category="cell">97</block>
+  <block id="363f8c34a0b6c80a00e0b12482cf3455" category="cell">1 、 552</block>
+  <block id="685e5a70d9b039a0a140bbb04b9afff8" category="cell">9、700美元</block>
+  <block id="406c9cc385b552a1a133f20ad6995286" category="cell">$19400</block>
+  <block id="5e35b57ba2b41b1d9ac351a917c1d964" category="cell">29100美元</block>
+  <block id="ed3d2c21991e3bef5e069713af9fa6ca" category="cell">98</block>
+  <block id="7168998a626bd21d89aab5103a9a2c22" category="cell">1 、 568</block>
+  <block id="1237815886d92682295d8f3e75505792" category="cell">$19600</block>
+  <block id="6f827c31f7cb1e0b62ad2e4f87e49ba7" category="cell">29400美元</block>
+  <block id="ac627ab1ccbdb62ec96e702f07f6425b" category="cell">99</block>
+  <block id="5d3ad0ff825f78b6dda0692f7d7c67bc" category="cell">1 、 584</block>
+  <block id="53ef17ea537ac6bdba8db2bc260e1f40" category="cell">29700美元</block>
+  <block id="f899139df5e1059396431415e770c6dd" category="cell">100</block>
+  <block id="f715f9ab45b5537b33999f5b826dc943" category="cell">20、000美元</block>
+  <block id="68da0938692f24559fc3ea76422b7309" category="cell">30、000美元</block>
+  <block id="5504977cb47d642da3d1264eefb7edda" category="section-title">範例 1.</block>
+  <block id="b53853437e958b2ada74339c5a15080e" category="paragraph">例如、您的應用程式需要 25 TB 容量和 100 MB/s 頻寬。標準服務層級的容量為25 TB、可提供400 MB/s的頻寬、成本為2、500美元、使Standard成為本案例中最適合的服務層級。</block>
+  <block id="96eade91ea8ad3a768b45fae66e4a317" category="inline-image-macro">服務層級與容量選擇、範例 1</block>
+  <block id="fa1e629ff9f8ba28a5b87f520d0f978b" category="paragraph"><block ref="fa1e629ff9f8ba28a5b87f520d0f978b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5f3a8aa007370d00f3fd3b293a6a1118" category="section-title">範例 2.</block>
+  <block id="e3c01a8104d16b1a5dbd3786dcb09e17" category="paragraph">例如、您的應用程式需要 12 TB 容量和 800 MB/s 尖峰頻寬。雖然極致服務層級可滿足應用程式12 TB的需求、但在優質服務層級選擇13 TB則更具成本效益。</block>
+  <block id="47d1178d43da1c44b8c4b656a839d0b9" category="inline-image-macro">服務層級與容量選擇、範例 2</block>
+  <block id="fdd6098304bebbe4ab182205872c90df" category="paragraph"><block ref="fdd6098304bebbe4ab182205872c90df" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5b618ec153a442d925e7e3cc93bb65d8" category="summary">如果您使用 Windows Active Directory （ AD ）伺服器搭配雲端磁碟區、您應該熟悉 AWS 安全性群組設定的指引。這些設定可讓雲端磁碟區與 AD 正確整合。</block>
+  <block id="c546611c5f302cd6f19dc2dba0bcf1b0" category="paragraph">根據預設、套用至 EC2 Windows 執行個體的 AWS 安全性群組不會包含任何通訊協定的傳入規則、除非是 RDP 。您必須將規則新增至附加至每個 Windows AD 執行個體的安全性群組、才能從 Cloud Volumes Service 支援來源進行傳入通訊。所需的連接埠如下：</block>
+  <block id="c2ba7e785c49050f48da9aacc45c2b85" category="cell">服務</block>
+  <block id="60aaf44d4b562252c04db7f98497e9aa" category="cell">連接埠</block>
+  <block id="888a77f5ac0748b6c8001822417df8b6" category="cell">傳輸協定</block>
+  <block id="5ca2a54c1065dd7d05391f89a278ad2a" category="cell">AD 網路服務</block>
+  <block id="2747e3c644b9a085cd4d3a7718b16024" category="cell">9389</block>
+  <block id="b136ef5f6a01d816991fe3cf7a6ac763" category="cell">TCP</block>
+  <block id="ed5f2bdecbd4bd349d09412d1ff6a6fb" category="cell">DNS</block>
+  <block id="f5ef036b4d8b630721e51fe23489fbc9" category="cell">UDP</block>
+  <block id="5985e830fae65f37a46ae22075a4ca48" category="cell">ICMPv4</block>
+  <block id="382b0f5185773fa0f67a8ed8056c7759" category="cell">不適用</block>
+  <block id="e0b221d2923b98ecd9ef35504d787365" category="cell">回應回覆</block>
+  <block id="87b3695bfd6f672e2c7c4da7ca2b46a8" category="cell">Kerberos</block>
+  <block id="2363dee608bcd9f6ce7f980bfdad5789" category="cell">LDAP</block>
+  <block id="c86a7ee3d8ef0b551ed58e354a836f2b" category="cell">389</block>
+  <block id="a4d92e2cd541fca87e4620aba658316d" category="cell">3268/</block>
+  <block id="b19cdd862134a63196f20f8257d2834a" category="cell">NetBios 名稱</block>
+  <block id="013d407166ec4fa56eb1e1f8cbe183b9" category="cell">138</block>
+  <block id="56440062188d73f60d350ea349366299" category="cell">Sam/LSA</block>
+  <block id="67f7fb873eaf29526a11a9b7ac33bfac" category="cell">445</block>
+  <block id="3f0dca2433e91d5f3ab7109c68143794" category="cell">安全 LDAP</block>
+  <block id="c5ab0bc60ac7929182aadd08703f1ec6" category="cell">636</block>
+  <block id="c91e3483cf4f90057d02aa492d2b25b1" category="cell">3269</block>
+  <block id="010b192f04e8eee11d74c4802cc24093" category="cell">W32Time</block>
+  <block id="202cb962ac59075b964b07152d234b70" category="cell">123.</block>
+  <block id="6d0cda859aaf15ba029d2fa7848c128f" category="paragraph">如果您要在 AWS EC2 執行個體上部署及管理 AD 安裝網域控制器和成員伺服器、則需要多個安全群組規則、才能允許資料流用於 Cloud Volumes Service 此功能。以下範例說明如何將這些規則作為 AWS CloudForation 範本的一部分來實作 AD 應用程式。</block>
+  <block id="556dbb93ad650042bc2c55dabbdc8e62" category="summary">您可以使用Cloud Backup Service S還原 來備份NFS雲端磁碟區。</block>
+  <block id="c15e28ad98ea6112b893a32a8092c4cc" category="doc">使用Cloud Backup Service 還原管理備份（適用於US-WEST-2的試用版）</block>
+  <block id="a4aac98e26cfe48e280254c44f22fcf7" category="paragraph">藉由提供專屬的備份來進行長期的恢復、歸檔和法規遵循、此功能可擴充其資料保護功能。Cloud Backup Service Cloud Volumes Service由服務建立的備份會儲存在AWS S3物件儲存設備、獨立於可供近期恢復或複製的雲端Volume快照。</block>
+  <block id="3bbf068c5edcecea4798ff8ee7844b0e" category="paragraph">目前、支援的是Beta版、僅支援AWS US-WEST-2地區的功能。Cloud Backup Service Cloud Volumes Service</block>
+  <block id="85280c2ce27c8f045a8d6b65b5457cd8" category="inline-link-macro">設定Cloud Backup Service 適用於AWS的NetApp Cloud Volumes Service 解決方案的功能</block>
+  <block id="69be1dc68ecd2393fc2a44122899b877" category="paragraph">使用Cloud Backup Service 唯有瞭解並接受試用版軟體的條款、要求和考量、才能使用此功能。請參閱 <block ref="06c4f77b7ac77e2a55f10e367313476d" category="inline-link-macro-rx"></block> 以取得使用服務的詳細資訊和指示。</block>
+  <block id="8b9f9b0e63f1a86cc6b639972644976b" category="summary">許多AWS地區都有提供此功能。Cloud Volumes Service在建立雲端磁碟區之前、您必須先指定要使用服務的區域。</block>
+  <block id="e39bff1f0720bfb155ff93f726e278ee" category="list-text">瀏覽至<block ref="e1ae8f67f4b7e40d13b946f09e02a05e" category="inline-link-rx"></block> 網站、然後使用您在訂閱期間提供的電子郵件地址登入。</block>
+  <block id="b40e3ac8963740941342f5cb16f06116" category="paragraph">您應該將此URL加入書籤。您稍後需要返回。</block>
+  <block id="3e27a282c15af74f0f8417b067bf023e" category="list-text">從頂端面板的*可用區域*下拉式功能表中、選取您要處理的區域。</block>
+  <block id="b9f6d8286b9543482a4c496f020f00c7" category="paragraph">此選擇程序與您在AWS主控台變更區域的方式類似。</block>
+  <block id="2e124fd39616970cb0d84a0817df2234" category="list-text">當您想要建立雲端Volume時、請針對每個其他區域重複上述步驟。</block>
+  <block id="6101f8901ac322b1f3b7a4ab12a3eccd" category="inline-link">區域與可用度區域</block>
+  <block id="b000e3ffba81c003d15c3d27a6a5aaa7" category="paragraph">*附註：* Cloud Volumes使用者介面中顯示的區域可能使用的格式與您在AWS使用者介面中選取的區域不同。例如、Cloud Volumes UI中的_us-east-1_對應於AWS主控台中選取的_n.Virginia區域。請參閱<block ref="04a445bd4d302f79cc47f5dea32fb59b" category="inline-link-rx"></block> 若要對應區域名稱、請確定在兩個介面中選取相同的區域。</block>
+  <block id="f54f63939b49a2e897f6f6370866f7aa" category="summary">NetApp Cloud Sync 支援與NetApp Cloud Volumes Service 的AWS支援功能整合、可在雲端磁碟區之間或從雲端磁碟區快速同步資料。利用這個功能、您可以建立一個可同步資料的不一樣關係。Cloud Sync Cloud Sync</block>
+  <block id="72ec00722826443159fbc980b807f44c" category="paragraph">NetApp Cloud Sync 功能與NetApp Cloud Volumes Service 的AWS支援功能整合、可透過NFS快速同步資料至雲端磁碟區或從雲端磁碟區同步資料。利用這個功能、您可以建立一個可同步資料的不一樣關係。Cloud Sync Cloud Sync</block>
+  <block id="fc64c429f54c97f722ee7a82818baef0" category="paragraph">如果Cloud Sync 您的Cloud Volumes帳戶所使用的AWS Virtual Private Cloud（VPC）中已經有一個資料代理程式、您可以跳過這項工作。</block>
+  <block id="eb3729105d2f2cce55d8299916ef0852" category="inline-link">NetApp Cloud Sync 產品文件</block>
+  <block id="5f221db16b7611b1bed8d69f54a32bfd" category="paragraph"><block ref="5f221db16b7611b1bed8d69f54a32bfd" category="inline-link-rx"></block></block>
+  <block id="63ae667b42de9970b210c0cab46a6ba6" category="list-text">按一下*建立資料代理*來建立資料代理程式。</block>
+  <block id="7d2c5257f8c80e600828a1232e020759" category="list-text">提供下列欄位的資訊：</block>
+  <block id="496ee322ba138fdbc777e5ab2e30145e" category="list-text">*名稱*</block>
+  <block id="3bad38ae961eabbc2fa9c33b611132d5" category="paragraph">提供資料代理程式的名稱。</block>
+  <block id="7464a7978b1ad9e7f36e5f0181e97eb5" category="list-text">*類型*</block>
+  <block id="f69f20d2c40a5e0d0c5e11f6443d21d9" category="paragraph">選取AWS。</block>
+  <block id="c748e5cad0f18e9780f35a23a21dd5e4" category="list-text">*地區*</block>
+  <block id="98994f4ce54bafe9687bb25c8f66075a" category="paragraph">選取可用的區域。</block>
+  <block id="7e4401bd51b149c6034056ac77524f43" category="list-text">* API金鑰*</block>
+  <block id="bb7092c027d5039a90a707cfb8a1c1a3" category="paragraph">提供AWS帳戶的存取金鑰。</block>
+  <block id="ffbe4f76fc85855b9824b00eafa30e1b" category="list-text">*機密金鑰*</block>
+  <block id="ba584e68baad1f98c82cc31a3370f1a4" category="paragraph">提供AWS帳戶的秘密金鑰。</block>
+  <block id="da21cdc8f1a4309f32bb9a9cd84e8d07" category="list-text">*基普里*</block>
+  <block id="5ecf85943167fb99caf42a9a2c629199" category="paragraph">選取可用的金鑰組。</block>
+  <block id="97cee68f6d20624a128aba88410a0463" category="paragraph">輸入有效金鑰後、金鑰組將會更新。</block>
+  <block id="5a27c4fb594c9f679329c31622b59a04" category="list-text">* VPC*</block>
+  <block id="6568c492b57364154f504c2637f2b10b" category="paragraph">選取連線至Cloud Volumes帳戶的VPC。</block>
+  <block id="a5ede60043f381fbec4810d49c62a7e7" category="list-text">*子網路*</block>
+  <block id="20ab92d58e5556afa57f78268d7e56a4" category="paragraph">選取要用於資料代理程式的可用子網路。</block>
+  <block id="181f3b61f2d84afdf97ab3b04d449165" category="list-text">按一下*建立資料代理*以開始建立資料代理程式。</block>
+  <block id="fbaf95f8cc4dd41d3bc156dc8a08ff11" category="paragraph">建立資料代理程式需要幾分鐘的時間。建立資料代理程式之後、會以綠色點標示、表示該代理程式已就緒。</block>
+  <block id="d87231fba149b6158b5dc4f85d2365f1" category="inline-link-macro">建立Cloud Sync 不一樣的關係</block>
+  <block id="7e7078cd7ddb3ff9ff1be4fae310ea2a" category="paragraph">繼續 <block ref="bb8654c06ea701c5ccb6dcbb9dc12cb1" category="inline-link-macro-rx"></block>。</block>
+  <block id="b84d400414400c87a14ad22cf930e8a0" category="summary">您可以將磁碟區從現有的快照還原至較早的時間點。</block>
+  <block id="6293473d5ffaf1d19f91c9a271df2519" category="doc">從快照還原磁碟區</block>
+  <block id="722fda043af9bcf84505c8529d00eefe" category="paragraph">還原磁碟區時、快照內容會覆寫現有的磁碟區組態。建立快照後、對磁碟區中資料所做的任何變更都會遺失。</block>
+  <block id="5e69623e5ef5b2074e9208bfd305062a" category="paragraph">請注意、用戶端不需要在還原作業之後重新掛載磁碟區。</block>
+  <block id="27d56f3c7de39edfa2281add88470866" category="list-text">在「Snapshot（快照）」頁面或「Snapshot（快照）」索引標籤的「Volume details（磁碟區詳細資料）」中、選取您要還原的快照、按一下「* Available（*可用）」*、然後選取「* Revert volume to snapshot*</block>
+  <block id="87a911a689c13b1996b26f989b762033" category="list-text">在「恢復快照」對話方塊中、重新輸入您要還原的磁碟區名稱、然後按一下「*恢復*」。</block>
+  <block id="3165aa7969fa5516d6d71f3de4c1b582" category="summary">透過Web UI提供的Cloud Volumes功能也可透過RESTful API取得。API可讓您建立及管理雲端磁碟區、並開發資源配置指令碼和工具。</block>
+  <block id="a412bcd83657e0286a1fee405c89100d" category="doc">Cloud Volumes API</block>
+  <block id="7f47ff02f0a7984381cf01d7e6172be1" category="section-title">尋找API URL、API金鑰和秘密金鑰</block>
+  <block id="d13969ed9b830ef86f2dc7b680bdd148" category="paragraph">您需要取得Cloud Volumes API URL、API金鑰和Secret金鑰、才能執行API呼叫。</block>
+  <block id="f501546877aba95069ce239bf409ffe2" category="list-text">在儲存頁面或使用者名稱下的下拉式功能表中、按一下「* API access*（* API存取*）」。</block>
+  <block id="871354df0af5016899bedcade2b3b689" category="list-text">記錄Cloud Volumes API URL、API金鑰和Secret金鑰。</block>
+  <block id="7e747db2968cd6dc818b43dbf7ba6476" category="inline-link-macro">顯示帳戶API URL、API金鑰和秘密金鑰的範例檔案</block>
+  <block id="8c2872d6714a6a50ea8c1912bcf43bba" category="paragraph"><block ref="8c2872d6714a6a50ea8c1912bcf43bba" category="inline-link-macro-rx"></block></block>
+  <block id="4cc8b363e2c17c696e7397ff80bc3797" category="section-title">列出可用的API</block>
+  <block id="b4b43a44289217b967abaf92899b47f4" category="paragraph">儲存頁面會顯示您可以使用的可用API。</block>
+  <block id="a300ef370d0d1dab6d3bfe48214c4f26" category="list-text">按一下儲存頁面上的* API documentation *。</block>
+  <block id="c33825dfec89a1a030d1d0fe7f41054b" category="paragraph">頁面會列出可用的API。</block>
+  <block id="a7614b8fc371c044de07ea99fc398824" category="list-text">捲動頁面以查看可用的API。</block>
+  <block id="73d03ea35c94efd436f404d5aeabb786" category="paragraph">API會依功能列出、例如：</block>
+  <block id="707325d27093188691659cc218115f02" category="list-text">《Volume》（Volume）</block>
+  <block id="821c3259a2d2dc5b2f8d894874f51a23" category="list-text">「我的最大目標」</block>
+  <block id="fd3e64f45143425a49161c4e76e3d347" category="list-text">《太老了》</block>
+  <block id="5ba59db5cc80ee016bd3350d071b8004" category="list-text">"快照"</block>
+  <block id="bd64a465814992b1c2b9b93a194179ff" category="list-text">若要取得如何使用API呼叫的詳細資料和範例、請選取該功能、然後按一下下列其中一個動作：</block>
+  <block id="db3288a1c1073472dc757f20d2348c76" category="list-text">「Get」：讀取</block>
+  <block id="e1f2b5e55543a56862633fcacca8b8ae" category="list-text">「POST」：建立</block>
+  <block id="4181bcd1edc0f5c41a62295a16ee0437" category="list-text">「PUT」：更新或修改</block>
+  <block id="4a45f9a1929598df3fa5aa597a398ac6" category="list-text">「刪除」：破壞</block>
+  <block id="7e4ebd342bb7e41a1d4dc8a8415e460b" category="section-title">使用Cloud Volumes API</block>
+  <block id="1a2e2934b53e9075f32a18d1d0b4862d" category="paragraph">本節說明如何使用Cloud Volumes API。這些範例使用Linux Bash Shell的Curl。您需要將「&lt;API_URL&gt;'、「&lt;API_key&gt;'」和「&lt;secret _key&gt;'」取代為您從記錄的值 <block ref="e7dca76a03ba418d05678cd43dcfc889" category="inline-xref-macro-rx"></block>。</block>
+  <block id="92e9d6227d5534e7afc27a11179c808e" category="section-title">語法</block>
+  <block id="7d36329259eb9461e88f0d81a2c33392" category="paragraph">'* curl -s -H Accept:application/json -H "Content-type: application/json"-H API-key:&lt;API_key&gt;-H secret key：&lt;secret _key&gt;-X [Get、POST、PUT、DELETE ]&lt;API_URL&gt;/v2/&lt;command&gt;*</block>
+  <block id="ff7c0fcd6a31e735a61c001f75426961" category="section-title">範例</block>
+  <block id="417f1d595a24eeebf126fa0d34676529" category="section-title">列出磁碟區</block>
+  <block id="644b48292d8519f40fb516945b88bcff" category="paragraph">下列範例顯示所有磁碟區的相關資訊：</block>
+  <block id="ddc5b619db27da42c436d2dce99b6f13" category="admonition">透過「jq」傳送命令可改善「json」輸出的格式。您可能需要在系統上安裝「jq」。</block>
+  <block id="e0f6cbfd035b028c1bc8e71c97ed3abf" category="inline-link-macro">指令碼以列出帳戶中的雲端磁碟區</block>
+  <block id="76efd86ffdf9b4ba0276b48246583ebb" category="paragraph"><block ref="76efd86ffdf9b4ba0276b48246583ebb" category="inline-link-macro-rx"></block></block>
+  <block id="1b1f7340d341033e481b038866817574" category="section-title">列出特定Volume的詳細資料</block>
+  <block id="ba63bdfc66b5014f9eb68abd5bde5a76" category="paragraph">每個Volume都有一個名為「volumeId」的ID、例如「07c9ab6c-b655-a9fe-f904-b9b97ef9baaa」。在API呼叫中包含ID、可提供特定Volume的詳細資料：</block>
+  <block id="5f0b1efca897384b8f67839d6cf866d5" category="section-title">建立Volume</block>
+  <block id="5a18f96110d1e8b54d3ec437bd8aea74" category="paragraph">以下範例使用「POST」呼叫、在「us-west-1」區域建立名為「Test」的Volume、其「分配容量」為100 GB、並使用「NFSv3」匯出：</block>
+  <block id="b5c9f42eedd286c271953e9c3ab850da" category="inline-link-macro">建立雲端磁碟區的指令碼</block>
+  <block id="29397ff9a9ac55722aff77334948d1f3" category="paragraph"><block ref="29397ff9a9ac55722aff77334948d1f3" category="inline-link-macro-rx"></block></block>
+  <block id="d0e7a5d112a601cfd58f131f6a6f155a" category="section-title">正在更新磁碟區</block>
+  <block id="3212fd143472c532ff82ac4344441aa9" category="paragraph">以下範例使用「PUT」呼叫來更新名為「Test」的磁碟區、將服務層級變更為「Extreme」、並將分配的容量變更為600 GB：</block>
+  <block id="2a74a589fbf2ef0088700f7241041164" category="inline-link-macro">指令碼來更新雲端Volume</block>
+  <block id="5b1c0e0c039f28352f31f4a43500e03e" category="paragraph"><block ref="5b1c0e0c039f28352f31f4a43500e03e" category="inline-link-macro-rx"></block></block>
+  <block id="314f9451416a4448b65c6850ff15f8e7" category="section-title">刪除Volume</block>
+  <block id="bf38a32d15762f9e14ab0ffe2b757d2f" category="paragraph">以下範例使用「刪除」呼叫來刪除由「volumeId」指定的Volume：</block>
+  <block id="5bb5a449d40e6b8a3aa844cf61c53a2f" category="inline-link-macro">指令碼、依掛載點刪除雲端磁碟區</block>
+  <block id="6662ba991d8a455389b5d9c65fb5a14c" category="paragraph"><block ref="6662ba991d8a455389b5d9c65fb5a14c" category="inline-link-macro-rx"></block></block>
+  <block id="fc6c542d42ee24898826aee8afdffc2a" category="admonition">請謹慎使用。此API呼叫會刪除Volume及其所有資料。</block>
+  <block id="010dac8c2d7f8ba8580c0092723049ed" category="section-title">建立快照</block>
+  <block id="30a438700fef86494db7de62e3946239" category="paragraph">以下範例使用「POST」呼叫來建立特定Volume的快照、稱為「快照」：</block>
+  <block id="cf126360635de78f351b260f31fa438f" category="inline-link-macro">指令碼、可依掛載點建立雲端磁碟區的快照</block>
+  <block id="277e9dc08a3aa11c1e9466cef3644483" category="paragraph"><block ref="277e9dc08a3aa11c1e9466cef3644483" category="inline-link-macro-rx"></block></block>
+  <block id="ba33208e705836c12b7e1e6e2fa6b492" category="section-title">建立快照原則</block>
+  <block id="a9a183b7e786e3cb8bff49462b4f44d3" category="paragraph">以下範例使用「PUT（放置））呼叫來建立特定磁碟區的快照原則：</block>
+  <block id="065deb600317f9ff553e4b0cfb22d25d" category="inline-link-macro">指令碼、以透過掛載點建立雲端磁碟區的快照原則</block>
+  <block id="537451b067dec98a30f3a9beacd83742" category="paragraph"><block ref="537451b067dec98a30f3a9beacd83742" category="inline-link-macro-rx"></block></block>
+  <block id="efac3ce0ce2b4ea795d45be44bfa0e86" category="section-title">列出特定磁碟區的快照</block>
+  <block id="c1d075778ef1cbac55475b7abb275e28" category="paragraph">以下範例使用「Get」（取得）呼叫來列出特定Volume的快照：</block>
+  <block id="d203d6e61d436dcd1071d07f840c18a6" category="inline-link-macro">指令碼、依掛載點列出雲端磁碟區的快照</block>
+  <block id="b41d5d91a0d2e096cfc6e8692d38f807" category="paragraph"><block ref="b41d5d91a0d2e096cfc6e8692d38f807" category="inline-link-macro-rx"></block></block>
+  <block id="237dcff463ff393300d9aa2f5dcc4f52" category="section-title">還原快照</block>
+  <block id="d78b05481062bddefc484324b50d5183" category="paragraph">以下範例使用「POST」呼叫、從「Snapshot Id」和「volumeId」指定的快照中還原磁碟區：</block>
+  <block id="86bee8c8000f653ec429682200c099a8" category="inline-link-macro">指令碼、可依掛載點和snapshotId還原至雲端磁碟區的快照</block>
+  <block id="b2ae3645c0298bd967a6a3bcaf17a043" category="paragraph"><block ref="b2ae3645c0298bd967a6a3bcaf17a043" category="inline-link-macro-rx"></block></block>
+  <block id="a1826f70bcd0d51c2279f0be06bef208" category="admonition">請謹慎使用。此API呼叫會導致在該快照日期之後寫入的任何資料遺失。</block>
+  <block id="f0e6db7bd1f0f3bc93f1b8e2b7edb37e" category="section-title">從快照建立新磁碟區</block>
+  <block id="8377cd85d9ce514dc0d5ff2f4af70fc0" category="paragraph">以下範例使用「POST」呼叫、根據「Snapshot Id」指定的現有磁碟區快照來建立新的磁碟區：</block>
+  <block id="e7299de9faa88a3de61ca5cea7dc2539" category="inline-link-macro">複製雲端磁碟區的指令碼</block>
+  <block id="e464545ae8c0d0adc7349c3be492a19e" category="paragraph"><block ref="e464545ae8c0d0adc7349c3be492a19e" category="inline-link-macro-rx"></block></block>
+  <block id="f001b99ba918af62817671c9a2293a14" category="paragraph">以下範例使用「刪除」呼叫來刪除由「快照ID」指定的快照：</block>
+  <block id="5595b37e5615614913fa916343ba08f7" category="inline-link-macro">指令碼、可依掛載點和snapshotId刪除雲端磁碟區的快照</block>
+  <block id="ff2601e5c0bc593cf7e9b22a74e03eaa" category="paragraph"><block ref="ff2601e5c0bc593cf7e9b22a74e03eaa" category="inline-link-macro-rx"></block></block>
+  <block id="fd9241a307d3cbf53276add7a202762f" category="admonition">請謹慎使用。此API呼叫會刪除快照及其所有資料。</block>
+  <block id="d2893306795716426893a2953b449c35" category="section-title">加入目錄服務</block>
+  <block id="e0f3670fcd3f9b9d5281771fb7845849" category="paragraph">下列範例使用「POST」通話來加入目錄服務、並提供DNS IP位址、網域、SMB伺服器的NetBios名稱、目錄服務管理員的使用者名稱和密碼、以及組織單位（選用、預設為CN=電腦）。</block>
+  <block id="14bf7ab761531a5763acced5079246e2" category="inline-link-macro">用於加入目錄服務的指令碼</block>
+  <block id="f6909b0eb29ea546856dcedd03479f65" category="paragraph"><block ref="f6909b0eb29ea546856dcedd03479f65" category="inline-link-macro-rx"></block></block>
+  <block id="c9492debb28dace2e21d2e69b60fc170" category="section-title">檢視目錄服務整合</block>
+  <block id="2a7bef74200cf4304f1ab7c416cbe68c" category="paragraph">以下範例使用「Get」呼叫來顯示目錄服務整合的組態。</block>
+  <block id="ac257fab8992db7942025a29fc805416" category="inline-link-macro">用於檢視目錄服務整合的指令碼</block>
+  <block id="03274b33c2a9a2197f0819cf1c944846" category="paragraph"><block ref="03274b33c2a9a2197f0819cf1c944846" category="inline-link-macro-rx"></block></block>
+  <block id="1724dc1a3be546ba86b7ada930916739" category="section-title">取消加入目錄服務</block>
+  <block id="36249526ed79dcaae394fe65d64d115e" category="paragraph">以下範例使用「刪除」呼叫取消目錄服務整合。這需要目前加入的UUID、您可以使用上述的「Get」（取得）通話來找到。</block>
+  <block id="158aa6ad10b7113e6d669a4ee5a2bb1c" category="admonition">您無法取消加入使用中的目錄服務；狀態為「使用中」。</block>
+  <block id="0ad9fb34ed559d5c8188814fc25cdc8c" category="inline-link-macro">取消加入目錄服務的指令碼</block>
+  <block id="cfe6276a56410b6f8d52ea83790ff15a" category="paragraph"><block ref="cfe6276a56410b6f8d52ea83790ff15a" category="inline-link-macro-rx"></block></block>
+  <block id="4951fd131b0c557f3befdf9e50a5c79a" category="section-title">取得效能統計資料</block>
+  <block id="9562cca80f464aafc3271ecbb5dad9c2" category="paragraph">下列範例使用「Get」（取得）呼叫、針對「volumeId」指定的磁碟區、列出特定期間內的讀取和寫入IOPS、處理量及延遲統計資料。</block>
+  <block id="05ba930ea1b0e9120679e186909a4c1e" category="inline-link-macro">指令碼、以透過掛載點取得雲端磁碟區的效能統計資料</block>
+  <block id="ab7093fff7711570f804bcae3b0d7478" category="paragraph"><block ref="ab7093fff7711570f804bcae3b0d7478" category="inline-link-macro-rx"></block></block>
+  <block id="3c1dcb9c8b45beff191ea00aa2f20bfd" category="summary">一旦您在AWS市場訂閱之後很快就能存取Cloud Volumes Service 完這個功能、強烈建議您啟動支援服務權利。啟用支援權利可讓您透過線上聊天室、網路票證系統和電話存取技術支援。</block>
+  <block id="902d45c505e34d873cd427fc812f0cec" category="doc">啟動支援權利並存取支援</block>
+  <block id="30cbc44aad93ced2beecdbf7f7f7fec6" category="paragraph">在完成序號啟動與登錄之前、預設的支援層級為自助服務。</block>
+  <block id="e9d356ec51ae4d84881e70ea3c98b6dc" category="section-title">正在啟動支援權利</block>
+  <block id="be95e2cfe33d221ef43e897ebe76de9c" category="paragraph">在AWS初始訂購程序期間Cloud Volumes Service 、您的雲端磁碟區執行個體會產生20位數的NetApp序號、開頭為「930」。NetApp序號代表Cloud Volumes Service 您AWS帳戶的相關資訊訂閱。您必須註冊NetApp序號、才能啟動支援權益。我們提供2種支援登錄選項：</block>
+  <block id="23957c938fbe6783848a0c7c3651718a" category="list-text">目前擁有現有NetApp支援網站（NSS）SSO帳戶的NetApp客戶</block>
+  <block id="63b11526307884ce31efc524f509c090" category="list-text">沒有現有NetApp支援網站（NSS）SSO帳戶的新NetApp客戶</block>
+  <block id="766f3d31e0bd393953854f6e09656987" category="section-title">選項1：目前擁有現有NetApp支援網站（NSS）SSO帳戶的NetApp客戶</block>
+  <block id="7539cbf9922878ac5ea7a50e44ff73f7" category="inline-link">NetApp Cloud Central入口網站</block>
+  <block id="c04559b3591d91b90cafc2eee58d541f" category="list-text">瀏覽Cloud Volumes Service 至URL、或透過存取此服務<block ref="92934608ae6af31041e90caa3f54396c" category="inline-link-rx"></block>。然後使用您的NetApp Cloud Central認證登入。</block>
+  <block id="3ff70f5b598d5ae4fd3e3fecd8918128" category="list-text">在Cloud Volumes Service 支援使用者介面（UI）中選取「*支援*」、即可顯示您的NetApp序號。</block>
+  <block id="fd2a8f819ab8e42b6ec0be6d8de775da" category="image-alt">顯示支援頁面</block>
+  <block id="22a87fb83a61d9dfc90c784e297a7a30" category="list-text">在「*支援*」頁面中、確認您的「支援」狀態顯示為「未註冊」。</block>
+  <block id="4008d83877c7ccfbcaa7bd36d9c0f204" category="image-alt">支援狀態未登錄</block>
+  <block id="20fa88b6364f4bad6cd379a12f3e31fa" category="paragraph">如果您看不到支援狀態和NetApp序號、請重新整理瀏覽器頁面。</block>
+  <block id="0fc9c2a334a9b361f87a8e9043060be7" category="list-text">按一下「*啟動支援*」以註冊您的NetApp序號：</block>
+  <block id="81d3e987d1ca98307e460e15a5eccd2a" category="list-text">如果您有一個NSS帳戶、請在「**啟動支援*」頁面中輸入您的NSS認證（使用者名稱和密碼）、然後按一下「**啟動*」以啟動您NetApp序號的支援授權。</block>
+  <block id="83f88ebd41a2d4bf2440a2d134086a74" category="image-alt">啟動支援</block>
+  <block id="fbf62905ff14cf2944029e8b9424e045" category="inline-link">NetApp支援註冊網站</block>
+  <block id="9c8b87a50dd659656a141c27dc247aa9" category="list-text">如果您是現有的NetApp客戶、但您沒有任何NSSSSO認證、請前往<block ref="2995c8cd64db3ab408e3c867564074bd" category="inline-link-rx"></block> 以先建立您的帳戶。然後返回此處以註冊您的NSS認證。</block>
+  <block id="7d8439e5c479249957b26bc548b04e4f" category="list-text">如果您是NetApp的新客戶、請參閱下方選項2的指示。</block>
+  <block id="b7d095572c49cd0da541386a19f9d94d" category="paragraph">啟動NetApp序號之後、「**支援*」頁面會顯示「已登錄」狀態、表示您已啟動支援服務權利。</block>
+  <block id="ccd9f3251025937256b46396828d30b6" category="image-alt">已登錄支援狀態</block>
+  <block id="54e29fcae2e1546490105986804a9125" category="paragraph">這是適用Cloud Volumes Service 的不二序號的一次性支援登錄。任何新Cloud Volumes Service 的版本不支援訂閱及後續的新序號也需要啟用支援。如果您對支援註冊有任何問題、請聯絡我們：cvs-support@netapp.com。</block>
+  <block id="9c72e9218774375323f849ee08453718" category="section-title">選項2：沒有現有NetApp支援網站（NSS）SSO帳戶的新NetApp客戶</block>
+  <block id="8e2e894a8f2d0c798eda10b04a6aae2c" category="inline-link">雲端資料服務支援註冊</block>
+  <block id="d15ddd92716258916f2997a149c0e1c9" category="list-text">瀏覽至<block ref="2151d866808a52a3eadb15c242a47970" category="inline-link-rx"></block> 頁面以建立一個新的nss.</block>
+  <block id="1c50975feec0d84c66edb56f1126d033" category="list-text">選擇「我不是NetApp註冊客戶」*、隨即顯示「新客戶註冊」表單。</block>
+  <block id="13057fbeba6fc2ea452df672598620da" category="image-alt">新客戶註冊表</block>
+  <block id="ee364f11fd7d245e4d69ec062eb83cb8" category="list-text">填寫表單上的必要資訊：</block>
+  <block id="cddef93549327dd0dc967c3c80b4f3e9" category="list-text">輸入您的姓名和公司資訊。</block>
+  <block id="5fddeeeadbac57fc1e413c54bbe2136f" category="list-text">選擇「* Cloud Volumes Service 產品線」*「*」*「*」*「*」*「*」*「*」*「*」*「*」*「*」「*」</block>
+  <block id="ca1fd1b529e3590bf05d6bbfd7555b8f" category="list-text">請在Cloud Volumes Service 接下來的兩個欄位中輸入您的「* NetApp序號*」和「* AWS客戶ID *」。</block>
+  <block id="dee616561cc7f504f6a9ea5ffb29fe5d" category="list-text">按一下「提交註冊」。</block>
+  <block id="3c4d0c718f64dc728edbccefce9a6a3c" category="list-text">您將收到您提交的註冊確認電子郵件。如果沒有錯誤發生、您將被重新導向至「註冊已成功提交」頁面。您也會在一小時內收到一封電子郵件、指出「您的產品現在已符合支援資格」。</block>
+  <block id="e4c7b422a46f280870b3f268ba11a2a4" category="list-text">身為NetApp的新客戶、您也需要建立NetApp支援網站（NSS）使用者帳戶、以便日後啟用支援服務、以及存取技術支援聊天室和網路票證的支援入口網站。前往<block ref="2995c8cd64db3ab408e3c867564074bd" category="inline-link-rx"></block> 以執行此工作。您可以提供新登錄Cloud Volumes Service 的不合格產品編號、以加速程序。</block>
+  <block id="9373c0ca75df5603cb648bb12943f07d" category="section-title">取得支援資訊</block>
+  <block id="4190f7b054c6bf5e70a45b6bb7a8e7fc" category="paragraph">NetApp以Cloud Volumes Service 多種方式提供對功能的支援。我們全年無休提供豐富的免費自助支援選項、例如知識庫（KB）文章或NetApp社群。從AWS SaaS市場購買的此類訂閱包括透過聊天室、電子郵件、網路票證或電話提供遠端技術支援。Cloud Volumes Service您必須先啟用每個NetApp序號的支援、才能使用這些非自助服務支援選項。需要NetApp支援網站（NSS）SSO帳戶才能進行聊天和網路票證、以及案例管理。</block>
+  <block id="2a5fd010c9151aa446afcaeb77ddb758" category="paragraph">從Cloud Volumes Service 主功能表中選取「** Support」（*支援）索引標籤、即可從SUI存取支援選項。您可用的支援選項取決於您是處於試用模式或訂閱模式。</block>
+  <block id="07d41912a6ab6b97216f8cf89e93205c" category="section-title">自我支援</block>
+  <block id="1eaf00c3e60bf4d6ada37af5f9aa703b" category="paragraph">這些選項以試用模式提供、全年無休免費提供：</block>
+  <block id="19111351b69b6b15668130b38b7f6038" category="inline-link">知識庫</block>
+  <block id="633613fb5d0ad93edb696f9fe685fc7b" category="list-text"><block ref="2eb023f98447a7b9d0796d4a598b558f" category="inline-link-rx"></block>選取本節中的連結、即可前往NetApp知識庫、您可在此搜尋Cloud Volumes Service 與更新相關的文章、操作方法、常見問題集或中斷修復資訊。</block>
+  <block id="7b1329f5ca3d485bba602a815ffd4d6d" category="inline-link">使用手冊</block>
+  <block id="54a4898cb0859902452f24e233ad7a5e" category="list-text"><block ref="159360ebed879dd5655e40a678966ca3" category="inline-link-rx"></block>選擇「*按一下此處*」連結、即可前往Cloud Volumes Service 適用於AWS文件中心的功能。</block>
+  <block id="14526abd8bda5af347775025cd5342cf" category="inline-link">社群</block>
+  <block id="3e2001e16c856c9dd701c91abe4ed12a" category="list-text"><block ref="744de2cadf11290893abb03340e471cb" category="inline-link-rx"></block>選擇「*按一下此處*」連結、即可前往Cloud Volumes Service 「不一樣」社群、與同儕和專家交流互動。</block>
+  <block id="0c5a6aa558c218816e6fbd6d8ed8baec" category="list-text">電子郵件：選取「意見反應」區段中的「請按一下此處」連結、即可透過cvs-support@netapp.com寄送電子郵件給支援人員。這是提出服務一般問題、提供意見回饋和建議、或尋求協助解決與就職相關的問題的好地方。</block>
+  <block id="52fcceb1925114589eec173daab1c999" category="section-title">訂購支援</block>
+  <block id="2d171858498adf3d36222085f079f93a" category="paragraph">除了上述的自助支援選項之外、如果Cloud Volumes Service 您有付費訂閱、也可以與NetApp支援工程師合作解決任何問題。</block>
+  <block id="0262da3f439e4df14689dec8b54430c7" category="paragraph">一旦啟用您的支援序號、您就可以透過下列任一方法存取NetApp技術支援資源。Cloud Volumes Service您必須訂閱有效的Cloud Volumes才能使用這些支援選項。</block>
+  <block id="55dcdf017b51fc96f7b5f9d63013b95d" category="inline-link">聊天室</block>
+  <block id="7c3ee899ee3ed2e1c69a3ddeb2ce70c2" category="list-text"><block ref="f34fa7926cfb7f2704a258637db5d0a4" category="inline-link-rx"></block>這也會開啟支援服務單。</block>
+  <block id="0af89698bf5d1150026d4fcbbcf784a6" category="inline-link">支援服務單</block>
+  <block id="d9b74aae4d86dd6ebe1e7d5b45dc3716" category="list-text"><block ref="0e15415017bcac169a4122be533e84df" category="inline-link-rx"></block>選擇Cloud Data Services &gt; Cloud Volumes Service 《AWS資料服務</block>
+  <block id="bcc254b55c4a1babdf1dcb82c207506b" category="inline-link">電話</block>
+  <block id="730e98d86dc7760bee1a7c5c00c06266" category="list-text"><block ref="91cd0fdb94d4d417072ea0006d1c5102" category="inline-link-rx"></block>報告新問題或致電詢問現有問題單。此方法最適合P1或立即協助。</block>
+  <block id="0fb8dd59a0bef75c0f2ec966582f227b" category="inline-link">聯絡銷售人員</block>
+  <block id="f5f2725fe1e9760da005d9b95caefa13" category="paragraph">您也可以按一下以申請銷售支援<block ref="a2cda76faf53fb03dbec7610ce9cd123" category="inline-link-rx"></block> 連結：</block>
+  <block id="734e99db37f7371ef9c12acb1553af95" category="paragraph">您的支援序號可在服務中從「Support（支援）」功能表選項看到。Cloud Volumes Service如果您在存取服務時遇到問題、且先前已向NetApp註冊序號、請聯絡cvs-support@netapp.com尋求協助。您也Cloud Volumes Service 可以從NetApp支援網站檢視您的支援產品系列編號清單、如下所示：</block>
+  <block id="0373910e51252c7b97dcbea9f4942604" category="inline-link">mysupport.netapp.com</block>
+  <block id="c251a5a1be5b1e6d0fb464d2e96ec490" category="list-text">登入<block ref="d2d7cb2875e01b404c245a3a5e58fd46" category="inline-link-rx"></block>。</block>
+  <block id="80ea1edd18fe734adc3e09db4052ab87" category="list-text">從「產品」&gt;「我的產品」功能表索引標籤中、選取「產品系列」*「SaaS Cloud Volume」*以找出您所有註冊的序號：</block>
+  <block id="b7be7163ec921853688f069d0b016262" category="image-alt">檢視安裝的系統</block>
+  <block id="93255d5b967adbb05931601c7961bce3" category="summary">最初建立的是「支援區」關係時Cloud Sync 、預設會啟用自動同步功能、並排定每天執行一次。您可以Cloud Sync 視需要修改「不實時程」。</block>
+  <block id="694387b87e801050b5dac0771fcf4359" category="doc">修改Cloud Sync 不一致的排程</block>
+  <block id="ad5078b682cd59d6224ba78a42926d64" category="list-text">前往「Volume」（Volume）頁面上的「Sync」（同步）頁面或「Sync」（同步）索引標籤、查看Cloud Sync 相關的資訊。</block>
+  <block id="fe40a17d17b2dced5e9387341551cc5e" category="image-alt">同步關係</block>
+  <block id="675456ee72f1a689d9278ba923861abd" category="list-text">若要關閉Cloud Sync 「自動同步」以建立關聯、請按一下「藍色*開啟*」滑桿以取得關聯。</block>
+  <block id="b8e70665413cb3870d9e87320561d2ea" category="image-alt">自動同步滑桿</block>
+  <block id="e2fe847cb8bfe6d0bf68fb7870b35a0a" category="list-text">若要變更同步排程、請按一下「*排程*」下的下拉式清單、選取「*天/秒*」或「*小時/秒*」、選取一個時間間隔編號、然後按一下核取標記。</block>
+  <block id="41e123b9d6f5c0e01128cb2041032218" category="list-text">若要Cloud Sync 立即啟動功能、請按一下「Action（動作）」下的「* Done（完成）」、選取「* Sync Now*（立即同步*）」、然後再按一下「* Sync Now*（立即同步*）」以確認。</block>
+  <block id="bc1e82d4547991a83618e5033c457a22" category="summary">您可以刪除Cloud Sync 不再需要的資料代理程式。</block>
+  <block id="90a4e3335aa9fe45c887d203938f53c2" category="doc">刪除Cloud Sync 不經資料的代理程式</block>
+  <block id="430fb0c6e1b6f971bf061efbb964e725" category="paragraph">此工作會從雲端磁碟區移除資料代理程式、但不會刪除AWS中的資料代理執行個體。</block>
+  <block id="702f16537513ec4a6af9c3116a23d1b3" category="paragraph">若要刪除AWS中的資料代理執行個體、您必須前往帳戶的AWS主控台、依名稱找出代理程式的EC2執行個體、然後視需要終止該執行個體。</block>
+  <block id="54a975ea836c7164ee64533d61bb890c" category="paragraph">使用資料代理程式的Cloud Sync 所有相依關係、必須先刪除、才能刪除資料代理程式。</block>
+  <block id="85773e4a29542afcdff77da54c442399" category="inline-link-macro">刪除Cloud Sync 不合作關係</block>
+  <block id="5dfc503a2d09c61a15786ca3c2b897b5" category="paragraph"><block ref="5dfc503a2d09c61a15786ca3c2b897b5" category="inline-link-macro-rx"></block></block>
+  <block id="9257fec4e31315c0fae27c6e9fe0116b" category="list-text">按一下資料代理的名稱、然後按一下垃圾桶圖示、即可刪除資料代理程式。</block>
+  <block id="77ae50ef3e08c161ce77ba68d707720f" category="summary">NetApp會定期更新Cloud Volumes Service AWS的功能、為您帶來新功能與增強功能。</block>
+  <block id="0674bb07944eeb6425669d4fdbc529c3" category="doc">AWS的更新功能Cloud Volumes Service</block>
+  <block id="8aa90565fb34d8b0aeab74ab74ffdf4a" category="section-title">2021年2月</block>
+  <block id="3fdf0ec98b1a63c86b4e4dacb0cfa521" category="list-text">現在有新的Cloud Volumes API（「PerformancerMetrics」）可供擷取效能統計資料、包括IOPS、頻寬和延遲。若要深入瞭解、請參閱 <block ref="e502fc9fa2f84fd70d41eb87d0259048" category="inline-link-macro-rx"></block>。</block>
+  <block id="ca82c7bf0a12e1bd7623c916688916ff" category="section-title">2020年7月</block>
+  <block id="fa619a7facccecd95dffcfdf8bef639c" category="list-text">此功能現在支援範圍更廣的RFC 1918私有網路、範圍介於/16和/28之間。Cloud Volumes Service先前僅支援/28個範圍。</block>
+  <block id="0f809d87f50a9201964bee05a3689722" category="list-text">「同步」功能現在直接與Cloud Sync SureUI整合、提供更多功能。</block>
+  <block id="d2390df519d4530109168db7a9c4d7a0" category="list-text">磁碟區可透過API呼叫轉換至NSFv3、NFSv4.1、以及NFSv3和NFSv4.1。</block>
+  <block id="fb1b5fb993aca43165cf053826a4fd00" category="inline-link-macro">請參閱Cloud Volumes API</block>
+  <block id="7e5e3cff2a3e22c19f42ba60fba52948" category="list-text">API範例和Python範例指令碼已更新為v2 API。 <block ref="8cf82d92253e589dfa4efae9d85c2b7c" category="inline-link-macro-rx"></block>。</block>
+  <block id="9b98513a9d35526671bb2362bc109bcb" category="list-text">現在NFSv4.1磁碟區已啟用ACL。</block>
+  <block id="18e643dc88eb8bea7319191a7706f2aa" category="list-text">此功能現已通過SOC 2類型1認證。Cloud Volumes Service</block>
+  <block id="cb408597e447395fe55a5c5169094ae9" category="list-text">此功能現已在新加坡推出（亞太東南1）Cloud Volumes Service 。</block>
+  <block id="342aa26fa2cc7e365c1b819a4e86b6f1" category="section-title">2020年3月</block>
+  <block id="4fda518158d164de867798bf9512d1a0" category="list-text">目前支援NFSv3和NFSv4.1掛載的最大I/O大小為1個mib。Cloud Volumes Service先前的I/O大小上限為64 KiB。增加I/O大小可能會改善某些工作負載的效能。若要增加I/O大小、請使用「rsize」和/或「wsize」掛載選項、例如：「mount -o nfsves=4.1、rsize=1048576、wsize=1048576 172.25.0.4.4/vol1 /mnt/cv</block>
+  <block id="cf2dfa7ef96d78d1f3ec76316e1481d0" category="section-title">2020年2月</block>
+  <block id="ff2c50fca31063bca7c7a4fdbdadd0aa" category="list-text">現在可在AWS Marketplace以計費（隨用隨付）訂閱方式取得。Cloud Volumes Service如需詳細資訊、請參閱Marketplace清單：<block ref="c3992234bf098607943f4710edfa77cf" category="inline-link-rx"></block>請注意、原始的每月和每年訂閱方案仍可供使用。</block>
+  <block id="d835981d77534f5f20446d4648ad7e5b" category="section-title">2020年1月</block>
+  <block id="65d173ac8563e7ccb65bd04bfb9cafa1" category="list-text">目前支援SMB多重通道、可同時使用多個網路連線來提升效能。Cloud Volumes ServiceWindows用戶端預設會啟用多通道、但EC2執行個體必須使用支援RSS（接收端調整）的網路介面卡。</block>
+  <block id="fe8552e6e906f75f07bc07d06306d7c4" category="list-text">從快照還原磁碟區現在可從Cloud Volumes Service 使用者介面取得。這可讓您將磁碟區還原至時間點快照、而不需要重新掛載用戶端。請參閱 <block ref="ff647bf166f606f514d0e8a2dbd7ea01" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
+  <block id="b454c4191e92c73442889214b58f36be" category="sidebar">適用於AWS文件Cloud Volumes Service</block>
+  <block id="7d0ee6fed10d3d4e5c9ee496729ab519" category="sidebar">版本資訊</block>
+  <block id="33871b6190a8d5adbe8b15282054766c" category="sidebar">新增功能</block>
+  <block id="558ab0bef1894a7a726109d36632d09d" category="sidebar">已知問題</block>
+  <block id="cb59b87e00d11222bfd9159d0d23836f" category="sidebar">快速入門</block>
+  <block id="5d7f7cb12ae8a116d30dc2cde00fc75d" category="sidebar">管理雲端磁碟區</block>
+  <block id="580e45478c258aa0d5a4f704476a412b" category="sidebar">管理雲端Volume快照</block>
+  <block id="397ff3bc347de43dbcde7cdb242690fe" category="sidebar">管理匯出原則規則</block>
+  <block id="ff2741973abb478532d388257d6165e5" category="sidebar">管理Cloud Sync 雲端磁碟區的功能</block>
+  <block id="63d5049791d9d79d86e9a108b0a999ca" category="sidebar">參考資料</block>
+</blocks>

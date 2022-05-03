@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: aws/task_reverting_volume_to_snapshot.html 
+keywords: Cloud Volumes Service for AWS, snapshots, restore, revert 
+summary: 您可以將磁碟區從現有的快照還原至較早的時間點。 
+---
+= 從快照還原磁碟區
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+您可以將磁碟區從現有的快照還原至較早的時間點。
+
+還原磁碟區時、快照內容會覆寫現有的磁碟區組態。建立快照後、對磁碟區中資料所做的任何變更都會遺失。
+
+請注意、用戶端不需要在還原作業之後重新掛載磁碟區。
+
+.步驟
+. 在「Snapshot（快照）」頁面或「Snapshot（快照）」索引標籤的「Volume details（磁碟區詳細資料）」中、選取您要還原的快照、按一下「* Available（*可用）」*、然後選取「* Revert volume to snapshot*
+. 在「恢復快照」對話方塊中、重新輸入您要還原的磁碟區名稱、然後按一下「*恢復*」。
+

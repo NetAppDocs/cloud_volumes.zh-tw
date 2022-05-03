@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: aws/task_deleting_cloud_sync_relationship.html 
+keywords: Cloud Volumes Service for AWS, Cloud Sync relationship 
+summary: 您可以刪除Cloud Sync 不再需要的不再需要的關聯。 
+---
+= 刪除Cloud Sync 不合作關係
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+您可以刪除Cloud Sync 不再需要的不再需要的關聯。
+
+.步驟
+. 前往「Volume」（磁碟區）頁面上的「Sync」（同步）頁面或「Sync」（同步）索引標籤。
+. 按一下您要刪除之關聯的方塊、按一下「*動作*」、然後選取「*刪除關聯/秒*」。
+. 在確認對話方塊中、輸入「刪除」進行確認、然後按一下「*刪除*」。
+

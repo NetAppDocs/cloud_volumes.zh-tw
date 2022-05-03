@@ -1,0 +1,23 @@
+---
+sidebar: sidebar 
+permalink: aws/reference_cloud_backup_service_intro.html 
+keywords: Cloud Volumes Service for AWS, Cloud Backup Service 
+summary: 您可以使用Cloud Backup Service S還原 來備份NFS雲端磁碟區。 
+---
+= 使用Cloud Backup Service 還原管理備份（適用於US-WEST-2的試用版）
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+您可以使用Cloud Backup Service S還原 來備份NFS雲端磁碟區。
+
+藉由提供專屬的備份來進行長期的恢復、歸檔和法規遵循、此功能可擴充其資料保護功能。Cloud Backup Service Cloud Volumes Service由服務建立的備份會儲存在AWS S3物件儲存設備、獨立於可供近期恢復或複製的雲端Volume快照。
+
+目前、支援的是Beta版、僅支援AWS US-WEST-2地區的功能。Cloud Backup Service Cloud Volumes Service
+
+使用Cloud Backup Service 唯有瞭解並接受試用版軟體的條款、要求和考量、才能使用此功能。請參閱 link:media/cloud_backup_service_beta.pdf["設定Cloud Backup Service 適用於AWS的NetApp Cloud Volumes Service 解決方案的功能"^] 以取得使用服務的詳細資訊和指示。

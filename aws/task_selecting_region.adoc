@@ -1,0 +1,37 @@
+---
+sidebar: sidebar 
+permalink: aws/task_selecting_region.html 
+keywords: Cloud Volumes Service for AWS, regions 
+summary: 許多AWS地區都有提供此功能。Cloud Volumes Service在建立雲端磁碟區之前、您必須先指定要使用服務的區域。 
+---
+= 選取區域
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+許多AWS地區都有提供此功能。Cloud Volumes Service在建立雲端磁碟區之前、您必須先指定要使用服務的區域。
+
+.步驟
+. 瀏覽至 https://cds-aws-bundles.netapp.com/storage/volumes["NetApp Cloud Orchestrator"^] 網站、然後使用您在訂閱期間提供的電子郵件地址登入。
++
+您應該將此URL加入書籤。您稍後需要返回。
+
+. 從頂端面板的*可用區域*下拉式功能表中、選取您要處理的區域。
++
+此選擇程序與您在AWS主控台變更區域的方式類似。
+
++
+image::diagram_selecting_region.png[選取區域]
+
+. 當您想要建立雲端Volume時、請針對每個其他區域重複上述步驟。
+
+
+*附註：* Cloud Volumes使用者介面中顯示的區域可能使用的格式與您在AWS使用者介面中選取的區域不同。例如、Cloud Volumes UI中的_us-east-1_對應於AWS主控台中選取的_n.Virginia區域。請參閱 https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html["區域與可用度區域"^] 若要對應區域名稱、請確定在兩個介面中選取相同的區域。

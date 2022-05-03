@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: aws/task_deleting_cloud_volumes_for_aws.html 
+keywords: Cloud Volumes Service for AWS, delete, unmount 
+summary: 您可以刪除不再需要的雲端磁碟區。 
+---
+= 刪除雲端磁碟區
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+您可以刪除不再需要的雲端磁碟區。
+
+.步驟
+. 從所有用戶端卸載 Volume ：
++
+** 在 Linux 用戶端上、請使用「 umount 」命令。
+** 在 Windows 用戶端上、按一下 * 中斷網路磁碟機 * 。
+
+
+. 從「Volumes（磁碟區）」頁面中、選取對應的核取方塊、按一下「* Actions（*動作）」*、然後從下拉式清單中選取「* Delete Volume/S*（*刪除磁碟區/秒*）」、以指定要刪除的磁碟區
+. 在確認對話方塊中、輸入「刪除」以確認您要刪除磁碟區、然後按一下「*刪除*」。
+

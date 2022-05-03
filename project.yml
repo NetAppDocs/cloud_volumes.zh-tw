@@ -1,0 +1,85 @@
+---
+settings:
+  name: Cloud Volumes Service
+  platform: ''
+  rss_page: reference_whats_new_cloud_volumes_aws.html
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: zh-tw,us-en,ja-jp,zh-cn,ko-kr
+sidebar:
+  entries:
+  - title: 適用於AWS文件Cloud Volumes Service
+    url: "/aws/index.html"
+  - title: 版本資訊
+    entries:
+    - title: 新增功能
+      url: "/aws/reference_whats_new_cloud_volumes_aws.html"
+    - title: 已知問題
+      url: "/aws/reference_known_issues.html"
+  - title: 快速入門
+    entries:
+    - title: 先決條件
+      url: "/aws/concept_overview.html"
+    - title: 快速入門指示
+      url: "/aws/task_quick_start.html"
+    - title: 啟動支援權利並存取支援
+      url: "/aws/task_activating_support_entitlement.html"
+    - title: 選取區域
+      url: "/aws/task_selecting_region.html"
+  - title: 管理雲端磁碟區
+    entries:
+    - title: 建立雲端磁碟區
+      url: "/aws/task_creating_cloud_volumes_for_aws.html"
+    - title: 掛載雲端磁碟區
+      url: "/aws/task_mounting_cloud_volumes_for_aws.html"
+    - title: 修改雲端磁碟區
+      url: "/aws/task_modifying_cloud_volumes_for_aws.html"
+    - title: 刪除雲端磁碟區
+      url: "/aws/task_deleting_cloud_volumes_for_aws.html"
+  - title: 管理雲端Volume快照
+    entries:
+    - title: 為雲端磁碟區建立隨需快照
+      url: "/aws/task_creating_on_demand_snapshots.html"
+    - title: 建立或修改快照原則
+      url: "/aws/task_creating_modifying_snapshot_policies.html"
+    - title: 停用快照原則
+      url: "/aws/task_disabling_snapshot_policy.html"
+    - title: 從快照還原磁碟區
+      url: "/aws/task_reverting_volume_to_snapshot.html"
+    - title: 刪除快照
+      url: "/aws/task_deleting_snapshots.html"
+    - title: 將快照還原至新磁碟區
+      url: "/aws/task_restoring_snapshots_to_new_volumes.html"
+  - title: 管理匯出原則規則
+    entries:
+    - title: 修改匯出原則規則
+      url: "/aws/task_modifying_export_policy_rules.html"
+    - title: 建立其他匯出原則規則
+      url: "/aws/task_creating_additional_export_policy_rules.html"
+    - title: 刪除匯出原則規則
+      url: "/aws/task_deleting_export_policy_rules.html"
+  - title: 管理Cloud Sync 雲端磁碟區的功能
+    entries:
+    - title: 建立Cloud Sync 一個資料代理程式
+      url: "/aws/task_creating_cloud_sync_data_broker.html"
+    - title: 建立Cloud Sync 彼此之間的不一樣關係
+      url: "/aws/task_creating_cloud_sync_relationship.html"
+    - title: 修改Cloud Sync 不一致的排程
+      url: "/aws/task_modifying_cloud_sync_schedule.html"
+    - title: 刪除Cloud Sync 不合作關係
+      url: "/aws/task_deleting_cloud_sync_relationship.html"
+    - title: 刪除Cloud Sync 不經資料的代理程式
+      url: "/aws/task_deleting_cloud_sync_data_broker.html"
+  - title: Cloud Volumes API
+    url: "/aws/reference_cloud_volume_apis.html"
+  - title: 參考資料
+    entries:
+    - title: 適用於 Windows AD 伺服器的 AWS 安全性群組設定
+      url: "/aws/reference_security_groups_windows_ad_servers.html"
+    - title: 選取適當的服務層級和已分配的容量
+      url: "/aws/reference_selecting_service_level_and_quota.html"
+  - title: 法律聲明
+    url: "/aws/reference_notices.html"

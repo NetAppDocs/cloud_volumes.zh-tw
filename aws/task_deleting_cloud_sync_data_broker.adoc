@@ -1,0 +1,34 @@
+---
+sidebar: sidebar 
+permalink: aws/task_deleting_cloud_sync_data_broker.html 
+keywords: Cloud Volumes Service for AWS, Cloud Sync, data brokers 
+summary: 您可以刪除Cloud Sync 不再需要的資料代理程式。 
+---
+= 刪除Cloud Sync 不經資料的代理程式
+:toc: macro
+:hardbreaks:
+:allow-uri-read: 
+:toc: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+:toc-position: content
+
+
+[role="lead"]
+您可以刪除Cloud Sync 不再需要的資料代理程式。
+
+此工作會從雲端磁碟區移除資料代理程式、但不會刪除AWS中的資料代理執行個體。
+
+若要刪除AWS中的資料代理執行個體、您必須前往帳戶的AWS主控台、依名稱找出代理程式的EC2執行個體、然後視需要終止該執行個體。
+
+使用資料代理程式的Cloud Sync 所有相依關係、必須先刪除、才能刪除資料代理程式。
+
+link:task_deleting_cloud_sync_relationship.html["刪除Cloud Sync 不合作關係"]
+
+.步驟
+. 前往「Volume」（磁碟區）頁面上的「Sync」（同步）頁面或「Sync」（同步）索引標籤。
+. 按一下資料代理的名稱、然後按一下垃圾桶圖示、即可刪除資料代理程式。
+. 在確認對話方塊中、輸入「刪除」進行確認、然後按一下「*刪除*」。
+

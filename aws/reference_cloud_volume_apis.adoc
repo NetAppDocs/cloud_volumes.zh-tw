@@ -1,0 +1,320 @@
+---
+sidebar: sidebar 
+permalink: aws/reference_cloud_volume_apis.html 
+keywords: Cloud Volumes Service for AWS, APIs 
+summary: 透過Web UI提供的Cloud Volumes功能也可透過RESTful API取得。API可讓您建立及管理雲端磁碟區、並開發資源配置指令碼和工具。 
+---
+= Cloud Volumes API
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+透過Web UI提供的Cloud Volumes功能也可透過RESTful API取得。API可讓您建立及管理雲端磁碟區、並開發資源配置指令碼和工具。
+
+
+
+== 尋找API URL、API金鑰和秘密金鑰
+
+您需要取得Cloud Volumes API URL、API金鑰和Secret金鑰、才能執行API呼叫。
+
+.步驟
+. 在儲存頁面或使用者名稱下的下拉式功能表中、按一下「* API access*（* API存取*）」。
+. 記錄Cloud Volumes API URL、API金鑰和Secret金鑰。
+
+
+link:media/test.conf["顯示帳戶API URL、API金鑰和秘密金鑰的範例檔案"]
+
+
+
+== 列出可用的API
+
+儲存頁面會顯示您可以使用的可用API。
+
+.步驟
+. 按一下儲存頁面上的* API documentation *。
++
+頁面會列出可用的API。
+
+. 捲動頁面以查看可用的API。
++
+API會依功能列出、例如：
+
++
+** 《Volume》（Volume）
+** 「我的最大目標」
+** 《太老了》
+** "快照"
+
+
+. 若要取得如何使用API呼叫的詳細資料和範例、請選取該功能、然後按一下下列其中一個動作：
++
+** 「Get」：讀取
+** 「POST」：建立
+** 「PUT」：更新或修改
+** 「刪除」：破壞
+
+
+
+
+
+
+== 使用Cloud Volumes API
+
+本節說明如何使用Cloud Volumes API。這些範例使用Linux Bash Shell的Curl。您需要將「<API_URL>'、「<API_key>'」和「<secret _key>'」取代為您從記錄的值 <<finding_urL_key_secretKey,尋找API URL、API金鑰和秘密金鑰>>。
+
+
+
+=== 語法
+
+'* curl -s -H Accept:application/json -H "Content-type: application/json"-H API-key:<API_key>-H secret key：<secret _key>-X [Get、POST、PUT、DELETE ]<API_URL>/v2/<command>*
+
+
+
+=== 範例
+
+
+
+==== 列出磁碟區
+
+下列範例顯示所有磁碟區的相關資訊：
+
+
+NOTE: 透過「jq」傳送命令可改善「json」輸出的格式。您可能需要在系統上安裝「jq」。
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X GET <api_url>/v2/Volumes | jq
+----
+link:media/list-cv.py["指令碼以列出帳戶中的雲端磁碟區"]
+
+
+
+==== 列出特定Volume的詳細資料
+
+每個Volume都有一個名為「volumeId」的ID、例如「07c9ab6c-b655-a9fe-f904-b9b97ef9baaa」。在API呼叫中包含ID、可提供特定Volume的詳細資料：
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X GET <api_url>/v2/Volumes/<volumeId> | jq
+----
+
+
+==== 建立Volume
+
+以下範例使用「POST」呼叫、在「us-west-1」區域建立名為「Test」的Volume、其「分配容量」為100 GB、並使用「NFSv3」匯出：
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X POST <api_url>/v2/Volumes -d '
+{
+	"name": "Test",
+	"creationToken": "grahams-test-volume3",
+	"region": "us-west-1",
+	"serviceLevel": "standard",
+	"quotaInBytes": 100000000000,
+	"exportPolicy": {"rules": [{"ruleIndex": 1,"allowedClients": "0.0.0.0/0","unixReadOnly": false,"unixReadWrite": true,"cifs": false,"nfsv3": true,"nfsv4": false}]},
+	"protocolTypes": ["NFSv3"],
+	"labels": ["test"]
+}'
+----
+link:media/create-cv.py["建立雲端磁碟區的指令碼"]
+
+
+
+==== 正在更新磁碟區
+
+以下範例使用「PUT」呼叫來更新名為「Test」的磁碟區、將服務層級變更為「Extreme」、並將分配的容量變更為600 GB：
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X PUT <api_url>/v2/Volumes/<volumeId> -d '
+{
+	"serviceLevel": "extreme",
+	"quotaInBytes": 600000000000
+}'
+----
+link:media/update-cv.py["指令碼來更新雲端Volume"]
+
+
+
+==== 刪除Volume
+
+以下範例使用「刪除」呼叫來刪除由「volumeId」指定的Volume：
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X DELETE <api_url>/v2/Volumes/<volumeId>
+----
+link:media/delete-cv.py["指令碼、依掛載點刪除雲端磁碟區"]
+
+
+IMPORTANT: 請謹慎使用。此API呼叫會刪除Volume及其所有資料。
+
+
+
+==== 建立快照
+
+以下範例使用「POST」呼叫來建立特定Volume的快照、稱為「快照」：
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X POST <api_url>/v2/Volumes/<volumeId>/Snapshots -d '
+{
+	"name": "<snapshot-name>"
+}'
+----
+link:media/snap-cv.py["指令碼、可依掛載點建立雲端磁碟區的快照"]
+
+
+
+==== 建立快照原則
+
+以下範例使用「PUT（放置））呼叫來建立特定磁碟區的快照原則：
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X PUT <api_url>/v2/Volumes/<volumeId> -d '
+{
+	"snapshotPolicy": {
+        "dailySchedule": {},
+        "enabled": true,
+        "hourlySchedule": {
+            "minute": 33,
+            "snapshotsToKeep": 24
+        },
+        "monthlySchedule": {},
+        "weeklySchedule": {}
+    }
+}'
+----
+link:media/snapshot-policy.py["指令碼、以透過掛載點建立雲端磁碟區的快照原則"]
+
+
+
+==== 列出特定磁碟區的快照
+
+以下範例使用「Get」（取得）呼叫來列出特定Volume的快照：
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X GET <api_url>/v2/Volumes/<volumeId>/Snapshots
+----
+link:media/get-snaps.py["指令碼、依掛載點列出雲端磁碟區的快照"]
+
+
+
+==== 還原快照
+
+以下範例使用「POST」呼叫、從「Snapshot Id」和「volumeId」指定的快照中還原磁碟區：
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X POST <api_url>/v2/Volumes/<volumeId>/Revert -d '
+{
+	"snapshotId": "<snapshotId>"
+}'
+----
+link:media/revert-snap.py["指令碼、可依掛載點和snapshotId還原至雲端磁碟區的快照"]
+
+
+IMPORTANT: 請謹慎使用。此API呼叫會導致在該快照日期之後寫入的任何資料遺失。
+
+
+
+==== 從快照建立新磁碟區
+
+以下範例使用「POST」呼叫、根據「Snapshot Id」指定的現有磁碟區快照來建立新的磁碟區：
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X POST <api_url>/v2/Volumes -d '
+{
+	"snapshotId": "<snapshotId>",
+	"name": "Copy",
+	"creationToken": "perfectly-copied-volume",
+	"region": "us-west-1",
+	"serviceLevel": "extreme",
+	"protocolTypes": ["NFSv3"]
+}'
+----
+link:media/copy-cv.py["複製雲端磁碟區的指令碼"]
+
+
+
+==== 刪除快照
+
+以下範例使用「刪除」呼叫來刪除由「快照ID」指定的快照：
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X DELETE <api_url>/v2/Volumes/<volumeId>/Snapshots/<snapshotId>
+----
+link:media/delete-snap.py["指令碼、可依掛載點和snapshotId刪除雲端磁碟區的快照"]
+
+
+IMPORTANT: 請謹慎使用。此API呼叫會刪除快照及其所有資料。
+
+
+
+==== 加入目錄服務
+
+下列範例使用「POST」通話來加入目錄服務、並提供DNS IP位址、網域、SMB伺服器的NetBios名稱、目錄服務管理員的使用者名稱和密碼、以及組織單位（選用、預設為CN=電腦）。
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X POST <api_url>/v2/Storage/ActiveDirectory -d '
+{
+	"DNS": "<ip-address>",
+	"domain": "<domain>",
+	"netBIOS": "<netbios-name>",
+	"organizationalUnit": "OU=Cloud Servers,DC=nas-cloud,DC=local",
+	"password": "secret",
+	"region": "us-west-1",
+	"username": "Administrator"
+}'
+----
+link:media/join-ad.py["用於加入目錄服務的指令碼"]
+
+
+
+==== 檢視目錄服務整合
+
+以下範例使用「Get」呼叫來顯示目錄服務整合的組態。
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X GET <api_url>/v2/Storage/ActiveDirectory
+----
+link:media/get-ad.py["用於檢視目錄服務整合的指令碼"]
+
+
+
+==== 取消加入目錄服務
+
+以下範例使用「刪除」呼叫取消目錄服務整合。這需要目前加入的UUID、您可以使用上述的「Get」（取得）通話來找到。
+
+
+NOTE: 您無法取消加入使用中的目錄服務；狀態為「使用中」。
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X DELETE <api_url>/v2/Storage/ActiveDirectory/<UUID>
+----
+link:media/unjoin-ad.py["取消加入目錄服務的指令碼"]
+
+
+
+==== 取得效能統計資料
+
+下列範例使用「Get」（取得）呼叫、針對「volumeId」指定的磁碟區、列出特定期間內的讀取和寫入IOPS、處理量及延遲統計資料。
+
+[source, json]
+----
+curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:<api_key> -H secret-key:<secret_key> -X GET '<api_url>/v2/Volumes/<volumeId>/PerformanceMetrics?startDate=2021-02-05T09:00&endDate=2021-02-05T09:05&type=READ_IOPS,WRITE_IOPS,TOTAL_THROUGHPUT,AVERAGE_OTHER_LATENCY'
+----
+link:media/get-perfstats.py["指令碼、以透過掛載點取得雲端磁碟區的效能統計資料"]
