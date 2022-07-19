@@ -50,7 +50,7 @@ AWS 的支援提供下列優點： Cloud Volumes Service
 
 == 深入瞭 Cloud Volumes Service 解適用於 AWS 的功能
 
-video::hL4rosv-iZQ[youtube, width=848,height=480]
+video::hL4rosv-iZQ[youtube,width=848,height=480]
 
 
 == 如需詳細資訊、請參閱
