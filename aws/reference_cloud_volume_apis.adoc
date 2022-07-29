@@ -65,7 +65,7 @@ API會依功能列出、例如：
 
 == 使用Cloud Volumes API
 
-本節說明如何使用Cloud Volumes API。這些範例使用Linux Bash Shell的Curl。您需要將「<API_URL>'、「<API_key>'」和「<secret _key>'」取代為您從記錄的值 <<finding_urL_key_secretKey,尋找API URL、API金鑰和秘密金鑰>>。
+本節說明如何使用Cloud Volumes API。這些範例使用Linux Bash Shell的Curl。您需要將「<API_URL>'、「<API_key>'」和「<secret _key>'」取代為您從記錄的值 ,尋找API URL、API金鑰和秘密金鑰。
 
 
 

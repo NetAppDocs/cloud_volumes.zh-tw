@@ -158,13 +158,6 @@
   <block id="ded5309ebea6d4cf5ed055e7034efeb8" category="doc">快速入門指示</block>
   <block id="98cd9fd436f3f06a4f633a68293ace22" category="inline-link-macro">[ zh</block>
   <block id="c4e8dfa1afd29fe4a9774a9a68d87b5f" category="inline-link-macro">[j</block>
-  <block id="5ac3e76d06eb5d3e2a8eb1e2a93d6020" category="paragraph">*附註：*您必須先設定所需的AWS網路元件、才能建立雲端磁碟區。請參閱_NetApp Cloud Volumes Service 《AWS帳戶設定指南》_ <block ref="ea1749da35be089b2ed08e644f3246da" category="inline-link-macro-rx"></block>]|<block ref="4b61c911928703a63f9e7f084d89a163" category="inline-link-macro-rx"></block>]如果您尚未完成這些步驟。</block>
-  <block id="e07d1c8552b02a9af8096c445a1f98f0" category="floating-title">span class="image"&gt;&lt;img./media/number1.pnpn" alt="the number1"&gt;&lt;/span&gt;&lt;a href="task_Selecting_region.html"&gt;選擇區域</block>
-  <block id="348eb763eb8d49a86500b8ed6b6f30cb" category="paragraph">指定您計畫建立雲端磁碟區的AWS區域。</block>
-  <block id="89eb2085607ad7d0a08819a56cfd9b5c" category="floating-title">span class="image"&gt;&lt;img src="/media/number2.pnpn" alt="the Number 2"&gt;&lt;/span&gt;&lt;a href="task_creating _c雲端 磁碟區_for_AWs.html"&gt;建立雲端磁碟區&lt;/a&gt;</block>
-  <block id="c159d360fd7e6de751d0c82932215e11" category="paragraph">在AWS雲端中建立雲端磁碟區、方法是指定大小和服務層級、然後定義其他選項。</block>
-  <block id="9052c494a743afff74600701fd6f6b27" category="floating-title">span class="image"&gt;&lt;img src="/media/number3.png" alt="the Number 3"&gt;&lt;/span&gt;&lt;a href="task_jeting_Cloud磁碟區_for_AWs.html"&gt;掛載雲端磁碟區&lt;/a&gt;</block>
-  <block id="5374594906015b13962ce3076af203a6" category="paragraph">使用適用於Linux和UNIX用戶端的NFS、或適用於Windows用戶端的SMB、將雲端磁碟區掛載到AWS執行個體。</block>
   <block id="86065a7c5be198b0b451c329712a6e5e" category="summary">您可以視需要為雲端磁碟區建立或修改快照原則。</block>
   <block id="c1a54c459a2c68ef7bce2776b02dda72" category="doc">建立或修改快照原則</block>
   <block id="5aca16be49856649ef6f361c031985cf" category="list-text">在「Volumes（磁碟區）」頁面中、按一下磁碟區名稱、然後選取* Snapshot polici*。</block>
@@ -1075,4 +1068,11 @@
   <block id="397ff3bc347de43dbcde7cdb242690fe" category="sidebar">管理匯出原則規則</block>
   <block id="ff2741973abb478532d388257d6165e5" category="sidebar">管理Cloud Sync 雲端磁碟區的功能</block>
   <block id="63d5049791d9d79d86e9a108b0a999ca" category="sidebar">參考資料</block>
+  <block id="0d7e1f20e5c1a1d1b089eb22a501e24d" category="admonition">在建立雲端磁碟區之前、您必須先設定所需的AWS網路元件。請參閱_NetApp Cloud Volumes Service 《AWS帳戶設定指南》_ <block ref="ea1749da35be089b2ed08e644f3246da" category="inline-link-macro-rx"></block>]|<block ref="4b61c911928703a63f9e7f084d89a163" category="inline-link-macro-rx"></block>]如果您尚未完成這些步驟。</block>
+  <block id="01199f4c47580c34b874ddd6aaa68017" category="inline-link-macro">指定AWS區域</block>
+  <block id="971ac4441ccd02861a64a26dbad2b341" category="paragraph"><block ref="04212880faf5c32b2ea14bdddee21214" category="inline-link-macro-rx"></block> 您計畫建立雲端磁碟區的位置。</block>
+  <block id="124ba7827fa08390f114599668ce5989" category="inline-link-macro">建立雲端磁碟區</block>
+  <block id="775f4090b28ee5c5fff7d4ef36c48dc0" category="paragraph"><block ref="346d247920cee7e3b2b4a7c0b02ac86d" category="inline-link-macro-rx"></block> 在AWS雲端中指定大小和服務層級、並定義其他選項。</block>
+  <block id="f8a3e524010ba486ee8e4709993867f3" category="inline-link-macro">掛載雲端磁碟區</block>
+  <block id="65875f2f3f86bab85d300291adbab854" category="paragraph"><block ref="60fd149f49a02e7cb34ff55ec3ced595" category="inline-link-macro-rx"></block> 使用NFS for Linux和UNIX用戶端、或SMB for Windows用戶端的AWS執行個體。</block>
 </blocks>
