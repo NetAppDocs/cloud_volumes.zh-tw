@@ -19,11 +19,14 @@ summary: 您可以完成幾個快速步驟、開始使用Cloud Volumes Service �
 
 NOTE: 在建立雲端磁碟區之前、您必須先設定所需的AWS網路元件。請參閱_NetApp Cloud Volumes Service 《AWS帳戶設定指南》_ link:media/cvs_aws_account_setup.pdf["[ zh"^]]|link:media/cvs_aws_account_setup_jaJP.pdf["[j"^]]如果您尚未完成這些步驟。
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["一"] 選取區域
 [role="quick-margin-para"]
 link:task_selecting_region.html["指定AWS區域"] 您計畫建立雲端磁碟區的位置。
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["二"] 建立雲端磁碟區
 [role="quick-margin-para"]
 link:task_creating_cloud_volumes_for_aws.html["建立雲端磁碟區"] 在AWS雲端中指定大小和服務層級、並定義其他選項。
 
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["三"] 掛載雲端磁碟區
 [role="quick-margin-para"]
 link:task_mounting_cloud_volumes_for_aws.html["掛載雲端磁碟區"] 使用NFS for Linux和UNIX用戶端、或SMB for Windows用戶端的AWS執行個體。

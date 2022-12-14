@@ -19,6 +19,7 @@ summary: NetApp Cloud Sync 支援與NetApp Cloud Volumes Service 的AWS支援功
 [role="lead"]
 NetApp Cloud Sync 功能與NetApp Cloud Volumes Service 的AWS支援功能整合、可透過NFS快速同步資料至雲端磁碟區或從雲端磁碟區同步資料。利用這個功能、您可以建立一個可同步資料的不一樣關係。Cloud Sync Cloud Sync
 
+.關於這項工作
 如果Cloud Sync 您的Cloud Volumes帳戶所使用的AWS Virtual Private Cloud（VPC）中已經有一個資料代理程式、您可以跳過這項工作。
 
 https://docs.netapp.com/us-en/cloudsync/["NetApp Cloud Sync 產品文件"^]
@@ -74,4 +75,5 @@ image::diagram_creating_cloud_sync_data_broker.png[建立Cloud Sync 一個資料
 
 
 
+.完成後
 繼續 link:task_creating_cloud_sync_relationship.html["建立Cloud Sync 不一樣的關係"]。

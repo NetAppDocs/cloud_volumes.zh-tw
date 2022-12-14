@@ -1075,4 +1075,12 @@
   <block id="775f4090b28ee5c5fff7d4ef36c48dc0" category="paragraph"><block ref="346d247920cee7e3b2b4a7c0b02ac86d" category="inline-link-macro-rx"></block> 在AWS雲端中指定大小和服務層級、並定義其他選項。</block>
   <block id="f8a3e524010ba486ee8e4709993867f3" category="inline-link-macro">掛載雲端磁碟區</block>
   <block id="65875f2f3f86bab85d300291adbab854" category="paragraph"><block ref="60fd149f49a02e7cb34ff55ec3ced595" category="inline-link-macro-rx"></block> 使用NFS for Linux和UNIX用戶端、或SMB for Windows用戶端的AWS執行個體。</block>
+  <block id="bbe48fb854ea022537208eeeff822f91" category="paragraph-title">關於這項工作</block>
+  <block id="06c2cea18679d64399783748fa367bdd" category="inline-image-macro">一</block>
+  <block id="c80749c13f37ec972c42af5f90eaa12a" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block> 選取區域</block>
+  <block id="aada29daee1d64ed0fe907043855cb7e" category="inline-image-macro">二</block>
+  <block id="628fe8fbd0c256e0b6ce576e0ddc189f" category="paragraph-title"><block ref="54f425ce8d89f4ed6b8a546561af5d60" category="inline-image-macro-rx" type="image"></block> 建立雲端磁碟區</block>
+  <block id="ca8a2087e5557e317599344687a57391" category="inline-image-macro">三</block>
+  <block id="f1bb1d2fe3c2d83a71f39d3fdd1cba35" category="paragraph-title"><block ref="05b2444faffd66d76e88602ea7dd353f" category="inline-image-macro-rx" type="image"></block> 掛載雲端磁碟區</block>
+  <block id="bd965e38a0c9cf27aa1bde099308e23f" category="paragraph-title">完成後</block>
 </blocks>

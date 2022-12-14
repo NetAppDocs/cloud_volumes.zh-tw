@@ -19,10 +19,12 @@ summary: 您可以刪除Cloud Sync 不再需要的資料代理程式。
 [role="lead"]
 您可以刪除Cloud Sync 不再需要的資料代理程式。
 
+.關於這項工作
 此工作會從雲端磁碟區移除資料代理程式、但不會刪除AWS中的資料代理執行個體。
 
 若要刪除AWS中的資料代理執行個體、您必須前往帳戶的AWS主控台、依名稱找出代理程式的EC2執行個體、然後視需要終止該執行個體。
 
+.開始之前
 使用資料代理程式的Cloud Sync 所有相依關係、必須先刪除、才能刪除資料代理程式。
 
 link:task_deleting_cloud_sync_relationship.html["刪除Cloud Sync 不合作關係"]

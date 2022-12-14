@@ -33,6 +33,7 @@ link:task_creating_additional_export_policy_rules.html["建立其他匯出原則
 
 
 
+.關於這項工作
 整合到支援不支援的支援功能目前僅支援NFSv3。Cloud Sync Cloud Volumes Service如果您想要在SMB磁碟區之間同步、請使用 https://cloudsync.netapp.com["支援服務Cloud Sync"^] 直接（cloudsync.netapp.com）。
 
 .步驟

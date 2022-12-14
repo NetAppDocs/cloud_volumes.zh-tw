@@ -200,4 +200,5 @@ image:diagram_create_volume_interfaces_dialog.png["接受虛擬介面對話方�
 
 
 
+.完成後
 繼續 link:task_mounting_cloud_volumes_for_aws.html["掛載雲端磁碟區"]。
