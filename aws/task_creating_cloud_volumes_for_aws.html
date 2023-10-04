@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head class="at-element-marker">
+  <title>建立雲端磁碟區</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="建立雲端磁碟區" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-tw/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+	<meta property="og:description" content="您可以從NetApp Cloud Orchestrator網站建立雲端磁碟區。" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-tw/cloud_volumes/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="您可以從NetApp Cloud Orchestrator網站建立雲端磁碟區。">
+  <meta name="keywords" content=" Cloud Volumes Service for AWS, volumes, snapshots, service levels, allocated capacity, export policy, NFS, SMB, Active Directory, AD, Windows"><!-- Icons -->
+  <link rel="icon" href="/zh-tw/cloud_volumes/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/cloud_volumes/css/ie-netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/ie-landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-tw/cloud_volumes/css/ie-tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel="canonical" href="https://docs.netapp.com/zh-tw/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.netapp.com/us-en/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://docs.netapp.com/zh-tw/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+  <link rel="alternate" hreflang="en" href="https://docs.netapp.com/us-en/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+  <link rel="alternate" hreflang="ja" href="https://docs.netapp.com/ja-jp/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+  <link rel="alternate" hreflang="ko" href="https://docs.netapp.com/ko-kr/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://docs.netapp.com/zh-cn/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+  <link rel="alternate" hreflang="de" href="https://docs.netapp.com/de-de/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+  <link rel="alternate" hreflang="es" href="https://docs.netapp.com/es-es/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+  <link rel="alternate" hreflang="fr" href="https://docs.netapp.com/fr-fr/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+  <link rel="alternate" hreflang="it" href="https://docs.netapp.com/it-it/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html" />
+  <!-- Top level site integrations -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js"></script>
+    <script type="text/javascript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" charset="UTF-8" data-document-language="true" data-domain-script="72570c5c-fe30-465f-b0e0-b77f7fb4ae34"></script>
+    <script type="text/javascript">function OptanonWrapper() { }</script>
+    <script type="text/plain" class="optanon-category-C0002" src="https://assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js"></script>
+    <script class="optanon-category-C0001">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.setAttributeNode(d.createAttribute('data-ot-ignore'));j.setAttribute('class','optanon-category-C0001');j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MD73T9M');</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      const MASTHEAD_OFFSET = 65;
+      const SECTIONS = $("main h2, main h3");
+      // PAGE NAV - Init
+      if (SECTIONS.length == 0) {
+        // remove if there is no elements
+        /*
+        $("#ie-right-navbar").remove();
+        $("#ie-right-navbar-collapse").remove();
+        */
+      } else {
+        $(".page-nav-title").css('display', 'block');
+        for (var i = 0; i < SECTIONS.length; i++) {
+          var sectionId = $(SECTIONS[i]).attr('id');
+          var sectionName = $(SECTIONS[i]).text();
+          var subClass = $(SECTIONS[i]).is("h3") ? ' page-nav__sublink' : '';
+          $("#page-menu").append('<li class="page-nav-item"><a href="#' + sectionId + '" class="page-nav__link' + subClass + '">' + sectionName + '</a></li>');
+        }
+        $(".page-nav__link").first().addClass('page-nav__link--active');
+      }
+    });
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-tw/cloud_volumes/js/na-search.js'></script><script src='/zh-tw/cloud_volumes/js/ie-clouddocs.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><script>
+    /*
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+      */
+  </script>
+  <script src='/zh-tw/cloud_volumes/js/custom-dropdown.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/FileSaver.min.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/jszip-utils.min.js'></script>
+  <script src='/zh-tw/cloud_volumes/js/jszip.min.js'></script><script src='/zh-tw/cloud_volumes/js/ie-pdf-ux.js'></script></head>
+
+
+  <body class role="document" data-flavor=""><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD73T9M"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div id="page" class="">
+      <div id="ie-phone-menu" class=""></div>
+      <div id="ie-content-wrap" class="">
+        <nav id="ie-new-header">
+    <ul>
+        <li id="ie-phone-menu-button">
+            <a href="#">
+                <image id="" src="/zh-tw/cloud_volumes/images/hamburger.svg" alt="menu" />
+            </a>
+        </li>
+
+        <li>
+            <a href="https://www.netapp.com/tw">
+                <image id="ie-header-logo" src="/zh-tw/cloud_volumes/images/netapp_logo.svg" alt="netapp" />
+            </a>
+        </li>
+        <li id="ie-header-docs">
+            <a href="https://www.netapp.com/support-and-training/documentation/">文件</a>
+        </li>
+
+        <!-- Empty container to push header left with or without lang selector -->
+        <li id="empty-container" style="margin-left: auto">
+        </li>
+        <!-- Start Language Selector --><li id="ie-language-dropdown">
+            <div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+                <div class="custom-dropdown-select custom-dropdown-select-lang">
+                    <img src="/zh-tw/cloud_volumes/images/language_white_24dp.svg" class="n-globe__icon" />
+                    <span class="lang-name">繁體中文</span>
+                    <img src="/zh-tw/cloud_volumes/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/zh-tw/cloud_volumes/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu"><li>
+                        <a href="https://docs.netapp.com/zh-tw/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html"
+                            target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/us-en/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html"
+                            target="_self"><span translate="no" class="notranslate">English</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ja-jp/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html"
+                            target="_self"><span translate="no" class="notranslate">日本語</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ko-kr/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html"
+                            target="_self"><span translate="no" class="notranslate">한국어</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-cn/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html"
+                            target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/de-de/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html"
+                            target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/es-es/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html"
+                            target="_self"><span translate="no" class="notranslate">Español</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/fr-fr/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html"
+                            target="_self"><span translate="no" class="notranslate">Français</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/it-it/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html"
+                            target="_self"><span translate="no" class="notranslate">Italiano</span></a>
+                    </li></ul>
+            </div>
+            </li>
+        <!-- End Language Selector -->
+
+
+        <li id="ie-allnetapp">
+            <div id="allnetapp-dropdown" class="custom-dropdown custom-dropdown-allnetapp">
+                <div class="custom-dropdown-select custom-dropdown-select-allnetapp">
+                    <img src="/zh-tw/cloud_volumes/images/apps_white_24dp.svg" alt="" class="allnetapp-icon" />
+                    <span class="allnetapp-name">所有 NetApp</span>
+                    <img src="/zh-tw/cloud_volumes/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/zh-tw/cloud_volumes/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu allnetapp-dropdown">
+                    <li>
+                        <a href="https://bluexp.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">BlueXP</span></a>
+                    </li>
+                    <li>
+                        <a href="https://mysupport.netapp.com/site/"
+                            target="_self"><span translate="no" class="notranslate">支援</span></a>
+                    </li>
+                    <li>
+                        <a href="https://kb.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">知識庫</span></a>
+                    </li>
+                    <li>
+                        <a href="https://www.netapp.com/support-and-training/netapp-learning-services/"
+                            target="_self"><span translate="no" class="notranslate">訓練</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+    </ul>
+</nav>
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+
+<div id="ie-new-sidebar-collapse" style="display: none">
+    <img id="sidebar-expand" class="ie-searchbox-icon" src="/zh-tw/cloud_volumes/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-new-sidebar">
+    <div id="ie-product-identity-lockup">
+        <div id="sidebar-collapse" class="">
+            <img src="/zh-tw/cloud_volumes/images/double_arrow.svg" alt="" />
+        </div>
+        <div id="ie-breadcrumb" class="">
+  <ul class="ie-breadcrumb">
+    <li class="">
+      <a href="https://docs.netapp.com">所有文件</a>
+    </li>
+    
+    
+
+    
+  </ul>
+  
+  <div class="ie-product-name" >
+    <!--<a href="/zh-tw/cloud_volumes/">-->
+      Cloud Volumes Service
+    <!--</a>-->
+  </div>
+</div>
+
+            
+
+        
+        
+
+<div id="ie-searchbox" class="ie-searchbox-sidebar ">
+    <img class="ie-searchbox-icon" src="/zh-tw/cloud_volumes/images/loupe.svg" alt=""/>
+    <div id="react-search" 
+        data-search-html="/zh-tw/cloud_volumes/search.html" 
+        data-type="widget"
+        data-placeholder="搜尋說明文件"
+        data-no-results-found="找不到 {query} 的結果"
+        data-did-you-mean="搜尋 {suggestion}。"
+        data-no-results-found-did-you-mean="找不到 {query} 的結果。您的意思是 {suggestion} 嗎？"
+        data-results-found="找到 {hitCount} 個結果"
+        data-error-message="發生錯誤。請再試一次。"
+        data-error-reset="重設搜尋"
+        data-sk-es-pf-indexes="" 
+        data-flavor="">
+    </div>
+</div>
+        
+    </div>
+    <div id="ie-new-toc"><script>
+  let sidebarAccordion = true;
+
+  /* specific css rules for Mac */
+  if(navigator.platform.match('Mac') !== null) {
+    document.body.setAttribute('class', 'OSX');
+  }
+
+</script>
+
+<div id="ie-sidebar-container">
+  <ul id="ie-sidebar-list" ><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="適用於AWS文件Cloud Volumes Service"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/index.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/zh-tw/cloud_volumes/aws/index.html">
+        適用於AWS文件Cloud Volumes Service
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="版本資訊"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/cloud_volumes/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/cloud_volumes/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 版本資訊</div>-->
+         版本資訊
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="新增功能"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/reference_whats_new_cloud_volumes_aws.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/reference_whats_new_cloud_volumes_aws.html">
+        新增功能
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="已知問題"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/reference_known_issues.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/reference_known_issues.html">
+        已知問題
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="快速入門"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/cloud_volumes/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/cloud_volumes/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 快速入門</div>-->
+         快速入門
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="先決條件"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/concept_overview.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/concept_overview.html">
+        先決條件
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="快速入門指示"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_quick_start.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_quick_start.html">
+        快速入門指示
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="啟動支援權利並存取支援"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_activating_support_entitlement.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_activating_support_entitlement.html">
+        啟動支援權利並存取支援
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="選取區域"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_selecting_region.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_selecting_region.html">
+        選取區域
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理雲端磁碟區"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/cloud_volumes/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/cloud_volumes/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 管理雲端磁碟區</div>-->
+         管理雲端磁碟區
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="建立雲端磁碟區"
+      data-li-level="2#" 
+      class="  ie-sidebar-selected    "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html">
+        建立雲端磁碟區
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="掛載雲端磁碟區"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_mounting_cloud_volumes_for_aws.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_mounting_cloud_volumes_for_aws.html">
+        掛載雲端磁碟區
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="修改雲端磁碟區"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_modifying_cloud_volumes_for_aws.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_modifying_cloud_volumes_for_aws.html">
+        修改雲端磁碟區
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="刪除雲端磁碟區"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_deleting_cloud_volumes_for_aws.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_deleting_cloud_volumes_for_aws.html">
+        刪除雲端磁碟區
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理雲端Volume快照"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/cloud_volumes/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/cloud_volumes/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 管理雲端Volume快照</div>-->
+         管理雲端Volume快照
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="為雲端磁碟區建立隨需快照"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_creating_on_demand_snapshots.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_creating_on_demand_snapshots.html">
+        為雲端磁碟區建立隨需快照
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="建立或修改快照原則"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_creating_modifying_snapshot_policies.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_creating_modifying_snapshot_policies.html">
+        建立或修改快照原則
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="停用快照原則"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_disabling_snapshot_policy.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_disabling_snapshot_policy.html">
+        停用快照原則
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="從快照還原磁碟區"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_reverting_volume_to_snapshot.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_reverting_volume_to_snapshot.html">
+        從快照還原磁碟區
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="刪除快照"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_deleting_snapshots.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_deleting_snapshots.html">
+        刪除快照
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="將快照還原至新磁碟區"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_restoring_snapshots_to_new_volumes.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_restoring_snapshots_to_new_volumes.html">
+        將快照還原至新磁碟區
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理匯出原則規則"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/cloud_volumes/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/cloud_volumes/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 管理匯出原則規則</div>-->
+         管理匯出原則規則
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="修改匯出原則規則"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_modifying_export_policy_rules.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_modifying_export_policy_rules.html">
+        修改匯出原則規則
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="建立其他匯出原則規則"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_creating_additional_export_policy_rules.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_creating_additional_export_policy_rules.html">
+        建立其他匯出原則規則
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="刪除匯出原則規則"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_deleting_export_policy_rules.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_deleting_export_policy_rules.html">
+        刪除匯出原則規則
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="管理Cloud Sync 雲端磁碟區的功能"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/cloud_volumes/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/cloud_volumes/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 管理Cloud Sync 雲端磁碟區的功能</div>-->
+         管理Cloud Sync 雲端磁碟區的功能
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="建立Cloud Sync 一個資料代理程式"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_creating_cloud_sync_data_broker.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_creating_cloud_sync_data_broker.html">
+        建立Cloud Sync 一個資料代理程式
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="建立Cloud Sync 彼此之間的不一樣關係"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_creating_cloud_sync_relationship.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_creating_cloud_sync_relationship.html">
+        建立Cloud Sync 彼此之間的不一樣關係
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="修改Cloud Sync 不一致的排程"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_modifying_cloud_sync_schedule.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_modifying_cloud_sync_schedule.html">
+        修改Cloud Sync 不一致的排程
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="刪除Cloud Sync 不合作關係"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_deleting_cloud_sync_relationship.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_deleting_cloud_sync_relationship.html">
+        刪除Cloud Sync 不合作關係
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="刪除Cloud Sync 不經資料的代理程式"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/task_deleting_cloud_sync_data_broker.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/task_deleting_cloud_sync_data_broker.html">
+        刪除Cloud Sync 不經資料的代理程式
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Cloud Volumes API"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/reference_cloud_volume_apis.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/zh-tw/cloud_volumes/aws/reference_cloud_volume_apis.html">
+        Cloud Volumes API
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="參考資料"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/zh-tw/cloud_volumes/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/zh-tw/cloud_volumes/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> 參考資料</div>-->
+         參考資料
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="適用於 Windows AD 伺服器的 AWS 安全性群組設定"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/reference_security_groups_windows_ad_servers.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/reference_security_groups_windows_ad_servers.html">
+        適用於 Windows AD 伺服器的 AWS 安全性群組設定
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="選取適當的服務層級和已分配的容量"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/reference_selecting_service_level_and_quota.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/zh-tw/cloud_volumes/aws/reference_selecting_service_level_and_quota.html">
+        選取適當的服務層級和已分配的容量
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="法律聲明"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/aws/task_creating_cloud_volumes_for_aws.html" 
+      dale-entry-url="/aws/reference_notices.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/zh-tw/cloud_volumes/aws/reference_notices.html">
+        法律聲明
+      </a></li></ul>
+</div>
+<script>
+
+  $(".ie-sidebar-button").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    expandedLI = $('li.ie-sidebar-expand')
+
+    const li = $(this).closest("li");
+
+    const parentsLI = $(li).parents('li');
+
+    expandedLI.map(element => {
+      if (sidebarAccordion && !li.hasClass('ie-sidebar-expand') && jQuery.inArray(expandedLI[element], parentsLI) == -1) {
+        $(expandedLI[element]).toggleClass('ie-sidebar-expand');
+        $(expandedLI[element]).children("ul").animate({ height: 'toggle' }, 400, function () {
+          $(li).children("ul").toggleClass('ie-sidebar-open');
+
+        })
+      }
+
+    })
+
+    $(li).toggleClass('ie-sidebar-expand');
+    $(li).children("ul").animate({ height: 'toggle' }, 400, function () {
+      $(li).children("ul").toggleClass('ie-sidebar-open');
+    })
+  });
+
+
+  
+    $("li.ie-sidebar-selected").parents('ul').toggleClass("ie-sidebar-open");
+    $("li.ie-sidebar-selected").toggleClass("ie-sidebar-expand")
+    $("ul.ie-sidebar-open").parent().toggleClass("ie-sidebar-expand");
+    $("li.ie-sidebar-selected").children('ul').toggleClass("ie-sidebar-open")
+  
+  
+</script>
+    </div>
+</div>
+<script>
+
+    
+    let sidebarScrollTopPosition = 0;
+    $("#ie-new-toc").on("scroll", function () {
+        if (sidebarScrollTopPosition == 0) {
+            $.cookie("sidebarScroll", $("#ie-new-toc").scrollTop(), {
+                path: "/zh-tw/cloud_volumes"
+            });
+        }
+
+        if ($("#ie-new-toc").scrollTop() > 0) {
+            $('#ie-product-identity-lockup').addClass('ie-addShadow');
+        } else {
+            $('#ie-product-identity-lockup').removeClass('ie-addShadow');
+        }
+    });
+
+    $(function () {
+        if ($.cookie("sidebarScroll")) {
+            $("#ie-new-toc").scrollTop($.cookie("sidebarScroll"));
+        }
+    });
+
+    function setSidebarBottom() {
+        const footerGap = PXinViewport($(".n-footer"));
+        document.getElementById("ie-new-sidebar").style.bottom = Math.max(0, footerGap) + "px";
+    }
+
+    window.onscroll = () => {
+        setSidebarBottom();
+    };
+
+    $("#sidebar-collapse").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        if ($.cookie("sidebarScroll")) {
+            sidebarScrollTopPosition = $.cookie("sidebarScroll");
+        }
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 350, function () {
+            $("#ie-new-sidebar-collapse").show();
+            $("#ie-new-sidebar").removeClass("open")
+            $("#ie-new-sidebar").addClass("close")
+            $("#ie-new-sidebar").removeAttr("style")
+        });
+        $(".ie-content-pane").animate({ width: (width + sidebarWidth), marginLeft: (marginLeft - sidebarWidth) }, 350, function () {
+            resizeContent()
+        })
+
+    });
+    $("#sidebar-expand").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 250, function () {
+            $('#ie-new-sidebar').css('display', 'flex');
+            $("#ie-new-sidebar-collapse").hide();
+            $("#ie-new-sidebar").removeClass("close")
+            $("#ie-new-sidebar").addClass("open")
+            setSidebarBottom();
+
+            if (sidebarScrollTopPosition != 0) {
+                $.cookie("sidebarScroll", sidebarScrollTopPosition, {
+                    path: "/zh-tw/cloud_volumes"
+                })
+                $("#ie-new-toc").scrollTop(sidebarScrollTopPosition);
+                sidebarScrollTopPosition = 0;
+            }
+        });
+        $(".ie-content-pane").animate({ width: (width - sidebarWidth), 'marginLeft': (marginLeft + sidebarWidth) }, 250, function () {
+            resizeContent()
+        })
+    });
+    function resizeContent() {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        const rightNavbarVisible =  $("#ie-right-navbar").css('display') && $("#ie-right-navbar").css('display') != 'none';
+        const sidebarVisible = $("#ie-new-sidebar").css('display') != 'none';
+        const rightNavbarWidth = $("#ie-right-navbar").width();
+        const rightNavbarCollapseWidth = $("#ie-right-navbar-collapse").width();
+        const rightNavbarCollapseVisible = $("#ie-right-navbar-collapse").css('display') && $("#ie-right-navbar-collapse").css('display') != 'none';
+        
+        if (rightNavbarVisible && sidebarVisible) {
+            $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarWidth}px)`)
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+        } else if (sidebarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarCollapseWidth}px)`)
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar").width()}px)`)
+            }
+
+        } else if (rightNavbarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            $(".ie-content-pane").width(`calc(100% - ${rightNavbarWidth}px)`)
+        } else {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${rightNavbarCollapseWidth}px)`);
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar-collapse").width()}px) `);
+            }
+            
+        }
+    }
+    $(window).on("resize load", function () {
+        setSidebarBottom();
+        resizeContent()
+    });
+
+
+</script>
+
+<div class="ie-content-pane ie-component-detail-content ie-component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <!-- include utility.html -->
+      <div class="ie-info-disclaimer">
+    <span>
+      <div class="ie-info-disclaimer-container">
+        <div class="ie-info-disclaimer-icon">
+          <img src="/zh-tw/cloud_volumes/images/notification-icons.svg" class="luci-icon" alt="" />
+        </div>
+        <div class="ie-info-disclaimer-content">
+          <span> 本繁體中文版使用機器翻譯，譯文僅供參考，若與英文版本牴觸，應以英文版本為準。 </span>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+    </span>
+  </div><div class="ie-component-detail-heading-wrap">
+  <h1 class="ie-component-detail-heading">建立雲端磁碟區</h1>
+</div>
+
+<div id="ie-byline">
+  
+<div class="page-details">
+    
+        
+            <time datetime="2022-12-14 17:53:50 +0000">12/14/2022</time>
+        
+    
+    
+        <span>貢獻者
+        </span>
+    
+    
+</div>
+<div class="page-controls">
+    <div id="contribute-dropdown" class="custom-dropdown custom-dropdown-contrib" >
+        <div class="custom-dropdown-select custom-dropdown-select-contrib">
+        <span class="contrib-name"><img src="/zh-tw/cloud_volumes/images/discuss-sm.svg" alt="" class="github-icon" />建議變更</span>
+        <img src="/zh-tw/cloud_volumes/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown invisible" />
+        <img src="/zh-tw/cloud_volumes/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup" />
+        </div>
+        <ul class="custom-dropdown-menu suggested-changes-dropdown"><li>
+                <a target="_blank" href="https://github.com/NetAppDocs/cloud_volumes.zh-tw/issues/new?template=new-from-page.yml&page-url=https://docs.netapp.com/zh-tw/cloud_volumes/aws/task_creating_cloud_volumes_for_aws.html&page-title=建立雲端磁碟區" class="page-nav-contribute-link" role="button">請求文件變更</a>
+            </li><li> 
+                <a target="_blank" href="https://github.com/NetAppDocs/cloud_volumes/blob/main/aws/task_creating_cloud_volumes_for_aws.adoc" class="page-nav-contribute-link" role="button">編輯本頁</a>
+            </li><li><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  >瞭解如何貢獻</a></li>
+        </ul>
+    </div>
+    <div id="pdf-control-container">
+        <div class="n-pdf-header">
+            <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+                <img class="adobe-icon" src="/zh-tw/cloud_volumes/images/pdf-icon.png" alt="" width="16" height="16"/>PDF<img src="/zh-tw/cloud_volumes/images/dropdown-arrow.svg" class="custom-icon" alt="" />
+            </a>
+        </div>
+        <div class="n-pdf-body-container">
+            <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+                    
+                    
+                    
+                    <a target="_blank" class="pdf-download-link" href="/zh-tw/cloud_volumes/pdfs/fullsite-sidebar/適用於AWS文件Cloud_Volumes_Service.pdf" >
+                    <img src="/zh-tw/cloud_volumes/images/pdf-icon.png" alt="" width="16" height="16"/>此文件 PDF 的網站</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/版本資訊.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf-icon.png" alt="" width="16" height="16"/>
+            版本資訊
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/快速入門.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf-icon.png" alt="" width="16" height="16"/>
+            快速入門
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理雲端磁碟區.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf-icon.png" alt="" width="16" height="16"/>
+            管理雲端磁碟區
+          </a>
+          
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理雲端Volume快照.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf-icon.png" alt="" width="16" height="16"/>
+            管理雲端Volume快照
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理匯出原則規則.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf-icon.png" alt="" width="16" height="16"/>
+            管理匯出原則規則
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/管理Cloud_Sync_雲端磁碟區的功能.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf-icon.png" alt="" width="16" height="16"/>
+            管理Cloud Sync 雲端磁碟區的功能
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/zh-tw/cloud_volumes/pdfs/sidebar/參考資料.pdf" 
+            
+          >
+            <img src="/zh-tw/cloud_volumes/images/pdf-icon.png" alt="" width="16" height="16"/>
+            參考資料
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+</li></ul>
+            <div class="zip-pdf-link-container" style="display: none;">   
+                <a href="#" id="zipPdf">
+                <img src="/zh-tw/cloud_volumes/images/pdf-zip.png" alt="" width="16" height="16"/>
+                <pre>個別的 PDF 文件集合<span class="zip-size"></span></pre>
+                </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+        </div>
+    </div>        
+<script>
+$("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+$("#toggleButtonPdf").on('click', function(e){ 
+    e.stopPropagation();
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+});
+
+//hide is by clicking outside pdfcontainer
+$(document).on('click', function (e) {
+    if ($('#toggleContainerPdf').is(':visible') && !$('.n-pdf-body-container').is(e.target) && !$('.n-pdf-body-container').has(e.target).length)  {
+        
+        $("#toggleContainerPdf").toggle('display');
+        $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+        $("#toggleButtonPdf").removeClass("active");
+    }
+});
+</script>
+<script>
+    function getPdfLocation() {
+        const pdfLocation = window.scrollX + document.querySelector('#pdf-control-container').getBoundingClientRect().left
+        if (pdfLocation < 450) {
+            $(".n-pdf-body-container").addClass("block")
+        } else {
+            $(".n-pdf-body-container").removeClass("block")
+        }
+    
+    }
+    $( window ).on( "resize", function() {
+        getPdfLocation()
+} );
+</script>
+<script>
+    const pdfButtonWidth =  $(".n-pdf-header").width();
+    const pdfMenuWidth = $(".n-pdf-body-container").width();
+    $(".n-pdf-body-container").css('margin-left', `calc(${pdfButtonWidth - pdfMenuWidth}px)`);
+</script>
+</div>
+
+    
+
+</div>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>您可以從NetApp Cloud Orchestrator網站建立雲端磁碟區。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="先決條件">先決條件</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>您的AWS環境必須符合特定需求、才能建立第一個雲端磁碟區。對於您計畫部署雲端磁碟區的每個AWS區域、您必須擁有：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>虛擬私有雲（VPC）</p>
+</li>
+<li>
+<p>連線至VPC的虛擬私人閘道（VGW）</p>
+</li>
+<li>
+<p>VPC的子網路</p>
+</li>
+<li>
+<p>定義的路由包括將在其中執行雲端磁碟區的網路</p>
+</li>
+<li>
+<p>（可選）Direct Connect閘道</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>在某個區域建立第一個雲端磁碟區時、您必須提供下列資訊：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>* AWS帳戶ID*：12位數的Amazon帳戶識別碼、不含破折號。</p>
+</li>
+<li>
+<p><strong>無類別網域間路由（CIDR）區塊</strong>：未使用的IPV4 CIDR區塊。網路前置碼必須介於 /16 和 /28 之間、而且必須位於專為私有網路保留的範圍內（ RFC 1918 ）。請勿選擇與 VPC CIDR 配置重疊的網路。</p>
+</li>
+<li>
+<p>您必須選擇要使用服務的正確地區。請參閱 <a href="task_selecting_region.html">"選取區域"</a>。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>如果您尚未設定所需的AWS網路元件、請參閱 <a href="media/cvs_aws_account_setup.pdf" target="_blank" rel="noopener">"適用於Cloud Volumes Service AWS帳戶設定的NetApp解決方案"</a> 詳細資訊請參閱指南。</p>
+</div>
+<div class="paragraph">
+<p>*附註：*當規劃建立SMB Volume時、您必須擁有可連線的Windows Active Directory伺服器。建立磁碟區時、您將輸入此資訊。此外、請確定管理使用者能夠在指定的組織單位（ OU ）路徑中建立機器帳戶。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="輸入volume詳細資料">輸入Volume詳細資料</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>填寫「建立Volume」頁面頂端的欄位、以定義磁碟區名稱、大小、服務層級等。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>登入之後 <a href="https://cds-aws-bundles.netapp.com/storage/volumes" target="_blank" rel="noopener">"NetApp Cloud Orchestrator"</a> 網站上提供您在訂閱期間所提供的電子郵件地址、而且您已經擁有 <a href="task_selecting_region.html">"已選取區域"</a>，單擊* Create new volume*（創建新卷*）按鈕。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./media/diagram_create_volume_1.png" alt="「建立Volume」頁面">
+</div>
+</div>
+</li>
+<li>
+<p>在「Create Volume」（建立磁碟區）頁面中、選取* NFS*、* SMB*或*雙通訊協定*作為您要建立之磁碟區的傳輸協定。</p>
+</li>
+<li>
+<p>在*名稱*欄位中、指定您要用於磁碟區的名稱。</p>
+</li>
+<li>
+<p>在*區域*欄位中、選取您要建立磁碟區的AWS區域。此區域必須符合您在AWS上設定的區域。</p>
+</li>
+<li>
+<p>在*時區*欄位中、選取您的時區。</p>
+</li>
+<li>
+<p>在「* Volume path*」（* Volume路徑*）欄位中、指定您要使用或接受自動產生路徑的路徑。</p>
+</li>
+<li>
+<p>在*服務層級*欄位中、選取磁碟區的效能等級：<strong>標準</strong>、<strong>優質*或*極致</strong>。</p>
+<div class="paragraph">
+<p>請參閱 <a href="reference_selecting_service_level_and_quota.html#service-levels">"選取服務層級"</a> 以取得詳細資料。</p>
+</div>
+</li>
+<li>
+<p>在*已分配容量*欄位中、選取所需的容量。請注意、可用的inode數量取決於分配的容量。</p>
+<div class="paragraph">
+<p>請參閱 <a href="reference_selecting_service_level_and_quota.html#allocated-capacity">"選取已分配的容量"</a> 以取得詳細資料。</p>
+</div>
+</li>
+<li>
+<p>在* NFS版本*欄位中、視您的需求選擇* NFSv3*、* NFSv4.1*或*兩者*。</p>
+</li>
+<li>
+<p>如果您選取雙通訊協定、可以從下拉式功能表中選取* NTFS <strong>或</strong> UNIX *、在*安全樣式*欄位中選取安全樣式。</p>
+<div class="paragraph">
+<p>安全性樣式會影響所使用的檔案權限類型、以及如何修改權限。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>UNIX 使用 NFSv3 模式位元、只有 NFS 用戶端可以修改權限。</p>
+</li>
+<li>
+<p>NTFS 使用 NTFS ACL 、只有 SMB 用戶端可以修改權限。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>在* Show snapshot directory*（顯示快照目錄*）字段中，保留可以查看此卷的Snapshot目錄的缺省位置，或取消選中此框以隱藏Snapshot複本列表。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="輸入網路詳細資料每個aws區域一次設定">輸入網路詳細資料（每個AWS區域一次設定）</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>如果這是您第一次在此AWS區域建立雲端磁碟區、則會顯示「<strong>網路</strong>」區段、以便您將Cloud Volumes帳戶連線至AWS帳戶：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>在「* CIDR（IPV4）*」欄位中、輸入所需的區域IPV4範圍。網路首碼的範圍必須介於/16和/28之間。網路也必須屬於專為私有網路保留的範圍（RFC 1918）。請勿選擇與 VPC CIDR 配置重疊的網路。</p>
+</li>
+<li>
+<p>在* AWS帳戶ID*欄位中、輸入您的12位數Amazon帳戶識別碼、且不含破折號。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./media/diagram_create_volume_network.png" alt="設定網路設定">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="輸入匯出原則規則選用">輸入匯出原則規則（選用）</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>如果您選取NFS或雙通訊協定、可以在「<strong>匯出原則</strong>」區段中建立匯出原則、以識別可存取磁碟區的用戶端：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>在*允許的用戶端*欄位中、使用IP位址或無類別網域間路由（CIDR）來指定允許的用戶端。</p>
+</li>
+<li>
+<p>在*存取*欄位中、選取*讀取與寫入*或*唯讀*。</p>
+</li>
+<li>
+<p>在*傳輸協定*欄位中、選取使用者存取所用的傳輸協定（或傳輸協定、如果該磁碟區同時允許NFSv3和NFSv4.1存取）。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./media/diagram_create_volume_4.png" alt="新增匯出原則規則">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>若要定義其他匯出原則規則、請按一下「<strong>+新增匯出原則規則</strong>」。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="啟用資料加密選用">啟用資料加密（選用）</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>如果您選取SMB或雙傳輸協定、可以勾選「<strong>啟用SMB3傳輸協定加密</strong>」欄位的方塊來啟用SMB工作階段加密。</p>
+<div class="paragraph">
+<p>*注意：*如果SMB 2.1用戶端需要掛載磁碟區、請勿啟用加密。</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="將磁碟區與active-directory伺服器smb與雙通訊協定整合">將磁碟區與Active Directory伺服器（SMB與雙通訊協定）整合</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>如果您選取SMB或雙傳輸協定、您可以選擇將磁碟區與Windows Active Directory伺服器整合、或在* Active Directory *區段中整合AWS託管Microsoft AD。</p>
+</div>
+<div class="paragraph">
+<p>在*可用設定*欄位中、選取現有的Active Directory伺服器或新增AD伺服器。</p>
+</div>
+<div class="paragraph">
+<p>若要設定新AD伺服器的連線：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>在* DNS server*（DNS伺服器*）欄位中、輸入DNS伺服器的IP位址。當參考多個伺服器時、請使用逗號分隔 IP 位址、例如 172.31.25.223 、 172.31.2.74 。</p>
+</li>
+<li>
+<p>在*網域*欄位中、輸入SMB共用的網域。</p>
+<div class="paragraph">
+<p>使用 AWS 託管 Microsoft AD 時、請使用「目錄 DNS 名稱」欄位中的值。</p>
+</div>
+</li>
+<li>
+<p>在「* SMB伺服器NetBios *」欄位中、輸入要建立之SMB伺服器的NetBios名稱。</p>
+</li>
+<li>
+<p>在*組織單位*欄位中、輸入「CN=電腦」以連線至您自己的Windows Active Directory伺服器。</p>
+<div class="paragraph">
+<p>使用AWS託管Microsoft AD時、組織單位必須以「OU=&lt;netbios_name&gt;」格式輸入。例如、* OID=AWSmanagedAD*。</p>
+</div>
+<div class="paragraph">
+<p>若要使用巢狀OU、您必須先呼叫最低層級的OU、直到最高層級的OU。例如：* OU = TIRDLEVEL、OU = SECONDLEVEL、OU = FIRSTLEVEL *。</p>
+</div>
+</li>
+<li>
+<p>在*使用者名稱*欄位中、輸入Active Directory伺服器的使用者名稱。</p>
+<div class="paragraph">
+<p>您可以使用任何授權在您要加入SMB伺服器的Active Directory網域中建立機器帳戶的使用者名稱。</p>
+</div>
+</li>
+<li>
+<p>在*密碼*欄位中、輸入您所指定AD使用者名稱的密碼。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./media/diagram_create_volume_ad.png" alt="Active Directory">
+</div>
+</div>
+<div class="paragraph">
+<p>請參閱 <a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/designing-the-site-topology" target="_blank" rel="noopener">"設計Active Directory網域服務的站台拓撲"</a> 以取得有關設計最佳Microsoft AD實作的指導方針。</p>
+</div>
+<div class="paragraph">
+<p>請參閱 <a href="media/cvs_aws_ds_smb_setup.pdf" target="_blank" rel="noopener">"AWS目錄服務設定、搭配適用於Cloud Volumes Service AWS的NetApp功能"</a> 使用AWS託管Microsoft AD的詳細說明指南。</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/cloud_volumes/images/important.svg" alt="重要">
+</td>
+<td class="content">
+您應該遵循 AWS 安全群組設定的指引、讓雲端磁碟區能夠正確地與 Windows Active Directory 伺服器整合。請參閱 <a href="reference_security_groups_windows_ad_servers.html">"適用於 Windows AD 伺服器的 AWS 安全性群組設定"</a> 以取得更多資訊。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>*附註：*使用NFS裝載磁碟區的UNIX使用者、將會驗證為Windows使用者「root」（UNIX root）和「pcuser」（所有其他使用者）。使用NFS時、請先確認這些使用者帳戶存在於Active Directory中、然後再掛載雙傳輸協定磁碟區。</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="建立snapshot原則選用">建立Snapshot原則（選用）</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>如果您要為此磁碟區建立快照原則、請在「<strong>快照原則</strong>」區段中輸入詳細資料：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>選擇快照頻率：<strong>每小時</strong>、<strong>每日</strong>、<strong>每週*或*每月</strong>。</p>
+</li>
+<li>
+<p>選取要保留的快照數量。</p>
+</li>
+<li>
+<p>選取快照的拍攝時間。</p>
+<div class="imageblock">
+<div class="content">
+<img src="./media/diagram_snapshot_policy_1.png" alt="Snapshot原則">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>您可以重複上述步驟、或從左側導覽區選取「Snapshot（快照）」索引標籤、以建立其他快照原則。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="建立volume">建立Volume</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>向下捲動至頁面底部、然後按一下*「Create Volume」（建立磁碟區）*。</p>
+<div class="paragraph">
+<p>如果您先前已在此區域建立雲端磁碟區、新的磁碟區會出現在「Volumes（磁碟區）」頁面中。</p>
+</div>
+<div class="paragraph">
+<p>如果這是您在此AWS區域建立的第一個雲端磁碟區、而且您已在本頁的「網路」區段中輸入網路資訊、則會顯示進度對話方塊、指出您必須遵循的後續步驟、才能將磁碟區與AWS介面連線。</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/diagram_create_volume_interfaces_dialog.png" alt="接受虛擬介面對話方塊"></span></p>
+</div>
+</li>
+<li>
+<p>接受第6.4節所述的虛擬介面 <a href="media/cvs_aws_account_setup.pdf#page=21" target="_blank" rel="noopener">"適用於Cloud Volumes Service AWS帳戶設定的NetApp解決方案"</a> 指南。您必須在10分鐘內執行此工作、否則系統可能會逾時。</p>
+<div class="paragraph">
+<p>如果介面未在10分鐘內出現、則可能是組態問題、此時您應該聯絡支援部門。</p>
+</div>
+<div class="paragraph">
+<p>在建立介面和其他網路元件之後、您建立的磁碟區會顯示在「Volumes」（磁碟區）頁面中、「Actions」（動作）欄位會列為「Available」（可用）。<span class="image"><img src="./media/diagram_create_volume_3.png" alt="即會建立Volume"></span></p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">完成後</div>
+<p>繼續 <a href="task_mounting_cloud_volumes_for_aws.html">"掛載雲端磁碟區"</a>。</p>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  
+  <!-- Start Page Toolbar -->
+<div id="ie-right-navbar-collapse" class="close">
+  <img id="navbar-expand" class="ie-searchbox-icon" src="/zh-tw/cloud_volumes/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-right-navbar" class="open">
+  <div id="right-navbar-collapse">
+    <img src="/zh-tw/cloud_volumes/images/double_arrow.svg" alt="" />
+  </div>
+  <div class="page-nav-container">
+    <nav class="page-nav-fixed">
+      <div class="page-nav-title">在本頁</div>
+      <div class="page-nav-links">
+        <ul class="page-nav-inner" id="page-menu"></ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<script>
+  resizeContent();
+  function setRightBarHeight() {
+    var h = 0;
+
+    // header 1
+    h += PXinViewport($('.n-footer'));
+    h += PXinViewport($('#ie-new-header'));
+
+    if ($('#ie-right-navbar').length) {
+      $('#ie-right-navbar').css({ height: `calc(100vh - ${h}px)` });
+    }
+    if ($('.page-nav-links').length) {
+      h += 98;
+      $('.page-nav-links').css({ height: `calc(100vh - ${h}px)` });
+    }
+  }
+
+  $(document).ready(function () {
+    // PAGE NAV - Click
+    const MASTHEAD_OFFSET = 65;
+    const SECTIONS = $("main h2, main h3");
+    let calculateActiveSection = false;
+    setTimeout(() => {
+      calculateActiveSection = true;
+    }, 100)
+
+    $(".page-nav__link").click(function (event) {
+      calculateActiveSection = false;
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      var target = $(event.target);
+      target.addClass('page-nav__link--active');
+      location.hash = event.target.hash;
+      setTimeout(() => {
+        calculateActiveSection = true;
+      }, 100)
+
+    });
+
+    // PAGE NAV - Scroll
+    $(window).on('resize scroll', function () {
+      if (calculateActiveSection) {
+        var activeSection = getActiveSection(SECTIONS, MASTHEAD_OFFSET);
+        if (activeSection) {
+          var activeHref = $(activeSection).attr('id');
+          $(".page-nav__link").removeClass('page-nav__link--active');
+          $("#page-menu a[href=#" + activeHref + "]").addClass('page-nav__link--active');
+          if (location.hash != "#" + activeHref) {
+            if (history.replaceState) {
+              history.replaceState(null, null, "#" + activeHref);
+            }
+          }
+        }
+      }
+    });
+
+    $(".n-pdf-button").click(function () {
+      $(this).toggleClass("active");
+    });
+
+    $.fn.isVisibleAndInViewport = function () {
+      var elementTop = $(this).offset().top;
+      var elementBottom = elementTop + $(this).outerHeight();
+
+      var viewportTop = $(window).scrollTop();
+      var viewportBottom = viewportTop + $(window).height();
+
+      return elementBottom > viewportTop && elementTop < viewportBottom && $(this).is(":visible");
+    };
+
+
+    $(window).on('resize scroll', function () {
+      setRightBarHeight();
+    });
+
+    $(window).trigger('resize');
+
+
+  });
+
+  $("#right-navbar-collapse").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 350, function () {
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+    });
+    $(".ie-content-pane").animate({ width: (width + rightNavbarWidth) }, 350, function () {
+      resizeContent()
+      setSidebarBottom();
+    })
+
+  });
+  $("#navbar-expand").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 250, function () {
+      $("#ie-right-navbar-collapse").removeClass("open")
+      $("#ie-right-navbar-collapse").addClass("close")
+      $("#ie-right-navbar").removeClass("close")
+      $("#ie-right-navbar").addClass("open")
+      setRightBarHeight();
+      setSidebarBottom();
+    });
+    $(".ie-content-pane").animate({ width: (width - rightNavbarWidth) }, 250, function () {
+      resizeContent()
+    })
+  });
+
+  function navbarResize() {
+    const rightNavbarResized = $("#ie-right-navbar-collapse").hasClass('resized');
+    if (window.innerWidth < 1024) {
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+      $("#ie-right-navbar").removeAttr("style")
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar-collapse").addClass("resized")
+    } else {
+      if (rightNavbarResized) {
+        $('#ie-right-navbar').removeClass('close');
+        $('#ie-right-navbar').addClass('open');
+        $("#ie-right-navbar-collapse").removeClass("resized")
+        $("#ie-right-navbar-collapse").removeClass("open")
+        $("#ie-right-navbar-collapse").addClass("close")
+      }
+    }
+    resizeContent()
+  }
+  navbarResize();
+  $(window).on('resize load', function () {
+    navbarResize()
+  });
+
+  function getActiveSection(sections, offset) {
+    var scrollPosition = $(window).scrollTop() + offset + 5;
+    var activeSection;
+    for (var i = 0; i < sections.length; i++) {
+      var el = $(sections[i]);
+      var activePosition = el.offset().top;
+      if (activePosition > scrollPosition) {
+        break;
+      }
+
+      activeSection = sections[i];
+    }
+
+    return activeSection;
+  }
+
+  $("a[href*=#]:not([href=#])").click(function () {
+    setTimeout(() => {
+      $(window).trigger('scroll');
+    }, 105)
+  })
+
+  const hashOnLoad = location.href.split("#")[1];
+  setTimeout(function () {
+    if (hashOnLoad) {
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      $("#page-menu a[href=#" + hashOnLoad + "]").addClass('page-nav__link--active');
+    }
+  }, 100)
+
+</script>
+
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+        <div class="n-footer__left">
+          <li class="n-footer__copyright-link">
+                    <a href="https://www.netapp.com/company/legal/copyright/">© 2023 NetApp, Inc.</a>
+          </li>
+        </div>
+        <div class="n-footer__center">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">使用條款</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">隱私權政策</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Cookie 政策</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Cookie 設定</a>
+            </li>
+          </ul>
+       </div>
+        <div class="n-footer__right">
+              <li class="n-footer__copyright-link">
+                <a target="_self" href="javascript:netapp_mailto()">傳送有關本網頁的意見反應</a>
+              </li>
+        </div>
+     </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-tw/cloud_volumes/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-tw/cloud_volumes/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-tw/cloud_volumes/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-tw/cloud_volumes/js/ie-tabbed-blocks.js'></script>
+    <script src='/zh-tw/cloud_volumes/js/ie-sidebar.js'></script>
+  </body>
+
+</html>
